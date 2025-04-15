@@ -127,14 +127,59 @@ body > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) {
 
 body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) {
 	height: calc((100%/3)*2 - (var(--gap-1)/2));
+	row-gap: 0.5em;
 }
 
+body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > a {
+	width: 90%;
+	height: 2em;
+	border: 1px solid white;
+}  
+
 body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > a > div {
-	border: 1px solid brown;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+	padding: 0 0.5em;
 }
 
 body > div:nth-child(2) > div {
 	width: calc(50% - (var(--gap-1)/2));
+}
+
+body > div:nth-child(2) > div:nth-child(1) > div {
+	border: 1px solid blue;
+	height: auto;
+	overflow: auto;
+	width: 100%;
+	padding: var(--gap-1);
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: start;
+	row-gap: var(--gap-1);
+}
+
+body > div:nth-child(2) > div:nth-child(1) >  div > div {
+	border: 1px solid white;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	align-items: start;
+	justify-content: start;
+	flex-wrap: nowrap;
+}
+
+body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(1) {
+}
+
+body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(2) {
+}
+
+body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(3) {
 }
 
 @media only screen and (max-width: 1000px) {
