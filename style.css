@@ -165,13 +165,13 @@ body > div:nth-child(2) > div:nth-child(1) > div {
 
 body > div:nth-child(2) > div:nth-child(1) > div > div{
 	width: 100%;
-	height: auto;
 	display: flex;
 	flex-direction: row;
 	justify-content: start;
 	align-items: start;
 	flex-wrap: wrap;
 	row-gap: calc(var(--gap-1) / 2);
+	border: 1px solid red;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(1) {
@@ -185,6 +185,8 @@ body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(2) {
 
 body > div:nth-child(2) > div:nth-child(1) > div > div > p:nth-child(3) {
 	width: 100%;
+	border: 1px solid magenta;
+	margin-bottom: 100%;
 }
 
 body > div:nth-child(2) > div:nth-child(2) {
@@ -218,18 +220,18 @@ body > div:nth-child(2) > div:nth-child(2) > div:nth-child(3) {
 	flex-direction: column;
 	align-items: start;
 	justify-content: start;
+	row-gap: calc(var(--gap-1) / 2);
 }
 
 body > div:nth-child(2) > div:nth-child(2) > div > div {
 	width: 100%;
-	height: auto;
-	max-height: 100%;
+	height: 100%;
 	display: flex;
 	flex-direction: row;
 	align-items: start;
 	justify-content: start;
-	row-gap: var(--gap-1);
-	column-gap: var(--gap-1);
+	row-gap: calc(var(--gap-1) / 2);
+	column-gap: calc(var(--gap-1) / 2);
 	flex-wrap: wrap;
 }
 
