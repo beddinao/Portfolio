@@ -26,6 +26,8 @@
 html {
 	height: 100vh;
 	width: 100%;
+	scrollbar-color: var(--border-2) var(--background-1);
+	scrollbar-width: thin;
 }
 
 body, div {
@@ -258,17 +260,21 @@ body > div:nth-child(2) > div:nth-child(2) {
 	row-gap: var(--gap-1);
 }
 
-body > div:nth-child(2) > div:nth-child(2) > div {
+body > div:nth-child(2) > div:nth-child(2) > div, .education_section {
 	width: 100%;
 }
 
-body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) {
+/*body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)*/ 
+.education_section {
 	height: calc(50% - var(--gap-1)/2);
 	background: url("./1337.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: contain;
 	row-gap: var(--gap-1);
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 body > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) {
@@ -318,11 +324,11 @@ body > div:nth-child(2) > div:nth-child(2) > div > div > div > p {
 	border: 1px solid var(--border-2);
 }
 
-@media screen and (max-width: 1000px),
-screen and (max-height: 800px) {
-	body {
-		height: auto;
-	}
+.edu_above { display: none }
+.edu_below { display: flex }
+
+@media screen and (max-width: 1100px), screen and (max-height: 900px) {
+	body { height: auto }
 	body > div {
 		display: flex;
 		flex-direction: column;
@@ -331,24 +337,20 @@ screen and (max-height: 800px) {
 		height: contain;
 		row-gap: var(--gap-1);
 	}
-
-	body > div > div {
-		min-width: 100%;
+	body img { width: 25%; }
+	body > div > div { min-width: 100%; }
+	body > div:nth-child(1) > div:nth-child(1) { align-items: end; }
+	body > div:nth-child(2) > div:nth-child(1) {
+		padding: 0px;
+		border: 0px;
 	}
-
-	body img {
-		width: 25%;
+	body > div:nth-child(2) > div:nth-child(1) > div {
+		width: 100%;
+		padding: 0px;
 	}
-
-	body > div:nth-child(1) > div:nth-child(1) {
-		align-items: end;
-	}
-
-	body > div:nth-child(2) > div:nth-child(1) > div > div {
-		max-height: 3em;
-	}
-
-	body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1) {
-		min-height: 10em;
-	}
+	body > div:nth-child(2) > div:nth-child(1) > p { display: none }
+	body > div:nth-child(2) > div:nth-child(1) > div > div { max-height: 3em; }
+	.education_section { min-height: 10em; }
+	.edu_above { display: flex }
+	.edu_below { display: none }
 }
