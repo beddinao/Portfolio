@@ -95,7 +95,7 @@ body > div:nth-child(2) { height: 55% }
 body > div > div { height: 100% }
 
 body > div:nth-child(1) > div:nth-child(1) {
-	width: calc(70% - (var(--gap-1) / 2));
+	width: calc(45% - (var(--gap-1) / 2));
 	display: flex;
 	flex-direction: row;
 	align-items: start;
@@ -114,7 +114,7 @@ body > div:nth-child(1) > div:nth-child(1) > div {
 }
 
 body > div:nth-child(1) > div:nth-child(2) {
-	width: calc(30% - (var(--gap-1) / 2));
+	width: calc(55% - (var(--gap-1) / 2));
 	height: 80%;
 	display: flex;
 	flex-direction: column;
@@ -189,10 +189,9 @@ body > div:nth-child(1) > div:nth-child(2) > div:nth-child(2) > a > div {
 	padding: 0 0.5em;
 }
 
-body > div:nth-child(2) > div {
-	width: calc(50% - (var(--gap-1) / 2));
-	height: 100%;
-}
+body > div:nth-child(2) > div { height: 100% }
+body > div:nth-child(2) > div:nth-child(1) { width: calc(60% - var(--gap-1) / 2) }
+body > div:nth-child(2) > div:nth-child(2) { width: calc(40% - var(--gap-1) / 2) }
 
 body > div:nth-child(2) > div:nth-child(1) > div {
 	max-height: 100%;
