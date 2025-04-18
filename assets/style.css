@@ -145,9 +145,7 @@ body > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > a {
 	flex-direction: row;
 	column-gap: calc(var(--gap-1) / 2);
 	align-items: center;
-	&::after {
-		content: url("./svgs/link.svg");
-	}
+	&::after { content: url("./svgs/link.svg") }
 	&::before {
 		content: url("./svgs/file.svg");
 		height: 12px;
@@ -249,7 +247,8 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > a > p { font-size: 18px }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(2) {
 	margin-left: auto;
-	font-size: 13;	
+	font-size: 12;
+	font-family: monospace;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(3) {
