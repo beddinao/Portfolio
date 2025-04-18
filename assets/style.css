@@ -236,13 +236,15 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 	align-items: center;
 	column-gap: calc(var(--gap-1) / 2);
 	&::after {
-		content: url("./svgs/link.svg");
+		content: url("./svgs/github.svg");
 		display: block;
 		height: 16px;
 		width: 16px;
+		margin-left: 10px;
 	}
 }
 
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(2) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
 body > div:nth-child(2) > div:nth-child(1) > div > a > a > p { font-size: 18px }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(2) {
