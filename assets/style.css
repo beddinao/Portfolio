@@ -243,6 +243,7 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(5) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(6) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
 body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(1) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
 body > div:nth-child(2) > div:nth-child(1) > div > a > a > p { font-size: 18px }
 
