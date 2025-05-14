@@ -1,0 +1,198 @@
+<h1 id="metallc64"><em><code>MetallC64</code></em></h1>
+<p>A <a href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a> emulator written in C.<br></p>
+<h2 id="about-the-commodore-64">about the Commodore 64</h2>
+<p>The <strong>Commodore 64 (C64)</strong> is one of the most iconic home computers of all time. Released in <strong>1982</strong>, it became the <strong>best-selling computer</strong> ever, due to its powerful hardware, affordability, and massive software library. It featured:</p>
+<pre><code class="language-java">- 6510 CPU, a modified version of the 6502.  
+- VIC-II (Video Interface Chip) for graphics and sprites.  
+- 6581 SID (Sound Interface Device) for advanced sound synthesis.  
+- Two 6526 CIA (Complex Interface Adapters) for I/O operations.
+</code></pre>
+<p>The C64 was popular for <strong>gaming, programming, and productivity</strong>, with thousands of titles released for it.  </p>
+<h2 id="about-this-emulator">about this emulator</h2>
+<p>MetallC64 is a work-in-progress C64 emulator that aims to run <strong>BASIC programs</strong>. However, it is <strong>not cycle-accurate</strong> and <strong>not highly precise</strong>, meaning some programs <strong>may not work as expected or as in real hardware</strong>.  </p>
+<h3 id="current-limitations">current limitations:</h3>
+<ul>
+<li><strong>VIC-II (Graphics) is not fully accurate</strong> and may have <strong>visual glitches</strong>.  </li>
+<li><strong>SID (Sound) is not implemented yet</strong>.  </li>
+<li>Some <strong>hardware features are missing or incomplete</strong>.</li>
+</ul>
+<h3 id="main-components-implemented">main components implemented:</h3>
+<ul>
+<li><strong>6510 CPU</strong> a bit modified version of <a href="https://github.com/beddinao/MOS-6502-Emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
+<li><strong>VIC-II</strong>  <code>(Video Interface Chip)</code><pre><code>  • 16 KB address space for screen, character, and sprite memory
+  • 320 × 200 pixels video resolution (160 × 200 in multicolor mode)
+  • 40 × 25 characters text resolution
+  • 8 hardware sprites, each 24 × 21 pixels (12 × 21 in multicolor mode)
+  • 16 colors
+  • Raster interrupts for advanced effects and timing control
+  • Smooth scrolling
+  • Three character display modes and two bitmap modes:
+    - Standard Character Mode
+    - Multicolor Character Mode
+    - Extended Background Color Mode
+    - Standard Bitmap Mode
+    - Multicolor Bitmap Mode
+</code></pre>
+</li>
+<li><strong>CIA-1 &amp; CIA-2</strong>  <code>(Complex Interface Adapters)</code><pre><code>  • keyboard input scanning for detecting key presses
+  • timer A &amp; Timer B in each chip for generating delays and timing events
+  • memory management registers for I/O mapping and bank switching
+  • time of Day (TOD) clock
+</code></pre>
+</li>
+</ul>
+<h2 id="basic-functionality-test">basic functionality test</h2>
+<p>some one line BASIC programs at <code>./programs/bas/10_print.bas</code></p>
+<p><code>10 PRINT CHR$(205.5+RND(1)); : GOTO 10</code></p>
+<div align="center" width="100%">
+  <img  width="100%" src="./images/gifs/recording_1.gif" title="10_print 1" />
+</div>
+
+<p><code>10 PRINT CHR$(32+(INT(RND(1)+.5)*81)); : GOTO 10</code></p>
+<div align="center" width="100%">
+  <img  width="100%" src="./images/gifs/recording_3.gif" title="10_print 3" />
+</div>
+
+<h2 id="shell-interface">shell interface</h2>
+<p>The emulator has a <strong>command shell</strong> that runs in a separate thread for debugging<br> and general hardware behaviour observation:</p>
+<h3 id="available-commands">available commands:</h3>
+<table>
+<thead>
+<tr>
+<th><strong>command</strong></th>
+<th><strong>description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LDP [path]</code></td>
+<td>Load a BASIC program (<code>.prg</code>) into memory.</td>
+</tr>
+<tr>
+<td><code>LDD [path]</code></td>
+<td>Load a (<code>.d64</code>) D64 disk image.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>DMP $st $en</code></td>
+<td>Dump memory from address <code>$st</code> to <code>$en</code>.</td>
+</tr>
+<tr>
+<td><code>SCR</code></td>
+<td>Show CPU status/registers.</td>
+</tr>
+<tr>
+<td><code>SVR</code></td>
+<td>Show VIC-II status/registers.</td>
+</tr>
+<tr>
+<td><code>SC1</code></td>
+<td>Show CIA#1 status/registers.</td>
+</tr>
+<tr>
+<td><code>SC2</code></td>
+<td>Show CIA#2 status/registers.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>BRD [1-16]</code></td>
+<td>Change the border color.</td>
+</tr>
+<tr>
+<td><code>BGR [1-16]</code></td>
+<td>Change the background color.</td>
+</tr>
+<tr>
+<td><code>TXT [1-16]</code></td>
+<td>Change the text color.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>CLR</code></td>
+<td>Clear the loaded program from memory <strong>and perform a hard reset</strong>.</td>
+</tr>
+<tr>
+<td><code>EXT</code></td>
+<td>Exit the emulator.</td>
+</tr>
+</tbody></table>
+<h2 id="graphic-libraries">graphic libraries:</h2>
+<p>MetallC64 uses <a href="https://www.libsdl.org/">SDL3</a> as the main library.<br>
+however the v1.0 branch still uses <a href="https://github.com/codam-coding-college/MLX42">MLX42<a>, a lightweight library on top of GLFW.</p>
+<h2 id="system-requirements">system requirements</h2>
+<ul>
+<li><strong><code>Linux or MacOS</code></strong></li>
+<li><strong><code>readline (libreadline-dev)</code></strong></li>
+<li><strong><code>cmake &gt;= 3.18</code></strong></li>
+<li>if trying to compile the v1.0 branch mlx42 needs <strong><code>glfw (libglfw3-dev)</code></strong></li>
+</ul>
+<h2 id="installation">installation</h2>
+<ul>
+<li>clone this repository and cd to it</li>
+</ul>
+<pre><code class="language-bash">git clone git@github.com:beddinao/MetallC64.git &amp;&amp; cd MetallC64
+</code></pre>
+<ul>
+<li>compile everything including the SDL/MLX42 source and run the emulator</li>
+</ul>
+<pre><code class="language-bash">make &amp;&amp; ./MetallC64
+</code></pre>
+<h2 id="screenshots">screenshots</h2>
+<p><code>animated demos</code></p>
+<div align="left" width="100%">
+<img  width="49%" src="./images/gifs/hole_vector-willy_the_wuzz.gif" title="hole-vector"/>
+  <img  width="49%" src="./images/gifs/globe-willy_the_wuzz.gif" title="globe"/>
+    <br><br>
+  <img  width="49%" src="./images/gifs/the_Amiga_ball.gif" title="the AMIGA ball"/>
+  <img  width="49%" src="./images/gifs/bigpixelnyan.gif" title="pixel nyan"/>
+  
+
+</div>
+<br><br>
+
+<p><code>basic games</code></p>
+<div align="center" width="100%">
+    <img width="49%" src="./images/screenshots/monopole.png" title="monopole" />
+    <img width="49%" src="./images/screenshots/tetris.png" title="tetris" />
+</div>
+<br> <br>
+
+<p><code>some art brought from the C64 demoScene</code></p>
+<div align="center" width="100%">
+  <img  width="49%" src="./images/screenshots/quiet_nights.png" title="quiet nights" />
+  <img  width="49%" src="./images/screenshots/tetris_intro.png" title="tetris intro" />
+  <img  width="49%" src="./images/screenshots/wool_on_her_mind.png" title="wool on her mind" />
+  <img  width="49%" src="./images/screenshots/show_time.png" title="show time" />
+  <img  width="49%" src="./images/screenshots/efucollab.png" title="eight feet under"/>
+  <img  width="49%" src="./images/screenshots/chillin.png" title="chillin" />
+  <img  width="49%" src="./images/screenshots/obey_the_machine.png" title="obey the machine" />
+  <img  width="49%" src="./images/screenshots/honcho_of_the_seven_raging_coding_seas.png" title="honcho of the seven raging coding seas"/>
+  <img  width="49%" src="./images/screenshots/Magic_Bytes.png" title="Magic Bytes" />
+  <!-- <img  width="49%" src="./images/screenshots/dark_faces.png" title="dark faces" /> -->
+  <img  width="49%" src="./images/screenshots/c64com_charged_mikeal_spiham.png" title="c64.com charged" />
+  <img  width="49%" src="./images/screenshots/petscii_tracing.png" title="petscii tracing" />
+  <img  width="49%" src="./images/screenshots/no_slackers_sky.png" title="no slackers sky" />
+</div>
+
+<h2 id="upcoming-features"><strong>upcoming features:</strong></h2>
+<ul>
+<li><strong>Full hardware sprite support</strong> (partial-progress)  </li>
+<li><strong>SID sound emulation</strong> (partial-progress)</li>
+</ul>
+<h2 id="useful-resources">useful-resources</h2>
+<ul>
+<li>C64 Wiki: https://www.c64-wiki.com/wiki/Main_Page</li>
+<li>memory map: https://sta.c64.org/cbm64mem.html</li>
+<li>VIC-II ultimate resource: https://www.zimmers.net/cbmpics/cbm/c64/vic-ii.txt</li>
+<li>6502 ultimate resource: https://www.masswerk.at/6502/6502_instruction_set.html</li>
+<li>6502 BCD: http://www.6502.org/tutorials/decimal_mode.html</li>
+</ul>
+
