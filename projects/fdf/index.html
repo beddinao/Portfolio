@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>FDF</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -11,12 +13,12 @@
 <h2 id="about">About</h2>
 <p>3D wireframe rendering application that transforms 2D elevation maps into 3d landscapes,<br />
 creating a wireframe representation of the terrain.<br />
-using the school graphic library <a href="/lib/minilibx_macos/_README_">Minilibx</a></p>
+using the school graphic library <a target="_blank" href="/lib/minilibx_macos/_README_">Minilibx</a></p>
 <h2 id="examples">Examples</h2>
 <ul>
 <li>### simple file format</li>
 </ul>
-<pre><code>hljs <span class="hljs-attribute">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> 
+<pre><code class="hljs"><span class="hljs-attribute">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> 
 <span class="hljs-attribute">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>
 <span class="hljs-attribute">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>
 <span class="hljs-attribute">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span> <span class="hljs-number">10</span> <span class="hljs-number">10</span>  <span class="hljs-number">0</span>  <span class="hljs-number">0</span>
@@ -32,26 +34,26 @@ using the school graphic library <a href="/lib/minilibx_macos/_README_">Minilibx
 <p><img src="./images/42.png" alt="" /></p>
 <ul>
 <li><h3 id="different-heights">different heights</h3>
-<pre><code>hljs <span class="hljs-attribute">maps</span>/old_maps/<span class="hljs-number">10</span>-<span class="hljs-number">2</span>.fdf
+<pre><code class="hljs"><span class="hljs-attribute">maps</span>/old_maps/<span class="hljs-number">10</span>-<span class="hljs-number">2</span>.fdf
 </code></pre>
 <p><img src="./images/10-2.png" alt="" /></p></li>
 
 
 <li><h3 id="bigger-map">bigger map</h3>
-<pre><code>hljs maps/new_maps/MGDS_CORDILLER<span class="hljs-built_in">A_DE</span>_LOS_ANDES_OCEAN0_S.fdf
+<pre><code class="hljs">maps/new_maps/MGDS_CORDILLER<span class="hljs-built_in">A_DE</span>_LOS_ANDES_OCEAN0_S.fdf
 </code></pre>
 <p><img src="./images/MGDS_CORDILLERA_DE_LOS_ANDES_OCEAN0_S.png" alt="" /></p></li>
 
 
 <li><h3 id="complex-maps">complex maps</h3></li>
 </ul>
-<pre><code>hljs     maps<span class="hljs-regexp">/new_maps/</span>nerd_colored.fdf
+<pre><code class="hljs">    maps<span class="hljs-regexp">/new_maps/</span>nerd_colored.fdf
 </code></pre>
 <p><img src="./images/nerd_colored.png" alt="" /></p>
-<pre><code>hljs     <span class="hljs-attribute">maps</span>/new_maps/hydrochoerus_hydrochaeris_2.<span class="hljs-number">0</span>.fdf 
+<pre><code class="hljs">    <span class="hljs-attribute">maps</span>/new_maps/hydrochoerus_hydrochaeris_2.<span class="hljs-number">0</span>.fdf 
 </code></pre>
 <p><img src="./images/hydrochoerus_hydrochaeris_2.0.png" alt="" /></p>
-<pre><code>hljs maps<span class="hljs-regexp">/new_maps/</span>hydrochoerus_hydrochaeris.fdf 
+<pre><code class="hljs">maps<span class="hljs-regexp">/new_maps/</span>hydrochoerus_hydrochaeris.fdf 
 </code></pre>
 <p><img src="./images/hydrochoerus_hydrochaeris.png" alt="" /></p>
 

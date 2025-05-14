@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>ascii-art-generator</title>
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
           <meta charset="UTF-8">
         </head>
         <body>
@@ -10,24 +12,24 @@
       <p><img src="./screen-shots/natural-scenary.png" alt="" /></p>
 <h1 id="ascii-art-generator"><em><code>ascii-art-generator</code></em></h1>
 <p><code>DEMO</code></p>
-<p>A lightweight tool that uses <a href="https://github.com/lvandeve/lodepng">lodepng</a> to load PNG images and then converts them into ASCII art.</p>
+<p>A lightweight tool that uses <a target="_blank" href="https://github.com/lvandeve/lodepng">lodepng</a> to load PNG images and then converts them into ASCII art.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li><p><strong>Image Format:</strong> Supports PNG files only. If your image is in a different format,</p>
-<p>try using <a href="https://convertio.co/" >Convertio</a> to convert it to PNG.</p></li>
+<p>try using <a target="_blank" href="https://convertio.co/" >Convertio</a> to convert it to PNG.</p></li>
 <li><p><strong>Terminal Emulator:</strong> A 24-bit color supporting terminal:</p></li>
 <li><p>macOs : <code>iterm</code></p></li>
 <li><p>Linux : any terminal</p></li>
 </ul>
 <h2 id="usage">Usage</h2>
-<pre><code>hljs ./<span class="hljs-built_in">convert</span>.sh [path <span class="hljs-built_in">to</span> png <span class="hljs-built_in">file</span>]
+<pre><code class="hljs">./<span class="hljs-built_in">convert</span>.sh [path <span class="hljs-built_in">to</span> png <span class="hljs-built_in">file</span>]
 </code></pre>
 <p>OR</p>
-<pre><code>hljs ./compile<span class="hljs-selector-class">.sh</span>
+<pre><code class="hljs">./compile<span class="hljs-selector-class">.sh</span>
 ./<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.out</span> <span class="hljs-selector-attr">[png file]</span> &gt; output_file
 </code></pre>
 <h2 id="example">Example</h2>
-<pre><code>hljs ./convert.sh pngs/moon.png
+<pre><code class="hljs">./convert.sh pngs/moon.png
 </code></pre>
 <p><img src="./screen-shots/moon.png" alt="" /></p>
 

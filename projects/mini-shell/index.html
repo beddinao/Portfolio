@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>MiniShell</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -11,38 +13,38 @@
 <h1 id="minishell">Minishell</h1>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ol>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#project-challenges">Project Challenges</a></li>
-<li><a href="#team-development-steps-for-minishell">Team Development Steps for Minishell</a><ol>
-<li><a href="#step-1-initial-planning-and-setup">Initial Planning and Setup</a></li>
-<li><a href="#step-2-research-and-design-phase">Research and Design Phase</a><ol>
-<li><a href="#shell-operations">Shell Operations</a></li>
-<li><a href="#external-functions">External Functions</a></li></ol></li>
-<li><a href="#step-3-parsing-and-input-management">Parsing and Input Management</a><ol>
-<li><a href="#command-reading">Command Reading</a></li>
-<li><a href="#steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</a><ol>
-<li><a href="#designing-a-syntax-error-checker">Designing a Syntax Error Checker</a></li>
-<li><a href="#syntax-error-checker-function">Syntax Error Checker Function</a></li>
-<li><a href="#tokenization">Tokenization</a></li>
-<li><a href="#token-structure">Token Structure</a></li>
-<li><a href="#tokenization-strategy">Tokenization Strategy</a></li>
-<li><a href="#tokenization-function">Tokenization Function</a></li>
-<li><a href="#parsing">Parsing</a></li>
-<li><a href="#ast-node-structure">AST Node Structure</a></li>
-<li><a href="#parsing-function">Parsing Function</a></li>
-<li><a href="#ast-visualization">AST Visualization</a></li></ol></li></ol></li>
-<li><a href="#step-4-command-execution">Command Execution</a></li>
-<li><a href="#step-5-built-in-commands-implementation">Built-in Commands Implementation</a></li>
-<li><a href="#step-6-signal-handling">Signal Handling</a></li>
-<li><a href="#step-7-environment-variable-expansion">Environment Variable Expansion</a></li>
-<li><a href="#step-8-testing-and-debugging">Testing and Debugging</a></li></ol></li>
-<li><a href="#project-structure">Project Structure</a></li>
-<li><a href="#team-members">Team Members</a></li>
-<li><a href="#resources">Resources</a></li>
-<li><a href="#acknowledgements">Acknowledgements</a></li>
+<li><a target="_blank" href="#overview">Overview</a></li>
+<li><a target="_blank" href="#project-challenges">Project Challenges</a></li>
+<li><a target="_blank" href="#team-development-steps-for-minishell">Team Development Steps for Minishell</a><ol>
+<li><a target="_blank" href="#step-1-initial-planning-and-setup">Initial Planning and Setup</a></li>
+<li><a target="_blank" href="#step-2-research-and-design-phase">Research and Design Phase</a><ol>
+<li><a target="_blank" href="#shell-operations">Shell Operations</a></li>
+<li><a target="_blank" href="#external-functions">External Functions</a></li></ol></li>
+<li><a target="_blank" href="#step-3-parsing-and-input-management">Parsing and Input Management</a><ol>
+<li><a target="_blank" href="#command-reading">Command Reading</a></li>
+<li><a target="_blank" href="#steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</a><ol>
+<li><a target="_blank" href="#designing-a-syntax-error-checker">Designing a Syntax Error Checker</a></li>
+<li><a target="_blank" href="#syntax-error-checker-function">Syntax Error Checker Function</a></li>
+<li><a target="_blank" href="#tokenization">Tokenization</a></li>
+<li><a target="_blank" href="#token-structure">Token Structure</a></li>
+<li><a target="_blank" href="#tokenization-strategy">Tokenization Strategy</a></li>
+<li><a target="_blank" href="#tokenization-function">Tokenization Function</a></li>
+<li><a target="_blank" href="#parsing">Parsing</a></li>
+<li><a target="_blank" href="#ast-node-structure">AST Node Structure</a></li>
+<li><a target="_blank" href="#parsing-function">Parsing Function</a></li>
+<li><a target="_blank" href="#ast-visualization">AST Visualization</a></li></ol></li></ol></li>
+<li><a target="_blank" href="#step-4-command-execution">Command Execution</a></li>
+<li><a target="_blank" href="#step-5-built-in-commands-implementation">Built-in Commands Implementation</a></li>
+<li><a target="_blank" href="#step-6-signal-handling">Signal Handling</a></li>
+<li><a target="_blank" href="#step-7-environment-variable-expansion">Environment Variable Expansion</a></li>
+<li><a target="_blank" href="#step-8-testing-and-debugging">Testing and Debugging</a></li></ol></li>
+<li><a target="_blank" href="#project-structure">Project Structure</a></li>
+<li><a target="_blank" href="#team-members">Team Members</a></li>
+<li><a target="_blank" href="#resources">Resources</a></li>
+<li><a target="_blank" href="#acknowledgements">Acknowledgements</a></li>
 </ol>
 <h2 id="overview">Overview</h2>
-<p>Our Minishell project represents a collaborative effort to build a custom shell program in C, inspired by the functionalities of <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>, the Bourne Again SHell. As part of the 42 School curriculum, this project served as a unique opportunity for us to deepen our collective understanding of system processes, file descriptors, and the complexities of command-line interfaces. Through the development of our own shell, we engaged in a comprehensive exploration of Unix-based systems, gaining hands-on experience in process control, command interpretation, and environmental variable management.</p>
+<p>Our Minishell project represents a collaborative effort to build a custom shell program in C, inspired by the functionalities of <a target="_blank" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>, the Bourne Again SHell. As part of the 42 School curriculum, this project served as a unique opportunity for us to deepen our collective understanding of system processes, file descriptors, and the complexities of command-line interfaces. Through the development of our own shell, we engaged in a comprehensive exploration of Unix-based systems, gaining hands-on experience in process control, command interpretation, and environmental variable management.</p>
 <h2 id="project-challenges">Project Challenges</h2>
 <ul>
 <li><strong>Parsing User Input</strong>: Accurately parsing user input, including handling spaces, quotes, and special characters, while distinguishing between command arguments and options.</li>
@@ -67,15 +69,15 @@
 <h4 id="shell-operations">Shell Operations</h4>
 <p><img src="https://github.com/user-attachments/assets/730358f1-dd34-49f3-b15f-647bef40c40c" alt="shell" /></p>
 <ul>
-<li><p><a href="https://www.youtube.com/watch?v=2P7fcVHxA9o&list=LL&index=6">What Happens When You Type a Command in Your Terminal</a> 📹</p></li>
-<li><p><a href="https://www.youtube.com/playlist?list=PLbtzT1TYeoMhF4hcpEiCsOeN13zqrzBJq">Shell Code Explained</a> 📹</p></li>
-<li><p><a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html">Shell Command Language</a> 📹</p></li>
-<li><p><a href="https://www.youtube.com/playlist?list=PLFAC320731F539902">Unix terminals and shells</a> 📹</p></li>
-<li><p><a href="https://www.youtube.com/watch?v=hMSByvFHOro&ab_channel=LukeSmith">Terminal vs. Bash vs. Command line vs. Prompt</a> 📹</p></li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=2P7fcVHxA9o&list=LL&index=6">What Happens When You Type a Command in Your Terminal</a> 📹</p></li>
+<li><p><a target="_blank" href="https://www.youtube.com/playlist?list=PLbtzT1TYeoMhF4hcpEiCsOeN13zqrzBJq">Shell Code Explained</a> 📹</p></li>
+<li><p><a target="_blank" href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html">Shell Command Language</a> 📹</p></li>
+<li><p><a target="_blank" href="https://www.youtube.com/playlist?list=PLFAC320731F539902">Unix terminals and shells</a> 📹</p></li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=hMSByvFHOro&ab_channel=LukeSmith">Terminal vs. Bash vs. Command line vs. Prompt</a> 📹</p></li>
 </ul>
 <p><img src="https://github.com/user-attachments/assets/0296cfe7-6a1d-42c8-ba4c-53419e64cccd" alt="terminals" /></p>
 <ul>
-<li><a href="https://brennan.io/2015/01/16/write-a-shell-in-c/">Tutorial - Write a Shell in C</a> 📝</li>
+<li><a target="_blank" href="https://brennan.io/2015/01/16/write-a-shell-in-c/">Tutorial - Write a Shell in C</a> 📝</li>
 </ul>
 <h4 id="external-functions">External Functions</h4>
 <p>Reviewed the external functions allowed, dividing them among ourselves to research and explain their usage to the team.</p>
@@ -403,7 +405,7 @@
 </table>
 <h3 id="step-3-parsing-and-input-management">Step 3: Parsing and Input Management</h3>
 <h4 id="command-reading">Command Reading</h4>
-<p><strong>Readline Library</strong>: Implemented readline and integrated add_history ( <a href="https://en.wikipedia.org/wiki/GNU_Readline">GNU Readline</a>)</p>
+<p><strong>Readline Library</strong>: Implemented readline and integrated add_history ( <a target="_blank" href="https://en.wikipedia.org/wiki/GNU_Readline">GNU Readline</a>)</p>
 <pre><code class="hljs bash language-bash">brew install readline
 </code></pre>
 <p>Add the following to the Makefile:</p>
@@ -432,7 +434,7 @@ INCLUDES = -I./includes -I./lib/libft -I<span class="hljs-variable">$(READLINE_I
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 }
 </code></pre>
-<p><a href="https://man7.org/linux/man-pages/man3/readline.3.html">readline(3) - Linux manual page</a></p>
+<p><a target="_blank" href="https://man7.org/linux/man-pages/man3/readline.3.html">readline(3) - Linux manual page</a></p>
 <h3 id="steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</h3>
 <ul>
 <li><p><strong>Syntax Error Checking</strong>: This involves verifying whether the input string adheres to the shell's syntax rules. It checks for unclosed quotes, and misuse of redirection or pipe symbols. Syntax error checking ensures that the input can be correctly interpreted and executed.</p>
@@ -576,7 +578,7 @@ INCLUDES = -I./includes -I./lib/libft -I<span class="hljs-variable">$(READLINE_I
 <pre><code class="hljs bash language-bash"><span class="hljs-built_in">ls</span> -l | <span class="hljs-built_in">wc</span> -l &gt; output.txt | <span class="hljs-built_in">ls</span> &gt; output2.txt
 </code></pre>
 <p><img src="https://github.com/zelhajou/42-minishell/assets/39954629/e8cbd784-3ee1-4642-803c-3b903cbb7afe" alt="graphviz" /></p>
-<p><a href="https://dreampuf.github.io/GraphvizOnline/#digraph%20AST%20%7B%0A%220x7ff812f05540%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05560%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05560%22%20%5Blabel%3D%22CMD%3A%20ls%20-l%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05360%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05360%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05300%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05300%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f05320%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05320%22%20%5Blabel%3D%22CMD%3A%20wc%20-l%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f053f0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f053f0%22%20%5Blabel%3D%22CMD%3A%20output.txt%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05420%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05420%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f05450%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05450%22%20%5Blabel%3D%22CMD%3A%20ls%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f054b0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f054b0%22%20%5Blabel%3D%22CMD%3A%20output2.txt%22%5D%3B%0A%7D%0A">GraphvizOnline</a></p>
+<p><a target="_blank" href="https://dreampuf.github.io/GraphvizOnline/#digraph%20AST%20%7B%0A%220x7ff812f05540%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05560%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05560%22%20%5Blabel%3D%22CMD%3A%20ls%20-l%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05360%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05360%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05300%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05300%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f05320%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05320%22%20%5Blabel%3D%22CMD%3A%20wc%20-l%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f053f0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f053f0%22%20%5Blabel%3D%22CMD%3A%20output.txt%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05420%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05420%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f05450%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05450%22%20%5Blabel%3D%22CMD%3A%20ls%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f054b0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f054b0%22%20%5Blabel%3D%22CMD%3A%20output2.txt%22%5D%3B%0A%7D%0A">GraphvizOnline</a></p>
 <h3 id="step-4-command-execution">Step 4: Command Execution</h3>
 <ul>
 <li><p><strong>Built-in Commands</strong>: Implementing internal versions of several built-in commands (<code>echo</code>, <code>cd</code>, <code>pwd</code>, <code>export</code>, <code>unset</code>, <code>env</code>, <code>exit</code>) that behave consistently with their bash counterparts.</p>
@@ -616,10 +618,10 @@ INCLUDES = -I./includes -I./lib/libft -I<span class="hljs-variable">$(READLINE_I
 </ul>
 <h3 id="step-8-testing-and-debugging">Step 8: Testing and Debugging</h3>
 <ul>
-<li><a href="https://github.com/rghouzra">reda ghouzraf</a> : The most skilled human tester in the world</li>
-<li><a href="https://docs.google.com/spreadsheets/d/1BLU6C9S7aoCl01x74GiW7s4xpEWWJ1cPrMTcLwISruk/edit#gid=1627853444">Minishell Tests</a></li>
-<li><a href="https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out">https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out</a></li>
-<li><a href="https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt">https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt</a></li>
+<li><a target="_blank" href="https://github.com/rghouzra">reda ghouzraf</a> : The most skilled human tester in the world</li>
+<li><a target="_blank" href="https://docs.google.com/spreadsheets/d/1BLU6C9S7aoCl01x74GiW7s4xpEWWJ1cPrMTcLwISruk/edit#gid=1627853444">Minishell Tests</a></li>
+<li><a target="_blank" href="https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out">https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out</a></li>
+<li><a target="_blank" href="https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt">https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt</a></li>
 </ul>
 <h2 id="project-structure">Project Structure</h2>
 <pre><code class="hljs bash language-bash">├── includes
@@ -640,20 +642,20 @@ INCLUDES = -I./includes -I./lib/libft -I<span class="hljs-variable">$(READLINE_I
 </code></pre>
 <h2 id="team-members">Team Members</h2>
 <ul>
-<li><a href="https://github.com/edbilal">Bilal Edd</a></li>
-<li><a href="https://github.com/zelhajou">Zakaria Elhajoui</a></li>
+<li><a target="_blank" href="https://github.com/edbilal">Bilal Edd</a></li>
+<li><a target="_blank" href="https://github.com/zelhajou">Zakaria Elhajoui</a></li>
 </ul>
 <h2 id="resources">Resources</h2>
 <ul>
-<li><a href="https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name">https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name</a></li>
-<li><a href="https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap">https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap</a></li>
-<li><a href="https://tomassetti.me/guide-parsing-algorithms-terminology/">https://tomassetti.me/guide-parsing-algorithms-terminology/</a></li>
-<li><a href="https://github.com/os-moussao/Recursive-Descent-Parser/tree/master">https://github.com/os-moussao/Recursive-Descent-Parser/tree/master</a></li>
-<li><a href="https://minishell.simple.ink/">https://minishell.simple.ink/</a></li>
-<li><a href="https://github.com/iciamyplant/Minishell">https://github.com/iciamyplant/Minishell</a></li>
+<li><a target="_blank" href="https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name">https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name</a></li>
+<li><a target="_blank" href="https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap">https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap</a></li>
+<li><a target="_blank" href="https://tomassetti.me/guide-parsing-algorithms-terminology/">https://tomassetti.me/guide-parsing-algorithms-terminology/</a></li>
+<li><a target="_blank" href="https://github.com/os-moussao/Recursive-Descent-Parser/tree/master">https://github.com/os-moussao/Recursive-Descent-Parser/tree/master</a></li>
+<li><a target="_blank" href="https://minishell.simple.ink/">https://minishell.simple.ink/</a></li>
+<li><a target="_blank" href="https://github.com/iciamyplant/Minishell">https://github.com/iciamyplant/Minishell</a></li>
 </ul>
 <h2 id="acknowledgements">Acknowledgements</h2>
-<p>Thanks to <a href="https://github.com/rghouzra">reda ghouzraf</a>, <a href="https://github.com/whoismtrx">MTRX</a>, <a href="https://github.com/Nx21">Nasreddine hanafi</a>, <a href="https://github.com/zerrikhalid">Khalid zerri</a> for their help and support during the project.</p>
+<p>Thanks to <a target="_blank" href="https://github.com/rghouzra">reda ghouzraf</a>, <a target="_blank" href="https://github.com/whoismtrx">MTRX</a>, <a target="_blank" href="https://github.com/Nx21">Nasreddine hanafi</a>, <a target="_blank" href="https://github.com/zerrikhalid">Khalid zerri</a> for their help and support during the project.</p>
 
           </div>
           <style type='text/css'>body {

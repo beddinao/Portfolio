@@ -3,12 +3,14 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>game-of-life</title>
           <meta charset="UTF-8">
         </head>
         <body>
           <div id='content'>
       <h1 id="game-of-life"><em><code>GAME-OF-LIFE</code></em></h1>
-<h2 id="a-hrefhttpsenwikipediaorgwikiconway27s_game_of_lifeabouta"><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">About</a></h2>
+<h2 id="a-hrefhttpsenwikipediaorgwikiconway27s_game_of_lifeabouta"><a target="_blank" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">About</a></h2>
 <h2 id="controls">Controls</h2>
 <ul>
 <li><strong>Zoom:</strong> use the <code>MOUSE WHEEL</code> to zoom in or out.</li>
@@ -16,7 +18,7 @@
 <li><strong>Generation speed:</strong> press <code>UP</code> or <code>DOWN</code> to change how many frames a single generation take.</li>
 </ul>
 <h2 id="usage">Usage</h2>
-<pre><code>hljs $ gol [path <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> valid RLE <span class="hljs-built_in">file</span>]
+<pre><code class="hljs">$ gol [path <span class="hljs-built_in">to</span> <span class="hljs-keyword">a</span> valid RLE <span class="hljs-built_in">file</span>]
                - <span class="hljs-keyword">a</span> library <span class="hljs-keyword">of</span> more than <span class="hljs-number">4700</span> seeds under <span class="hljs-keyword">the</span> ./seeds <span class="hljs-built_in">directory</span>
                - default is <span class="hljs-keyword">a</span> <span class="hljs-built_in">random</span> seed
 </code></pre>
@@ -27,13 +29,13 @@
 <li><strong><code>cmake &gt;= 3.18</code></strong></li>
 </ul>
 <h2 id="examples">Examples</h2>
-<pre><code>hljs  ./gol
+<pre><code class="hljs"> ./gol
 </code></pre>
 <p><img src="https://github.com/user-attachments/assets/3f954569-bc1c-421b-9f70-78dcf56d59f1" alt="random" width="100%" align="center"></img></p>
-<pre><code>hljs  ./gol seeds/movingsawtooth.rle
+<pre><code class="hljs"> ./gol seeds/movingsawtooth.rle
 </code></pre>
 <p><img src="https://github.com/user-attachments/assets/846af648-10c7-4fb8-b5e7-6d7549474aba" alt="movingsawtooth" width="100%" align="center" ></img></p>
-<pre><code>hljs  ./gol seeds/spacefiller1.rle
+<pre><code class="hljs"> ./gol seeds/spacefiller1.rle
 </code></pre>
 <p><img src="https://github.com/user-attachments/assets/1119dbb3-3985-4b28-a68e-d3480367e215" alt="spacefiller" width="100%" align="center"></img></p>
 

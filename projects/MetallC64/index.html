@@ -3,12 +3,15 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="./images/favicon.svg">
+	<title>MetallC64</title>
           <meta charset="UTF-8">
         </head>
         <body>
           <div id='content'>
       <h1 id="metallc64"><em><code>MetallC64</code></em></h1>
-<p>A <a href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a> emulator written in C.<br></p>
+<p>A <a target="_blank" href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a> emulator written in C.<br></p>
+      <a target="_blank" href="https://metall-c64.vercel.app">Web version</a>  •  <a target="_blank" href="https://github.com/beddinao/MetallC64">Code</a>
 <h2 id="about-the-commodore-64">about the Commodore 64</h2>
 <p>The <strong>Commodore 64 (C64)</strong> is one of the most iconic home computers of all time. Released in <strong>1982</strong>, it became the <strong>best-selling computer</strong> ever, due to its powerful hardware, affordability, and massive software library. It featured:</p>
 <pre><code class="hljs java language-java">- <span class="hljs-number">6510</span> CPU, a modified version of the <span class="hljs-number">6502.</span>  
@@ -27,10 +30,10 @@
 </ul>
 <h3 id="main-components-implemented">main components implemented:</h3>
 <ul>
-<li><strong>6510 CPU</strong> a bit modified version of <a href="https://github.com/beddinao/MOS-6502-Emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
+<li><strong>6510 CPU</strong> a bit modified version of <a target="_blank" href="https://github.com/beddinao/MOS-6502-Emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
 <li><strong>VIC-II</strong>  <code>(Video Interface Chip)</code></li>
 </ul>
-<pre><code>hljs     • <span class="hljs-number">16</span> KB <span class="hljs-keyword">address </span>space for <span class="hljs-keyword">screen, </span>character, <span class="hljs-keyword">and </span>sprite memory
+<pre><code class="hljs">    • <span class="hljs-number">16</span> KB <span class="hljs-keyword">address </span>space for <span class="hljs-keyword">screen, </span>character, <span class="hljs-keyword">and </span>sprite memory
     • <span class="hljs-number">320</span> × <span class="hljs-number">200</span> pixels video resolution (<span class="hljs-number">160</span> × <span class="hljs-number">200</span> in <span class="hljs-keyword">multicolor </span>mode)
     • <span class="hljs-number">40</span> × <span class="hljs-number">25</span> characters text resolution
     • <span class="hljs-number">8</span> hardware sprites, each <span class="hljs-number">24</span> × <span class="hljs-number">21</span> pixels (<span class="hljs-number">12</span> × <span class="hljs-number">21</span> in <span class="hljs-keyword">multicolor </span>mode)
@@ -47,7 +50,7 @@
 <ul>
 <li><strong>CIA-1 & CIA-2</strong>  <code>(Complex Interface Adapters)</code></li>
 </ul>
-<pre><code>hljs     • keyboard <span class="hljs-selector-tag">input</span> scanning for detecting key presses
+<pre><code class="hljs">    • keyboard <span class="hljs-selector-tag">input</span> scanning for detecting key presses
     • timer <span class="hljs-selector-tag">A</span> &amp; Timer <span class="hljs-selector-tag">B</span> in each chip for generating delays and timing events
     • memory management registers for <span class="hljs-selector-tag">I</span>/O mapping and bank switching
     • <span class="hljs-selector-tag">time</span> of Day (TOD) clock
@@ -136,8 +139,8 @@
 </tbody>
 </table>
 <h2 id="graphic-libraries">graphic libraries:</h2>
-<p>MetallC64 uses <a href="https://www.libsdl.org/">SDL3</a> as the main library.<br><br />
-however the v1.0 branch still uses <a href="https://github.com/codam-coding-college/MLX42">MLX42<a>, a lightweight library on top of GLFW.</p>
+<p>MetallC64 uses <a target="_blank" href="https://www.libsdl.org/">SDL3</a> as the main library.<br><br />
+however the v1.0 branch still uses <a target="_blank" href="https://github.com/codam-coding-college/MLX42">MLX42<a>, a lightweight library on top of GLFW.</p>
 <h2 id="system-requirements">system requirements</h2>
 <ul>
 <li><strong><code>Linux or MacOS</code></strong></li>
@@ -205,7 +208,14 @@ however the v1.0 branch still uses <a href="https://github.com/codam-coding-coll
 </ul>
 
           </div>
-          <style type='text/css'>body {
+          <style type='text/css'>
+
+@font-face {
+	font-family: ibm;
+	src: url("/assets/fonts/IBMPlexMono-Regular.ttf");
+}
+
+body {
     font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #111;
     background-color: #fbfbfb;
@@ -299,6 +309,7 @@ code {
     word-wrap: break-word;
     padding: .2em .4em;
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    /*font-family: ibm;*/
 }
 
 pre>code {

@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>trading client</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -14,7 +16,7 @@
 <ul>
 <li><strong>order management:</strong></li>
 </ul>
-<pre><code>hljs     • Place <span class="hljs-keyword">orders
+<pre><code class="hljs">    • Place <span class="hljs-keyword">orders
 </span>    • Modify <span class="hljs-keyword">orders
 </span>    • Cancel <span class="hljs-keyword">orders
 </span>    • View current positions
@@ -23,17 +25,17 @@
 <ul>
 <li><strong>real-time market data:</strong></li>
 </ul>
-<pre><code>hljs     • Streaming of market data via WebSocket
+<pre><code class="hljs">    • Streaming of market data via WebSocket
     • <span class="hljs-keyword">Subscription </span>to specific channels
     • <span class="hljs-keyword">Orderbook </span>updates for <span class="hljs-keyword">subscribed </span>symbols
 </code></pre>
 <ul>
 <li><strong>instruments supported:</strong></li>
 </ul>
-<pre><code>hljs     • Spot, Futures, <span class="hljs-keyword">and </span>Options trading <span class="hljs-keyword">instruments
+<pre><code class="hljs">    • Spot, Futures, <span class="hljs-keyword">and </span>Options trading <span class="hljs-keyword">instruments
 </span></code></pre>
 <h4 id="technical-requirements">technical requirements</h4>
-<pre><code>hljs   • C++ Implementation
+<pre><code class="hljs">  • C++ Implementation
   • Focus <span class="hljs-keyword">on</span> low-latency performance
   • Proper <span class="hljs-keyword">error</span> handling <span class="hljs-keyword">and</span> logging
   • WebSocket Server <span class="hljs-keyword">for</span> <span class="hljs-built_in">real</span>-<span class="hljs-built_in">time</span> market data distribution
@@ -110,7 +112,7 @@
 </code></pre>
 <hr />
 <h2 id="example-channels-to-subscribe-to"><em>example channels to subscribe to</em></h2>
-<pre><code>hljs <span class="hljs-attribute">ticker</span>.BTC-PERPETUAL.<span class="hljs-number">100</span>ms
+<pre><code class="hljs"><span class="hljs-attribute">ticker</span>.BTC-PERPETUAL.<span class="hljs-number">100</span>ms
 <span class="hljs-attribute">ticker</span>.ETH-PERPETUAL.<span class="hljs-number">100</span>ms
 </code></pre>
 
