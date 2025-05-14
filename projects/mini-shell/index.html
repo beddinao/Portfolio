@@ -1,7 +1,6 @@
 
       <html>
         <head>
-          <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
 	<title>MiniShell</title>
@@ -13,35 +12,35 @@
 <h1 id="minishell">Minishell</h1>
 <h2 id="table-of-contents">Table of Contents</h2>
 <ol>
-<li><a target="_blank" href="#overview">Overview</a></li>
-<li><a target="_blank" href="#project-challenges">Project Challenges</a></li>
-<li><a target="_blank" href="#team-development-steps-for-minishell">Team Development Steps for Minishell</a><ol>
-<li><a target="_blank" href="#step-1-initial-planning-and-setup">Initial Planning and Setup</a></li>
-<li><a target="_blank" href="#step-2-research-and-design-phase">Research and Design Phase</a><ol>
-<li><a target="_blank" href="#shell-operations">Shell Operations</a></li>
-<li><a target="_blank" href="#external-functions">External Functions</a></li></ol></li>
-<li><a target="_blank" href="#step-3-parsing-and-input-management">Parsing and Input Management</a><ol>
-<li><a target="_blank" href="#command-reading">Command Reading</a></li>
-<li><a target="_blank" href="#steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</a><ol>
-<li><a target="_blank" href="#designing-a-syntax-error-checker">Designing a Syntax Error Checker</a></li>
-<li><a target="_blank" href="#syntax-error-checker-function">Syntax Error Checker Function</a></li>
-<li><a target="_blank" href="#tokenization">Tokenization</a></li>
-<li><a target="_blank" href="#token-structure">Token Structure</a></li>
-<li><a target="_blank" href="#tokenization-strategy">Tokenization Strategy</a></li>
-<li><a target="_blank" href="#tokenization-function">Tokenization Function</a></li>
-<li><a target="_blank" href="#parsing">Parsing</a></li>
-<li><a target="_blank" href="#ast-node-structure">AST Node Structure</a></li>
-<li><a target="_blank" href="#parsing-function">Parsing Function</a></li>
-<li><a target="_blank" href="#ast-visualization">AST Visualization</a></li></ol></li></ol></li>
-<li><a target="_blank" href="#step-4-command-execution">Command Execution</a></li>
-<li><a target="_blank" href="#step-5-built-in-commands-implementation">Built-in Commands Implementation</a></li>
-<li><a target="_blank" href="#step-6-signal-handling">Signal Handling</a></li>
-<li><a target="_blank" href="#step-7-environment-variable-expansion">Environment Variable Expansion</a></li>
-<li><a target="_blank" href="#step-8-testing-and-debugging">Testing and Debugging</a></li></ol></li>
-<li><a target="_blank" href="#project-structure">Project Structure</a></li>
-<li><a target="_blank" href="#team-members">Team Members</a></li>
-<li><a target="_blank" href="#resources">Resources</a></li>
-<li><a target="_blank" href="#acknowledgements">Acknowledgements</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#project-challenges">Project Challenges</a></li>
+<li><a href="#team-development-steps-for-minishell">Team Development Steps for Minishell</a><ol>
+<li><a href="#step-1-initial-planning-and-setup">Initial Planning and Setup</a></li>
+<li><a href="#step-2-research-and-design-phase">Research and Design Phase</a><ol>
+<li><a href="#shell-operations">Shell Operations</a></li>
+<li><a href="#external-functions">External Functions</a></li></ol></li>
+<li><a href="#step-3-parsing-and-input-management">Parsing and Input Management</a><ol>
+<li><a href="#command-reading">Command Reading</a></li>
+<li><a href="#steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</a><ol>
+<li><a href="#designing-a-syntax-error-checker">Designing a Syntax Error Checker</a></li>
+<li><a href="#syntax-error-checker-function">Syntax Error Checker Function</a></li>
+<li><a href="#tokenization">Tokenization</a></li>
+<li><a href="#token-structure">Token Structure</a></li>
+<li><a href="#tokenization-strategy">Tokenization Strategy</a></li>
+<li><a href="#tokenization-function">Tokenization Function</a></li>
+<li><a href="#parsing">Parsing</a></li>
+<li><a href="#ast-node-structure">AST Node Structure</a></li>
+<li><a href="#parsing-function">Parsing Function</a></li>
+<li><a href="#ast-visualization">AST Visualization</a></li></ol></li></ol></li>
+<li><a href="#step-4-command-execution">Command Execution</a></li>
+<li><a href="#step-5-built-in-commands-implementation">Built-in Commands Implementation</a></li>
+<li><a href="#step-6-signal-handling">Signal Handling</a></li>
+<li><a href="#step-7-environment-variable-expansion">Environment Variable Expansion</a></li>
+<li><a href="#step-8-testing-and-debugging">Testing and Debugging</a></li></ol></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#team-members">Team Members</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
 </ol>
 <h2 id="overview">Overview</h2>
 <p>Our Minishell project represents a collaborative effort to build a custom shell program in C, inspired by the functionalities of <a target="_blank" href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>, the Bourne Again SHell. As part of the 42 School curriculum, this project served as a unique opportunity for us to deepen our collective understanding of system processes, file descriptors, and the complexities of command-line interfaces. Through the development of our own shell, we engaged in a comprehensive exploration of Unix-based systems, gaining hands-on experience in process control, command interpretation, and environmental variable management.</p>
