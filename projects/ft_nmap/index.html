@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>ft_nmap</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -21,13 +23,13 @@
 <li>root privilege</li>
 </ul>
 <h2 id="usage">usage</h2>
-<pre><code>hljs $ ft_nmap [OPTIONS] TARGET PORT(S)
+<pre><code class="hljs">$ ft_nmap [OPTIONS] TARGET PORT(S)
                target: ip address <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> target host <span class="hljs-keyword">or</span> its FQDN
                ports: <span class="hljs-keyword">a</span> single port <span class="hljs-built_in">number</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">a</span> range <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> syntax xx-xx
                <span class="hljs-number">1024</span> is <span class="hljs-keyword">the</span> <span class="hljs-built_in">max</span> <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> ports
 </code></pre>
 <h2 id="options">options</h2>
-<pre><code>hljs <span class="hljs-comment">--help          prints this help screen and exit</span>
+<pre><code class="hljs"><span class="hljs-comment">--help          prints this help screen and exit</span>
 <span class="hljs-comment">--verbose       display incoming/outgoing packets</span>
 <span class="hljs-comment">--scan          one or multiple scans: SYN | NULL | FIN | XMAS | ACK | UDP</span>
                 dafault: <span class="hljs-keyword">all</span>
@@ -50,7 +52,7 @@
                 mandatory <span class="hljs-keyword">if</span> this interface <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> present/active
 </code></pre>
 <h2 id="example-output">example output</h2>
-<pre><code>hljs <span class="hljs-variable">$</span> <span class="hljs-type">ft_nmap</span> <span class="hljs-operator">--</span><span class="hljs-variable">scan</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> <span class="hljs-variable">scanme</span><span class="hljs-operator">.</span><span class="hljs-variable">nmap</span><span class="hljs-operator">.</span><span class="hljs-variable">org</span> <span class="hljs-number">80</span><span class="hljs-operator">-</span><span class="hljs-number">90</span>
+<pre><code class="hljs"><span class="hljs-variable">$</span> <span class="hljs-type">ft_nmap</span> <span class="hljs-operator">--</span><span class="hljs-variable">scan</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> <span class="hljs-variable">scanme</span><span class="hljs-operator">.</span><span class="hljs-variable">nmap</span><span class="hljs-operator">.</span><span class="hljs-variable">org</span> <span class="hljs-number">80</span><span class="hljs-operator">-</span><span class="hljs-number">90</span>
 
 <span class="hljs-variable">Configurations</span><span class="hljs-operator">:</span>
 <span class="hljs-variable">Target</span> <span class="hljs-variable">Ip</span><span class="hljs-operator">-</span><span class="hljs-variable">Address</span><span class="hljs-operator">:</span> <span class="hljs-number">45.33</span><span class="hljs-number">.32</span><span class="hljs-number">.156</span>

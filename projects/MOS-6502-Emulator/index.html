@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>MOS 6502 Emulator</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -11,14 +13,14 @@
 <!--div align="center" width="100%" >
   <img align="center" src="./images/mos_6502.jpg" width="500" />
 </div-->
-<p>An instruction-accurate <a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">6502 CPU</a> emulator written in C, designed for integration into larger systems.<br><br />
-The 6502 and its derivatives powered systems like the <a href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a>, <a href="https://en.wikipedia.org/wiki/Nintendo_Entertainment_System">Nintendo Entertainment System (NES)</a>, Apple II, BBC Micro.<br></p>
+<p>An instruction-accurate <a target="_blank" href="https://en.wikipedia.org/wiki/MOS_Technology_6502">6502 CPU</a> emulator written in C, designed for integration into larger systems.<br><br />
+The 6502 and its derivatives powered systems like the <a target="_blank" href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a>, <a target="_blank" href="https://en.wikipedia.org/wiki/Nintendo_Entertainment_System">Nintendo Entertainment System (NES)</a>, Apple II, BBC Micro.<br></p>
 <h2 id="features">features</h2>
 <p>This emulator uses a jump-table design,<br><br />
 where the opcode value (e.g., 0x80) directly indexes a function pointer table.<br><br />
 Each entry in the table points to a function that replicates the behavior of the corresponding 6502 instruction.</p>
 <p>Binary Coded Decimal (BCD) mode is fully supported, along with all 13 addressing modes:</p>
-<pre><code>hljs IMPLIED
+<pre><code class="hljs">IMPLIED
 IMMEDIATE
 ACCUMULATOR
 ABSOLUTE
@@ -69,12 +71,12 @@ such as the Commodore 64, NES, Atari, or Apple II.<br></p>
 }    _bus;
 </code></pre>
 <h2 id="visualisation">visualisation</h2>
-<p>The main branch has a dedicated thread to run the visualization using the <a href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library,<br><br />
+<p>The main branch has a dedicated thread to run the visualization using the <a target="_blank" href="https://en.wikipedia.org/wiki/Ncurses">ncurses</a> library,<br><br />
 allowing for real-time observation of the CPU behavior</p>
 <div align="center">
   <img align="center" src="./images/screen_record.gif" />
 </div>
-<pre><code>hljs • <span class="hljs-built_in">PC</span>.
+<pre><code class="hljs">• <span class="hljs-built_in">PC</span>.
 • Accumulator (A).
 • Index registers (X/A).
 • Stack pointer (<span class="hljs-built_in">SP</span>).

@@ -3,6 +3,8 @@
         <head>
           <title></title>
           <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>s_ping</title>
           <meta charset="UTF-8">
         </head>
         <body>
@@ -17,12 +19,12 @@ While offering a core functionality, s_ping may have limitations compared to the
 <li>root privilege</li>
 </ul>
 <h2 id="usage">usage</h2>
-<pre><code>hljs ./s_ping DEST [<span class="hljs-built_in">timeout</span>]
+<pre><code class="hljs">./s_ping DEST [<span class="hljs-built_in">timeout</span>]
   DEST: domain name/ipv4 address of the target host
   <span class="hljs-built_in">timeout</span>: optional number of seconds <span class="hljs-keyword">until</span> host response
 </code></pre>
 <h2 id="example-output">example output</h2>
-<pre><code>hljs $ ./s_ping 1337.ma
+<pre><code class="hljs">$ ./s_ping 1337.ma
 1337.ma (104.18.32.248)
     icmp_echo 104.18.32.248 : icmp_echoreply <span class="hljs-attribute">t</span>=55.701 ms, echo.<span class="hljs-attribute">id</span>=13830, <span class="hljs-attribute">icmp_seq</span>=0
     icmp_echo 104.18.32.248 : icmp_echoreply <span class="hljs-attribute">t</span>=58.195 ms, echo.<span class="hljs-attribute">id</span>=13830, <span class="hljs-attribute">icmp_seq</span>=1
