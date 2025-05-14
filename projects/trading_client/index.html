@@ -1,1 +1,429 @@
-<h1>trading_client</h1>
+
+      <html>
+        <head>
+          <title></title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <h1 id="trading_client"><em><code>trading_client</code></em></h1>
+<h2 id="about"><em>about</em></h2>
+<p>a high-performance order execution and management system for trading on the Deribit Testnet using C++. This project enables users to place, modify, and cancel orders, as well as subscribe to real-time market data through WebSocket.</p>
+<h4 id="core-features"><em>core features</em></h4>
+<ul>
+<li><strong>order management:</strong></li>
+</ul>
+<pre><code>hljs     • Place <span class="hljs-keyword">orders
+</span>    • Modify <span class="hljs-keyword">orders
+</span>    • Cancel <span class="hljs-keyword">orders
+</span>    • View current positions
+    • Access <span class="hljs-keyword">orderbook </span>data
+</code></pre>
+<ul>
+<li><strong>real-time market data:</strong></li>
+</ul>
+<pre><code>hljs     • Streaming of market data via WebSocket
+    • <span class="hljs-keyword">Subscription </span>to specific channels
+    • <span class="hljs-keyword">Orderbook </span>updates for <span class="hljs-keyword">subscribed </span>symbols
+</code></pre>
+<ul>
+<li><strong>instruments supported:</strong></li>
+</ul>
+<pre><code>hljs     • Spot, Futures, <span class="hljs-keyword">and </span>Options trading <span class="hljs-keyword">instruments
+</span></code></pre>
+<h4 id="technical-requirements">technical requirements</h4>
+<pre><code>hljs   • C++ Implementation
+  • Focus <span class="hljs-keyword">on</span> low-latency performance
+  • Proper <span class="hljs-keyword">error</span> handling <span class="hljs-keyword">and</span> logging
+  • WebSocket Server <span class="hljs-keyword">for</span> <span class="hljs-built_in">real</span>-<span class="hljs-built_in">time</span> market data distribution
+</code></pre>
+<hr />
+<h2 id="environment-variables"><em>environment variables</em></h2>
+<h4 id="required-variables"><strong>required variables</strong></h4>
+<pre><code class="hljs java language-java">- CLIENT_ID: Your Deribit API Client-id
+- CLIENT_SECRET: Your Deribit API Client-secret
+</code></pre>
+<h4 id="optional-custom-configuration-variables"><strong>optional custom configuration variables</strong></h4>
+<pre><code class="hljs java language-java">- SITE_URL: Custom URL <span class="hljs-keyword">for</span> Deribit Test <span class="hljs-title function_">API</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: https://test.deribit.com)</span>
+- ENDPOINT_AUTH: Custom endpoint <span class="hljs-keyword">for</span> <span class="hljs-title function_">authentication</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">public</span>/auth)</span>
+- ENDPOINT_BUY: Custom endpoint <span class="hljs-keyword">for</span> placing buy <span class="hljs-title function_">orders</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">private</span>/buy)</span>
+- ENDPOINT_SELL: Custom endpoint <span class="hljs-keyword">for</span> placing sell <span class="hljs-title function_">orders</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">private</span>/sell)</span>
+- ENDPOINT_EDIT: Custom endpoint <span class="hljs-keyword">for</span> editing <span class="hljs-title function_">orders</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">private</span>/edit)</span>
+- ENDPOINT_CANCEL: Custom endpoint <span class="hljs-keyword">for</span> canceling <span class="hljs-title function_">orders</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">private</span>/cancel)</span>
+- ENDPOINT_POSITION: Custom endpoint <span class="hljs-keyword">for</span> retrieving <span class="hljs-title function_">positions</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">private</span>/get_positions)</span>
+- ENDPOINT_BOOK: Custom endpoint <span class="hljs-keyword">for</span> accessing orderbook <span class="hljs-title function_">data</span> <span class="hljs-params">(<span class="hljs-keyword">default</span>: /<span class="hljs-keyword">public</span>/get_order_book)</span>
+</code></pre>
+<h4 id="setting-environment-variables">setting environment variables</h4>
+<p>On <strong>Linux/macOS</strong> you can set these environment variables temporarily or permanently.</p>
+<ol>
+<li><strong>temporarily (for the current session)</strong>:</li>
+</ol>
+<pre><code class="hljs bash language-bash">   <span class="hljs-built_in">export</span> CLIENT_ID=<span class="hljs-string">&quot;your_client_id&quot;</span>
+   <span class="hljs-built_in">export</span> CLIENT_SECRET=<span class="hljs-string">&quot;your_client_secret&quot;</span>
+</code></pre>
+<ol start="2">
+<li><strong>permanently (add to <code>.bashrc</code> or <code>.zshrc</code> file)</strong>:</li>
+</ol>
+<pre><code class="hljs bash language-bash">   <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export DEFAULT_CLIENT_ID=&quot;your_client_id&quot;&#x27;</span> &gt;&gt; ~/.bashrc
+   <span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export DEFAULT_CLIENT_SECRET=&quot;your_client_secret&quot;&#x27;</span> &gt;&gt; ~/.bashrc
+   <span class="hljs-built_in">source</span> ~/.bashrc
+</code></pre>
+<hr />
+<h2 id="installation"><em>installation</em></h2>
+<h4 id="linux"><strong>Linux</strong>:</h4>
+<pre><code class="hljs bash language-bash"><span class="hljs-built_in">sudo</span> apt update
+<span class="hljs-built_in">sudo</span> apt install g++ libcurl4-openssl-dev libboost-all-dev libssl-dev pkg-config
+</code></pre>
+<h4 id="macos"><strong>macOS</strong>:</h4>
+<pre><code class="hljs bash language-bash">brew install gcc curl boost openssl pkg-config
+</code></pre>
+<h4 id="building-the-project">building the project</h4>
+<pre><code class="hljs bash language-bash">make
+</code></pre>
+<h4 id="to-clean-up-build-files">to clean up build files:</h4>
+<pre><code class="hljs bash language-bash">make clean
+</code></pre>
+<h4 id="to-perform-a-full-clean">to perform a full clean:</h4>
+<pre><code class="hljs bash language-bash">make fclean
+</code></pre>
+<h4 id="to-rebuild-from-scratch">to rebuild from scratch:</h4>
+<pre><code class="hljs bash language-bash">make re
+</code></pre>
+<hr />
+<h2 id="usage"><em>usage</em></h2>
+<pre><code class="hljs bash language-bash">./trade
+</code></pre>
+<p>once authenticated you can interact with using the following commands:</p>
+<pre><code class="hljs java language-java">code .Command                     | parameters
+-----------------------------------------------------------------------
+   <span class="hljs-number">1</span> .Place an Order              | action,instrument,type,amount,price
+   <span class="hljs-number">2</span> .Cancel an Order             | order_id
+   <span class="hljs-number">3</span> .Modify an Order             | order_id,new_amount,new_price
+   <span class="hljs-number">4</span> .Request Orderbook           | instrument
+   <span class="hljs-number">5</span> .Request your Positions      | currency,kind
+   <span class="hljs-number">6</span> .Subscribe/remove channels   | action,channel
+   <span class="hljs-number">7</span> .Start streaming market data | output_file_name
+   <span class="hljs-number">8</span> .Stops streaming market data | -
+   <span class="hljs-number">9</span> .Show <span class="hljs-built_in">this</span> Menu              | -
+   <span class="hljs-number">0</span> .Exit program                | -
+</code></pre>
+<hr />
+<h2 id="example-channels-to-subscribe-to"><em>example channels to subscribe to</em></h2>
+<pre><code>hljs <span class="hljs-attribute">ticker</span>.BTC-PERPETUAL.<span class="hljs-number">100</span>ms
+<span class="hljs-attribute">ticker</span>.ETH-PERPETUAL.<span class="hljs-number">100</span>ms
+</code></pre>
+
+          </div>
+          <style type='text/css'>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>

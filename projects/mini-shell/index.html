@@ -1,1 +1,970 @@
-<h1>mini-shell</h1>
+
+      <html>
+        <head>
+          <title></title>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <p><img src="https://github.com/zelhajou/42-minishell/assets/39954629/44830c16-9ec2-471f-a075-f6a7e535c0a3" alt="ascii-text-art (3)" /></p>
+<h1 id="minishell">Minishell</h1>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#project-challenges">Project Challenges</a></li>
+<li><a href="#team-development-steps-for-minishell">Team Development Steps for Minishell</a><ol>
+<li><a href="#step-1-initial-planning-and-setup">Initial Planning and Setup</a></li>
+<li><a href="#step-2-research-and-design-phase">Research and Design Phase</a><ol>
+<li><a href="#shell-operations">Shell Operations</a></li>
+<li><a href="#external-functions">External Functions</a></li></ol></li>
+<li><a href="#step-3-parsing-and-input-management">Parsing and Input Management</a><ol>
+<li><a href="#command-reading">Command Reading</a></li>
+<li><a href="#steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</a><ol>
+<li><a href="#designing-a-syntax-error-checker">Designing a Syntax Error Checker</a></li>
+<li><a href="#syntax-error-checker-function">Syntax Error Checker Function</a></li>
+<li><a href="#tokenization">Tokenization</a></li>
+<li><a href="#token-structure">Token Structure</a></li>
+<li><a href="#tokenization-strategy">Tokenization Strategy</a></li>
+<li><a href="#tokenization-function">Tokenization Function</a></li>
+<li><a href="#parsing">Parsing</a></li>
+<li><a href="#ast-node-structure">AST Node Structure</a></li>
+<li><a href="#parsing-function">Parsing Function</a></li>
+<li><a href="#ast-visualization">AST Visualization</a></li></ol></li></ol></li>
+<li><a href="#step-4-command-execution">Command Execution</a></li>
+<li><a href="#step-5-built-in-commands-implementation">Built-in Commands Implementation</a></li>
+<li><a href="#step-6-signal-handling">Signal Handling</a></li>
+<li><a href="#step-7-environment-variable-expansion">Environment Variable Expansion</a></li>
+<li><a href="#step-8-testing-and-debugging">Testing and Debugging</a></li></ol></li>
+<li><a href="#project-structure">Project Structure</a></li>
+<li><a href="#team-members">Team Members</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#acknowledgements">Acknowledgements</a></li>
+</ol>
+<h2 id="overview">Overview</h2>
+<p>Our Minishell project represents a collaborative effort to build a custom shell program in C, inspired by the functionalities of <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a>, the Bourne Again SHell. As part of the 42 School curriculum, this project served as a unique opportunity for us to deepen our collective understanding of system processes, file descriptors, and the complexities of command-line interfaces. Through the development of our own shell, we engaged in a comprehensive exploration of Unix-based systems, gaining hands-on experience in process control, command interpretation, and environmental variable management.</p>
+<h2 id="project-challenges">Project Challenges</h2>
+<ul>
+<li><strong>Parsing User Input</strong>: Accurately parsing user input, including handling spaces, quotes, and special characters, while distinguishing between command arguments and options.</li>
+<li><strong>Executing Commands</strong>: Implementing logic to search for and execute the right executable based on the PATH environment variable or a specified path, and managing execution of built-in commands versus external commands.</li>
+<li><strong>Signal Handling</strong>: Correctly handling Unix signals such as SIGINT (<code>ctrl-C</code>), SIGQUIT (<code>ctrl-\</code>), and EOF (<code>ctrl-D</code>), and ensuring the shell behaves similarly to bash in response to these signals.</li>
+<li><strong>Input/Output Redirection and Pipes</strong>: Implementing input and output redirection (<code>&lt;</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;</code>) and pipes (<code>|</code>) to allow for command chaining and data redirection, which involves managing file descriptors and process communication.</li>
+<li><strong>Environment Variable Expansion</strong>: Managing environment variables and supporting their expansion within commands, including the special case of <code>$?</code> to represent the exit status of the most recently executed command.</li>
+<li><strong>Memory Management</strong>: Ensuring efficient memory management throughout the shell, including preventing memory leaks especially in the context of the readline function and dynamically allocated resources.</li>
+<li><strong>Built-in Commands Implementation</strong>: Creating internal implementations of several built-in commands (<code>echo</code>, <code>cd</code>, <code>pwd</code>, <code>export</code>, <code>unset</code>, <code>env</code>, <code>exit</code>) that behave consistently with their bash counterparts.</li>
+<li><strong>Concurrency and Process Management</strong>: Handling concurrency through process creation and management, using system calls like <code>fork</code>, <code>execve</code>, <code>wait</code>, and <code>pipe</code>, and ensuring robust process control and signal handling.</li>
+<li><strong>Error Handling</strong>: Developing comprehensive error handling strategies to deal with invalid commands, permissions issues, nonexistent files, and other runtime errors.</li>
+</ul>
+<h2 id="team-development-steps-for-minishell">Team Development Steps for Minishell</h2>
+<h3 id="step-1-initial-planning-and-setup">Step 1: Initial Planning and Setup</h3>
+<ul>
+<li><strong>Repository Setup</strong>: Collaboratively set up the GitHub repository, ensuring a clear directory structure and branch strategy.</li>
+<li><strong>Makefile Creation</strong>: Makefile that includes rules for <code>all</code>, <code>clean</code>, <code>fclean</code>, <code>re</code></li>
+<li>Set up libft libray</li>
+</ul>
+<h3 id="step-2-research-and-design-phase">Step 2: Research and Design Phase</h3>
+<p>This phase was about understanding the shell's operations, researching the external functions allowed, and dividing them among ourselves to research and explain their usage to the team.</p>
+<h4 id="shell-operations">Shell Operations</h4>
+<p><img src="https://github.com/user-attachments/assets/730358f1-dd34-49f3-b15f-647bef40c40c" alt="shell" /></p>
+<ul>
+<li><p><a href="https://www.youtube.com/watch?v=2P7fcVHxA9o&list=LL&index=6">What Happens When You Type a Command in Your Terminal</a> 📹</p></li>
+<li><p><a href="https://www.youtube.com/playlist?list=PLbtzT1TYeoMhF4hcpEiCsOeN13zqrzBJq">Shell Code Explained</a> 📹</p></li>
+<li><p><a href="https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html">Shell Command Language</a> 📹</p></li>
+<li><p><a href="https://www.youtube.com/playlist?list=PLFAC320731F539902">Unix terminals and shells</a> 📹</p></li>
+<li><p><a href="https://www.youtube.com/watch?v=hMSByvFHOro&ab_channel=LukeSmith">Terminal vs. Bash vs. Command line vs. Prompt</a> 📹</p></li>
+</ul>
+<p><img src="https://github.com/user-attachments/assets/0296cfe7-6a1d-42c8-ba4c-53419e64cccd" alt="terminals" /></p>
+<ul>
+<li><a href="https://brennan.io/2015/01/16/write-a-shell-in-c/">Tutorial - Write a Shell in C</a> 📝</li>
+</ul>
+<h4 id="external-functions">External Functions</h4>
+<p>Reviewed the external functions allowed, dividing them among ourselves to research and explain their usage to the team.</p>
+<p><strong>Readline Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>readline</code></td>
+<td>Reads a line from the standard input and returns it.</td>
+</tr>
+<tr>
+<td><code>rl_clear_history</code></td>
+<td>Clears the readline history list.</td>
+</tr>
+<tr>
+<td><code>rl_on_new_line</code></td>
+<td>Prepares readline for reading input on a new line.</td>
+</tr>
+<tr>
+<td><code>rl_replace_line</code></td>
+<td>Replaces the content of the readline current line buffer.</td>
+</tr>
+<tr>
+<td><code>rl_redisplay</code></td>
+<td>Updates the display to reflect changes to the input line.</td>
+</tr>
+<tr>
+<td><code>add_history</code></td>
+<td>Adds the most recent input to the readline history list.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Standard I/O Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>printf</code></td>
+<td>Outputs formatted data to stdout.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Memory Allocation Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>malloc</code></td>
+<td>Allocates specified bytes of heap memory.</td>
+</tr>
+<tr>
+<td><code>free</code></td>
+<td>Deallocates previously allocated memory.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>File I/O Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>write</code></td>
+<td>Writes data to a file descriptor.</td>
+</tr>
+<tr>
+<td><code>access</code></td>
+<td>Checks calling process's permissions for a file or directory.</td>
+</tr>
+<tr>
+<td><code>open</code></td>
+<td>Opens a file or device, returning a file descriptor.</td>
+</tr>
+<tr>
+<td><code>read</code></td>
+<td>Reads data from a file descriptor into a buffer.</td>
+</tr>
+<tr>
+<td><code>close</code></td>
+<td>Closes a previously opened file descriptor.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Process Control Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fork</code></td>
+<td>Creates a new process by duplicating the calling process.</td>
+</tr>
+<tr>
+<td><code>wait</code></td>
+<td>Suspends execution of the calling process until one of its children terminates.</td>
+</tr>
+<tr>
+<td><code>waitpid</code></td>
+<td>Waits for a specific child process to change state.</td>
+</tr>
+<tr>
+<td><code>wait3</code></td>
+<td>Waits for any child process to change state.</td>
+</tr>
+<tr>
+<td><code>wait4</code></td>
+<td>Waits for a specific child process to change state.</td>
+</tr>
+<tr>
+<td><code>signal</code></td>
+<td>Handles or ignores signals sent to the process.</td>
+</tr>
+<tr>
+<td><code>sigaction</code></td>
+<td>Handles or ignores signals sent to the process.</td>
+</tr>
+<tr>
+<td><code>sigemptyset</code></td>
+<td>Initializes and adds signals to a signal set.</td>
+</tr>
+<tr>
+<td><code>sigaddset</code></td>
+<td>Initializes and adds signals to a signal set.</td>
+</tr>
+<tr>
+<td><code>kill</code></td>
+<td>Sends a signal to a process or a group of processes.</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>Terminates the calling process.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Directory Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getcwd</code></td>
+<td>Gets the current working directory.</td>
+</tr>
+<tr>
+<td><code>chdir</code></td>
+<td>Changes the current working directory.</td>
+</tr>
+<tr>
+<td><code>stat</code></td>
+<td>Returns information about a file or a file descriptor.</td>
+</tr>
+<tr>
+<td><code>lstat</code></td>
+<td>Returns information about a file or a file descriptor.</td>
+</tr>
+<tr>
+<td><code>fstat</code></td>
+<td>Returns information about a file or a file descriptor.</td>
+</tr>
+<tr>
+<td><code>unlink</code></td>
+<td>Removes a link to a file.</td>
+</tr>
+<tr>
+<td><code>execve</code></td>
+<td>Replaces the current process image with a new process image.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>File Descriptor Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dup</code></td>
+<td>Duplicates a file descriptor.</td>
+</tr>
+<tr>
+<td><code>dup2</code></td>
+<td>Duplicates a file descriptor.</td>
+</tr>
+<tr>
+<td><code>pipe</code></td>
+<td>Creates a pipe for inter-process communication.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Directory Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opendir</code></td>
+<td>Manages directory streams.</td>
+</tr>
+<tr>
+<td><code>readdir</code></td>
+<td>Manages directory streams.</td>
+</tr>
+<tr>
+<td><code>closedir</code></td>
+<td>Manages directory streams.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Error Handling Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>strerror</code></td>
+<td>Returns a pointer to the textual representation of an error code.</td>
+</tr>
+<tr>
+<td><code>perror</code></td>
+<td>Returns a pointer to the textual representation of an error code.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Terminal Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>isatty</code></td>
+<td>Tests whether a file descriptor refers to a terminal.</td>
+</tr>
+<tr>
+<td><code>ttyname</code></td>
+<td>Returns the name of the terminal associated with a file descriptor.</td>
+</tr>
+<tr>
+<td><code>ttyslot</code></td>
+<td>Returns the name of the terminal associated with a file descriptor.</td>
+</tr>
+<tr>
+<td><code>ioctl</code></td>
+<td>Controls device-specific input/output operations.</td>
+</tr>
+<tr>
+<td><code>getenv</code></td>
+<td>Returns the value of an environment variable.</td>
+</tr>
+<tr>
+<td><code>tcsetattr</code></td>
+<td>Sets and gets terminal attributes.</td>
+</tr>
+<tr>
+<td><code>tcgetattr</code></td>
+<td>Sets and gets terminal attributes.</td>
+</tr>
+<tr>
+<td><code>tgetent</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+<tr>
+<td><code>tgetflag</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+<tr>
+<td><code>tgetnum</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+<tr>
+<td><code>tgetstr</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+<tr>
+<td><code>tgoto</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+<tr>
+<td><code>tput</code></td>
+<td>Terminal handling functions from the termcap library.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-parsing-and-input-management">Step 3: Parsing and Input Management</h3>
+<h4 id="command-reading">Command Reading</h4>
+<p><strong>Readline Library</strong>: Implemented readline and integrated add_history ( <a href="https://en.wikipedia.org/wiki/GNU_Readline">GNU Readline</a>)</p>
+<pre><code class="hljs bash language-bash">brew install readline
+</code></pre>
+<p>Add the following to the Makefile:</p>
+<pre><code class="hljs makefile language-makefile">READLINE_INCLUDE = <span class="hljs-variable">$(<span class="hljs-built_in">shell</span> brew --prefix readline)</span>/<span class="hljs-keyword">include</span>
+READLINE_LIB = <span class="hljs-variable">$(<span class="hljs-built_in">shell</span> brew --prefix readline)</span>/lib
+INCLUDES = -I./includes -I./lib/libft -I<span class="hljs-variable">$(READLINE_INCLUDE)</span>
+</code></pre>
+<pre><code class="hljs c language-c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;readline/readline.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;readline/history.h&gt;</span></span>
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span>
+{
+    <span class="hljs-type">char</span> *input;
+
+    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>)
+    {
+        input = readline(<span class="hljs-string">&quot;minishell$ &quot;</span>);
+        <span class="hljs-keyword">if</span> (!input)
+            <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">if</span> (*input)
+            add_history(input);
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Input: %s\n&quot;</span>, input);
+        <span class="hljs-built_in">free</span>(input);
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre>
+<p><a href="https://man7.org/linux/man-pages/man3/readline.3.html">readline(3) - Linux manual page</a></p>
+<h3 id="steps-for-building-the-parser-and-ast-abstract-syntax-tree">Steps for building the parser and AST (Abstract Syntax Tree)</h3>
+<ul>
+<li><p><strong>Syntax Error Checking</strong>: This involves verifying whether the input string adheres to the shell's syntax rules. It checks for unclosed quotes, and misuse of redirection or pipe symbols. Syntax error checking ensures that the input can be correctly interpreted and executed.</p>
+<p><img src="https://github.com/user-attachments/assets/13f1ff3a-d537-477c-a37e-377a8c29ab5c" alt="bash-quotes" /></p></li>
+<li><p><strong>Tokenization</strong>: This step breaks the input string into meaningful pieces, known as tokens. Tokens can be commands, arguments, redirection operators (<code>&lt;</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;</code>), pipe symbols (<code>|</code>), and environment variable identifiers. Tokenization simplifies the parsing process by converting the input string into a format that's easier to analyze.</p></li>
+<li><p><strong>Parsing</strong>: During parsing, tokens are analyzed to understand their syntactical relationship. This step involves constructing a representation of the input that reflects the user's intention. Depending on the complexity of the shell, this could mean building an abstract syntax tree (AST) or a simpler structure.</p></li>
+<li><p><strong>AST Construction</strong>:</p>
+<ul>
+<li><strong>Commands</strong>: Nodes in the AST represent commands along with their arguments. These nodes are fundamental to understanding what actions the shell needs to perform.</li>
+<li><strong>Redirections</strong>: Redirection nodes are created to represent input and output redirections. These nodes are attached to command nodes to modify how the commands read their input or write their output.</li>
+<li><strong>Pipelines</strong>: When a pipe is encountered, a pipeline node links command nodes together, indicating that the output of one command serves as the input to another.</li>
+<li><strong>Environment Variable Expansion</strong>: This can be handled as part of command parsing or immediately before command execution. It involves replacing environment variable identifiers with their corresponding values.</li></ul></li>
+<li><p><strong>Execution AST</strong>: After the AST is built, it is traversed to execute the commands it represents. This involves:</p>
+<ul>
+<li>Executing built-in commands directly within the shell.</li>
+<li>Launching external commands by creating new processes.</li>
+<li>Setting up redirections as specified by the redirection nodes.</li>
+<li>Managing pipelines by connecting the stdout of one command to the stdin of the next.</li></ul></li>
+</ul>
+<h4 id="a-designing-a-syntax-error-checker">a. Designing a Syntax Error Checker</h4>
+<p>the syntax error checker will be responsible for identifying and reporting syntax errors in the user input.</p>
+<ol>
+<li><strong>Unclosed Quotes</strong>: verify that all quotes are properly closed.</li>
+<li><strong>Misplaced Operators</strong>: Detect if pipes <code>|</code> are used incorrectly, such as being at the start or end of the input, or if multiple pipes are used consecutively.</li>
+<li><strong>Logical Operators</strong>: Detect logical operators such as <code>&amp;&amp;</code> and <code>||</code> and report them as not supported.</li>
+<li><strong>Invalid Redirections</strong>: Detect invalid redirections, such as multiple consecutive redirections or redirections at the start or end of the input.</li>
+</ol>
+<h4 id="b-syntax-error-checker-function">b. Syntax Error Checker Function</h4>
+<p>syntax_checker.c:</p>
+<ul>
+<li><code>syntax_error_checker</code> Function: Iterates through the input string, checking for syntax errors and reporting them if found.</li>
+<li><code>has_unclosed_quotes</code> Function: Checks for unclosed quotes in the input string.</li>
+<li><code>has_invalid_redirections</code> Function: Detects invalid redirections, such as multiple consecutive redirections or redirections at the start or end of the input.</li>
+<li><code>has_misplaced_operators</code> Function: Detects misplaced pipes and redirections.</li>
+<li><code>has_logical_operators</code> Function: Detects logical operators such as <code>&amp;&amp;</code> and <code>||</code> and reports them as not supported.</li>
+</ul>
+<h4 id="c-tokenization">c. Tokenization</h4>
+<p>The goal of the tokenization process is to break down the input string into a series of tokens that the parser can easily understand. These tokens represent commands, arguments, pipes, redirections, and other elements of the shell syntax.</p>
+<ul>
+<li><strong>Quotations</strong>: Distinguishing between single (<code>'</code>) and double (<code>"</code>) quotes.</li>
+<li><strong>Redirections</strong>: Recognizing input (<code>&lt;</code>), output (<code>&gt;</code>), append (<code>&gt;&gt;</code>), and here-documen(<code>&lt;&lt;</code>) redirections.</li>
+<li><strong>Pipes</strong> (<code>|</code>): Splitting commands to be executed in a pipeline.</li>
+<li><strong>Environment variables</strong>: Expanding variables starting with <code>$</code>.</li>
+<li><strong>Command separation</strong>: Identifying commands and their arguments.</li>
+</ul>
+<h4 id="d-token-structure">d. Token Structure</h4>
+<pre><code class="hljs c language-c"><span class="hljs-comment">// Token type enumeration</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">e_token_type</span>
+{</span>
+    TOKEN_WORD,      <span class="hljs-comment">// For commands and arguments</span>
+    TOKEN_PIPE,      <span class="hljs-comment">// For &#x27;|&#x27;</span>
+    TOKEN_REDIR_IN,  <span class="hljs-comment">// For &#x27;&lt;&#x27;</span>
+    TOKEN_REDIR_OUT, <span class="hljs-comment">// For &#x27;&gt;&#x27;</span>
+    TOKEN_REDIR_APPEND, <span class="hljs-comment">// For &#x27;&gt;&gt;&#x27;</span>
+    TOKEN_REDIR_HEREDOC, <span class="hljs-comment">// For &#x27;&lt;&lt;&#x27;</span>
+    TOKEN_ENV_VAR, <span class="hljs-comment">// For environment variables</span>
+}   t_token_type;
+
+<span class="hljs-comment">// Token structure</span>
+<span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s_token</span>
+{</span>
+    t_token_type type;
+    <span class="hljs-type">char</span>        *value;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s_token</span> *<span class="hljs-title">next</span>;</span>
+}   t_token;
+</code></pre>
+<h4 id="e-tokenization-strategy">e. Tokenization Strategy</h4>
+<ol>
+<li><strong>Whitespace Handling</strong>: Skip whitespace outside quotes to separate commands and arguments.</li>
+<li><strong>Quoting</strong>: Correctly handle single (<code>'</code>) and double quotes (<code>"</code>), preserving the text exactly as is within single quotes and allowing for variable expansion and escaped characters within double quotes.</li>
+<li><strong>Redirections and Pipes</strong>: Detect <code>&gt;</code>, <code>&gt;&gt;</code>, <code>&lt;</code>, <code>&lt;&lt;</code>, and <code>|</code>, treating them as separate tokens while managing any adjacent whitespace.</li>
+</ol>
+<h4 id="f-tokenization-function">f. Tokenization Function</h4>
+<p>The tokenization function will iterate through the input string, identifying and categorizing segments according to the shell syntax.</p>
+<p>tokenization.c:</p>
+<ul>
+<li><code>tokenize_input</code> Function: Iterates through the input, creating tokens for words separated by spaces.</li>
+<li><code>handle_special_chars</code> Function: Handles the special characters in the input string.</li>
+<li><code>handle_word</code> Function: Handles the words in the input string.</li>
+<li><code>print_tokens</code> Function: Prints the tokens to verify the tokenization process.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs bahs language-bahs">&gt; ls -l | wc -l &gt; output.txt | ls &gt; output2.txt
+<span class="hljs-section">Token:  ls                    | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  -l                    | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  |                     | Type:  PIPE                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  wc                    | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  -l                    | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  &gt;                     | Type:  REDIRECT_OUT        
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  output.txt            | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  |                     | Type:  PIPE                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  ls                    | Type:  WORD                
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  &gt;                     | Type:  REDIRECT_OUT        
+--------------------------------------------------</span>
+<span class="hljs-section">Token:  output2.txt           | Type:  WORD                
+--------------------------------------------------</span>
+</code></pre>
+<h4 id="g-parsing">g. Parsing</h4>
+<p>The parsing process involves analyzing the tokens to understand their syntactical relationship. This step constructs a representation of the input that reflects the user's intention.</p>
+<ul>
+<li><strong>Command Parsing</strong>: Parsing commands and their arguments, creating command nodes in the AST.</li>
+<li><strong>Pipeline Parsing</strong>: Parsing pipeline tokens, creating pipeline nodes in the AST.</li>
+<li><strong>Redirection Parsing</strong>: Parsing redirection tokens, creating redirection nodes in the AST.</li>
+<li><strong>File Node Creation</strong>: Creating a file node for redirections in the AST.</li>
+</ul>
+<h4 id="h-ast-node-structure">h .AST Node Structure</h4>
+<p>The AST node structure will represent the input string in a way that reflects the user's intention. The AST will be composed of nodes that represent commands, arguments, redirections, and pipelines.</p>
+<pre><code class="hljs c language-c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s_ast_node</span>
+{</span>
+    t_node type type;
+    <span class="hljs-type">char</span> *args;
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s_ast_node</span> *<span class="hljs-title">left</span>;</span>
+    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">s_ast_node</span> *<span class="hljs-title">right</span>;</span>
+}   t_ast_node;
+</code></pre>
+<h4 id="i-parsing-function">i. Parsing Function</h4>
+<p>The parsing function will iterate through the tokens, building an abstract syntax tree (AST) that represents the input string.</p>
+<p>parse.c:</p>
+<ul>
+<li><code>parse_tokens</code> Function: Iterates through the tokens, building an abstract syntax tree (AST) that represents the input string.</li>
+<li><code>parse_command</code> Function: Parses a command and its arguments, creating a command node in the AST.</li>
+<li><code>parse_pipeline</code> Function: Parses pipeline tokens, creating pipeline nodes in the AST.</li>
+<li><code>parse_redirection</code> Function: Parses redirection tokens, creating redirection nodes in the AST.</li>
+<li><code>create_file_node</code> Function: Creates a file node for redirections in the AST.</li>
+</ul>
+<h4 id="j-ast-visualization">j. AST Visualization</h4>
+<p>generate<em>ast</em>diagram/generate<em>ast</em>diagram.c:</p>
+<ul>
+<li><code>generate_ast_diagram</code> Function: Generates a visual representation of the AST, showing the structure of the input string.</li>
+</ul>
+<p>Example:</p>
+<pre><code class="hljs bash language-bash"><span class="hljs-built_in">ls</span> -l | <span class="hljs-built_in">wc</span> -l &gt; output.txt | <span class="hljs-built_in">ls</span> &gt; output2.txt
+</code></pre>
+<p><img src="https://github.com/zelhajou/42-minishell/assets/39954629/e8cbd784-3ee1-4642-803c-3b903cbb7afe" alt="graphviz" /></p>
+<p><a href="https://dreampuf.github.io/GraphvizOnline/#digraph%20AST%20%7B%0A%220x7ff812f05540%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05560%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05560%22%20%5Blabel%3D%22CMD%3A%20ls%20-l%22%5D%3B%0A%220x7ff812f05540%22%20-%3E%20%220x7ff812f05360%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05360%22%20%5Blabel%3D%22%7C%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05300%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05300%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f05320%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05320%22%20%5Blabel%3D%22CMD%3A%20wc%20-l%22%5D%3B%0A%220x7ff812f05300%22%20-%3E%20%220x7ff812f053f0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f053f0%22%20%5Blabel%3D%22CMD%3A%20output.txt%22%5D%3B%0A%220x7ff812f05360%22%20-%3E%20%220x7ff812f05420%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f05420%22%20%5Blabel%3D%22REDIR%3A%20%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f05450%22%20%5Blabel%3D%22L%22%5D%3B%0A%220x7ff812f05450%22%20%5Blabel%3D%22CMD%3A%20ls%22%5D%3B%0A%220x7ff812f05420%22%20-%3E%20%220x7ff812f054b0%22%20%5Blabel%3D%22R%22%5D%3B%0A%220x7ff812f054b0%22%20%5Blabel%3D%22CMD%3A%20output2.txt%22%5D%3B%0A%7D%0A">GraphvizOnline</a></p>
+<h3 id="step-4-command-execution">Step 4: Command Execution</h3>
+<ul>
+<li><p><strong>Built-in Commands</strong>: Implementing internal versions of several built-in commands (<code>echo</code>, <code>cd</code>, <code>pwd</code>, <code>export</code>, <code>unset</code>, <code>env</code>, <code>exit</code>) that behave consistently with their bash counterparts.</p>
+<p><img src="https://github.com/user-attachments/assets/ce5fba5b-96bc-44d8-88be-b5a39b0b362e" alt="builtins" /></p></li>
+<li><p><strong>External Commands</strong>: Implementing logic to search for and execute the right executable based on the PATH environment variable or a specified path.</p>
+<p><img src="https://github.com/user-attachments/assets/88709685-dfae-49c5-85e6-e4d45f0a1dd9" alt="path" /></p></li>
+<li><p><strong>Process Creation</strong>: Using system calls like <code>fork</code>, <code>execve</code>, <code>wait</code>, and <code>pipe</code> to manage process creation and execution.</p>
+<p><img src="https://github.com/user-attachments/assets/5c7a2793-78ff-4dd5-bd01-a208457fd9cf" alt="processes (1)" /></p></li>
+<li><p><strong>Redirection and Pipes</strong>: Implementing input and output redirection (<code>&lt;</code>, <code>&gt;</code>, <code>&gt;&gt;</code>, <code>&lt;&lt;</code>) and pipes (<code>|</code>) to allow for command chaining and data redirection.</p>
+<p><img src="https://github.com/user-attachments/assets/cc07277b-2fe0-425a-ba39-0013f9871d1c" alt="redirects" /><br />
+<img src="https://github.com/user-attachments/assets/3cbc7f85-53e7-4312-bf3d-1b9053533ece" alt="pipes" /><br />
+<img src="https://github.com/user-attachments/assets/90379cd6-43f8-44f6-b089-958bed58a3a9" alt="bash-pipes" /></p></li>
+</ul>
+<h3 id="step-5-built-in-commands-implementation">Step 5: Built-in Commands Implementation</h3>
+<p><img src="https://github.com/user-attachments/assets/ce5fba5b-96bc-44d8-88be-b5a39b0b362e" alt="builtins" /></p>
+<ul>
+<li><p><strong>echo</strong>: Outputs the arguments passed to it.</p></li>
+<li><p><strong>cd</strong>: Changes the current working directory.</p></li>
+<li><p><strong>pwd</strong>: Prints the current working directory.</p></li>
+<li><p><strong>export</strong>: Sets environment variables.</p></li>
+<li><p><strong>unset</strong>: Unsets environment variables</p></li>
+<li><p><strong>env</strong>: Prints the environment variables.</p>
+<p><img src="https://github.com/user-attachments/assets/87e4570b-e029-4f0e-a38c-f31837e0612e" alt="environment-variables" /></p></li>
+<li><p><strong>exit</strong>: Exits the shell.</p></li>
+</ul>
+<h3 id="step-6-signal-handling">Step 6: Signal Handling</h3>
+<p><img src="https://github.com/user-attachments/assets/308b83ea-ad8f-4bcd-ba32-0cf79bf1b71f" alt="signals" /></p>
+<ul>
+<li><strong>SIGINT</strong>: Handling the <code>ctrl-C</code> signal to interrupt the shell's execution.</li>
+<li><strong>SIGQUIT</strong>: Handling the <code>ctrl-\</code> signal to quit the shell.</li>
+<li><strong>EOF</strong>: Handling the <code>ctrl-D</code> signal to exit the shell.</li>
+</ul>
+<h3 id="step-7-environment-variable-expansion">Step 7: Environment Variable Expansion</h3>
+<ul>
+<li><p><strong>Environment Variable Expansion</strong>: Managing environment variables and supporting their expansion within commands, including the special case of <code>$?</code> to represent the exit status of the most recently executed command.</p>
+<p><img src="https://github.com/user-attachments/assets/c1824c1c-7d2a-4244-ae4c-e95d063c4a45" alt="parameter-expansion" /></p></li>
+</ul>
+<h3 id="step-8-testing-and-debugging">Step 8: Testing and Debugging</h3>
+<ul>
+<li><a href="https://github.com/rghouzra">reda ghouzraf</a> : The most skilled human tester in the world</li>
+<li><a href="https://docs.google.com/spreadsheets/d/1BLU6C9S7aoCl01x74GiW7s4xpEWWJ1cPrMTcLwISruk/edit#gid=1627853444">Minishell Tests</a></li>
+<li><a href="https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out">https://github.com/Pyr-0/Minishell-42/wiki/edge-(or-non-edge)-cases-to-test-out</a></li>
+<li><a href="https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt">https://github.com/nicolasgasco/42_minishell/blob/main/test_cases.txt</a></li>
+</ul>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code class="hljs bash language-bash">├── includes
+│   └── minishell.h
+├── lib
+│   └── libft
+├── Makefile
+└── src
+    ├── 01_input_validation
+    ├── 02_tokenization
+    ├── 03_parsing
+    ├── 04_execution
+    ├── 05_builtin
+    ├── 06_signals
+    ├── 07_env_var_expansion
+    ├── main.c
+    └── utils
+</code></pre>
+<h2 id="team-members">Team Members</h2>
+<ul>
+<li><a href="https://github.com/edbilal">Bilal Edd</a></li>
+<li><a href="https://github.com/zelhajou">Zakaria Elhajoui</a></li>
+</ul>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name">https://www.gnu.org/software/bash/manual/html_node/Definitions.html#index-name</a></li>
+<li><a href="https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap">https://www.youtube.com/watch?v=S2W3SXGPVyU&ab_channel=theroadmap</a></li>
+<li><a href="https://tomassetti.me/guide-parsing-algorithms-terminology/">https://tomassetti.me/guide-parsing-algorithms-terminology/</a></li>
+<li><a href="https://github.com/os-moussao/Recursive-Descent-Parser/tree/master">https://github.com/os-moussao/Recursive-Descent-Parser/tree/master</a></li>
+<li><a href="https://minishell.simple.ink/">https://minishell.simple.ink/</a></li>
+<li><a href="https://github.com/iciamyplant/Minishell">https://github.com/iciamyplant/Minishell</a></li>
+</ul>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>Thanks to <a href="https://github.com/rghouzra">reda ghouzraf</a>, <a href="https://github.com/whoismtrx">MTRX</a>, <a href="https://github.com/Nx21">Nasreddine hanafi</a>, <a href="https://github.com/zerrikhalid">Khalid zerri</a> for their help and support during the project.</p>
+
+          </div>
+          <style type='text/css'>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>
