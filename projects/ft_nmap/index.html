@@ -1,0 +1,423 @@
+
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>ft_nmap</title>
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <h1 id="ft_nmap"><em><code>FT_NMAP</code></em></h1>
+      <a target="_blank" href="https://github.com/beddinao/ft_nmap">Code</a>
+<h2 id="key-features">key features</h2>
+<ul>
+<li>initial ICMP ping: Prior to port scanning, the tool performs an ICMP ping to verify host connectivity.</li>
+<li>Nmap-like scans: Perform SYN, ACK, FIN, NULL, XMAS, and UDP scans to identify open ports and running services.</li>
+<li>Custom TCP flags: Customize scan behavior by specifying custom TCP flag combinations using the --flags option.</li>
+<li>Service detection: Attempts to identify potential services by comparing ports and transport protocols to the Service Name and Transport Protocol Port Number Registry.</li>
+</ul>
+<h2 id="requirements">requirements</h2>
+<ul>
+<li>linux</li>
+<li>root privilege</li>
+</ul>
+<h2 id="usage">usage</h2>
+<pre><code class="hljs">$ ft_nmap [OPTIONS] TARGET PORT(S)
+               target: ip address <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> target host <span class="hljs-keyword">or</span> its FQDN
+               ports: <span class="hljs-keyword">a</span> single port <span class="hljs-built_in">number</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">a</span> range <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> syntax xx-xx
+               <span class="hljs-number">1024</span> is <span class="hljs-keyword">the</span> <span class="hljs-built_in">max</span> <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> ports
+</code></pre>
+<h2 id="options">options</h2>
+<pre><code class="hljs"><span class="hljs-comment">--help          prints this help screen and exit</span>
+<span class="hljs-comment">--verbose       display incoming/outgoing packets</span>
+<span class="hljs-comment">--scan          one or multiple scans: SYN | NULL | FIN | XMAS | ACK | UDP</span>
+                dafault: <span class="hljs-keyword">all</span>
+<span class="hljs-comment">--flags         custom scan by setting the tcp flags header manually [syn, ack, rst, fin, psh, urg]</span>
+                example: <span class="hljs-comment">--flags syn ack</span>
+<span class="hljs-comment">--source-ip     source ip address to use</span>
+                this <span class="hljs-keyword">options</span> disables looking up an interface address
+                responses <span class="hljs-keyword">from</span> target will come <span class="hljs-keyword">to</span> this one
+<span class="hljs-comment">--source-port   source port to use</span>
+                <span class="hljs-keyword">default</span>: random
+<span class="hljs-comment">--seq           tcp header: sequence number</span>
+                <span class="hljs-keyword">default</span>: random
+<span class="hljs-comment">--ack-seq       tcp header: acknowledgment number</span>
+                <span class="hljs-keyword">default</span>: <span class="hljs-number">0</span>
+<span class="hljs-comment">--speedup       number of parallel threads to use</span>
+                max: <span class="hljs-number">255</span>
+                <span class="hljs-keyword">default</span>: number <span class="hljs-keyword">of</span> threads == number <span class="hljs-keyword">of</span> ports
+<span class="hljs-comment">--interface     name of the interface to use</span>
+                <span class="hljs-keyword">default</span>: enp0s3
+                mandatory <span class="hljs-keyword">if</span> this interface <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> present/active
+</code></pre>
+<h2 id="example-output">example output</h2>
+<pre><code class="hljs"><span class="hljs-variable">$</span> <span class="hljs-type">ft_nmap</span> <span class="hljs-operator">--</span><span class="hljs-variable">scan</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> <span class="hljs-variable">scanme</span><span class="hljs-operator">.</span><span class="hljs-variable">nmap</span><span class="hljs-operator">.</span><span class="hljs-variable">org</span> <span class="hljs-number">80</span><span class="hljs-operator">-</span><span class="hljs-number">90</span>
+
+<span class="hljs-variable">Configurations</span><span class="hljs-operator">:</span>
+<span class="hljs-variable">Target</span> <span class="hljs-variable">Ip</span><span class="hljs-operator">-</span><span class="hljs-variable">Address</span><span class="hljs-operator">:</span> <span class="hljs-number">45.33</span><span class="hljs-number">.32</span><span class="hljs-number">.156</span>
+<span class="hljs-variable">Source</span> <span class="hljs-variable">Ip</span><span class="hljs-operator">-</span><span class="hljs-variable">Address</span><span class="hljs-operator">:</span> <span class="hljs-variable">x</span><span class="hljs-operator">.</span><span class="hljs-variable">x</span><span class="hljs-operator">.</span><span class="hljs-variable">x</span><span class="hljs-operator">.</span><span class="hljs-variable">x</span>
+<span class="hljs-built_in">Using</span> <span class="hljs-variable">Interface</span><span class="hljs-operator">:</span> <span class="hljs-variable">enp0s3</span>
+<span class="hljs-operator">......................</span>
+<span class="hljs-type">icmp_echo</span> <span class="hljs-variable">request</span> <span class="hljs-variable">sent</span><span class="hljs-operator">..</span>
+<span class="hljs-type">icmp_echoreply</span> <span class="hljs-variable">echo</span><span class="hljs-operator">.</span><span class="hljs-variable">id</span><span class="hljs-operator">=</span><span class="hljs-number">64936</span><span class="hljs-operator">,</span> <span class="hljs-type">icmp_seq</span><span class="hljs-operator">=</span><span class="hljs-number">65</span>
+<span class="hljs-variable">Host</span> <span class="hljs-variable">State</span><span class="hljs-operator">:</span> <span class="hljs-built_in">Up</span>
+<span class="hljs-operator">......................</span>
+<span class="hljs-variable">No</span> <span class="hljs-variable">of</span> <span class="hljs-variable">Ports</span> <span class="hljs-variable">to</span> <span class="hljs-variable">scan</span><span class="hljs-operator">:</span> <span class="hljs-number">11</span>
+<span class="hljs-variable">No</span> <span class="hljs-variable">of</span> <span class="hljs-variable">threads</span><span class="hljs-operator">:</span> <span class="hljs-number">11</span>
+<span class="hljs-built_in">Using</span> <span class="hljs-variable">known</span> <span class="hljs-variable">services</span> <span class="hljs-variable">database</span><span class="hljs-operator">:</span> <span class="hljs-variable">database</span><span class="hljs-operator">/</span><span class="hljs-variable">services</span>
+<span class="hljs-variable">Scans</span> <span class="hljs-variable">to</span> <span class="hljs-variable">be</span> <span class="hljs-variable">performed</span><span class="hljs-operator">:</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> 
+<span class="hljs-variable">Scanning</span><span class="hljs-operator">...</span>
+<span class="hljs-operator">......................</span>
+<span class="hljs-built_in">Scan</span> <span class="hljs-variable">took</span> <span class="hljs-number">0.015029</span> <span class="hljs-variable">secs</span>
+<span class="hljs-variable">IP</span> <span class="hljs-variable">address</span><span class="hljs-operator">:</span> <span class="hljs-number">45.33</span><span class="hljs-number">.32</span><span class="hljs-number">.156</span>
+
+<span class="hljs-built_in">Open</span> <span class="hljs-variable">ports</span><span class="hljs-operator">:</span>
+<span class="hljs-variable">Port</span>       <span class="hljs-variable">Service</span> <span class="hljs-variable">Name</span> <span class="hljs-punctuation">(</span><span class="hljs-variable">if</span> <span class="hljs-variable">applicable</span><span class="hljs-punctuation">)</span>     <span class="hljs-variable">Results</span>                              <span class="hljs-punctuation">[</span><span class="hljs-variable">Conclusion</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">80</span>         <span class="hljs-variable">http</span>                             <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Open</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>            <span class="hljs-punctuation">[</span><span class="hljs-built_in">Open</span><span class="hljs-punctuation">]</span>
+
+
+<span class="hljs-built_in">Closed</span><span class="hljs-operator">/</span><span class="hljs-variable">Filtered</span><span class="hljs-operator">/</span><span class="hljs-variable">Unfiltered</span> <span class="hljs-variable">ports</span><span class="hljs-operator">:</span>
+<span class="hljs-variable">Port</span>       <span class="hljs-variable">Service</span> <span class="hljs-variable">Name</span> <span class="hljs-punctuation">(</span><span class="hljs-variable">if</span> <span class="hljs-variable">applicable</span><span class="hljs-punctuation">)</span>     <span class="hljs-variable">Results</span>                              <span class="hljs-punctuation">[</span><span class="hljs-variable">Conclusion</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">81</span>         <span class="hljs-variable">hosts2</span><span class="hljs-operator">-</span><span class="hljs-variable">ns</span>                        <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">82</span>         <span class="hljs-variable">xfer</span>                             <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">83</span>         <span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">ml</span><span class="hljs-operator">-</span><span class="hljs-variable">dev</span>                       <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">84</span>         <span class="hljs-variable">ctf</span>                              <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">85</span>         <span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">ml</span><span class="hljs-operator">-</span><span class="hljs-variable">dev</span>                       <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">86</span>         <span class="hljs-variable">mfcobol</span>                          <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">87</span>         <span class="hljs-variable">priv</span><span class="hljs-operator">-</span><span class="hljs-variable">term</span><span class="hljs-operator">-</span><span class="hljs-variable">l</span>                      <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">88</span>         <span class="hljs-variable">kerberos</span><span class="hljs-operator">-</span><span class="hljs-variable">sec</span>                     <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">89</span>         <span class="hljs-variable">su</span><span class="hljs-operator">-</span><span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">tg</span>                        <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+
+<span class="hljs-number">90</span>         <span class="hljs-variable">dnsix</span>                            <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
+</code></pre>
+<h2 id="upcoming-features">upcoming features</h2>
+<ul>
+<li>OS fingerprinting: Attempt to identify the operating system of the target host.</li>
+<li>Simplified Version detection: Attempts to Identify the versions of running services on some open ports.</li>
+<li>Configuration file for multiple host scanning</li>
+</ul>
+
+          </div>
+          <style type='text/css'>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>

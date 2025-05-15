@@ -234,7 +234,7 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 	align-items: center;
 	column-gap: calc(var(--gap-1) / 2);
 	&::after {
-		content: url("./svgs/github.svg");
+		content: url("./svgs/link.svg");
 		display: block;
 		height: 16px;
 		width: 16px;
