@@ -1,0 +1,1092 @@
+
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
+	<title>Webserv</title>
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <p><img src="https://github.com/user-attachments/assets/f0e1b3d8-5e35-4965-93a1-acf85a5c98b6" alt="ascii-text-art (1)" /></p>
+<h1 id="42cursus-webserv">Webserv</h1>
+<a target="_blank" href="https://github.com/beddinao/Webserv">Code</a>
+<h2 id="overview">Overview</h2>
+<p>This project involves developing a robust HTTP server in C++98, designed to handle basic web traffic and serve static content. Our server will conform to HTTP/1.1 standards and utilize non-blocking I/O operations for efficient resource management.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#project-description">Project Description</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#technical-requirements">Technical Requirements</a></li>
+<li><a href="#team-members-and-roles">Team Members and Roles</a></li>
+<li><a href="#task-assignments">Task Assignments</a></li>
+<li><a href="#team-composition-and-initial-assignments">Team Composition and Initial Assignments</a></li>
+<li><a href="#topics">Topics</a></li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>HTTP Protocol Support</strong>: Implements essential features of the HTTP/1.1 protocol, including methods such as <strong>GET</strong>, <strong>POST</strong>, and <strong>DELETE</strong>.</li>
+<li><strong>Concurrency Handling</strong>: Utilizes non-blocking sockets along with I/O multiplexing techniques (<code>select</code>, <code>poll</code>, <code>epoll</code>, and <code>kqueue</code>) to manage multiple client connections efficiently.</li>
+<li><strong>Static Content Serving</strong>: Capable of serving HTML, CSS, and JavaScript files, enabling the hosting of static websites.</li>
+<li><strong>Error Handling</strong>: Provides meaningful error responses and default error pages, ensuring the server robustly handles incorrect or unexpected client requests.</li>
+<li><strong>Customizable Configuration</strong>: Includes a flexible configuration system inspired by NGINX, allowing adjustments for ports, server names, and routing behaviors without altering the server code.</li>
+</ul>
+<h2 id="technical-requirements">Technical Requirements</h2>
+<ul>
+<li><strong>Programming Language</strong>: C++98</li>
+<li><strong>Development Tools</strong>: Git, Make, GCC, Valgrind</li>
+<li><strong>Testing Tools</strong>: Stress testing with <code>siege</code> or <code>ab</code> (Apache Bench)</li>
+</ul>
+<h2 id="team-members-and-roles">Team Members and Roles</h2>
+<ul>
+<li><a target="_blank" href="https://github.com/hsobane">Hassan Sobane</a> (hsobane): Network Infrastructure and Server Setup</li>
+<li><a target="_blank" href="https://github.com/beddinao">Bilal Eddinaoui</a> (beddinao): HTTP Protocol Handling</li>
+<li><a target="_blank" href="https://github.com/zelhajou">Zakaria Elhajoui</a> (zelhajou): Configuration Management and Logging</li>
+</ul>
+<h2 id="task-assignments">Task Assignments</h2>
+<ul>
+<li><p><strong>hsobane - Network Infrastructure and Server Setup</strong></p>
+<ul>
+<li>Socket Creation and Management</li>
+<li>Connection Handling</li>
+<li>I/O Multiplexing</li>
+<li>Error Handling and Resilience</li></ul></li>
+<li><p><strong>beddinao - HTTP Protocol Handling</strong></p>
+<ul>
+<li>Request Parsing</li>
+<li>Response Generation</li>
+<li>Support HTTP Methods</li>
+<li>Static File Serving</li>
+<li>File Upload Handling</li></ul></li>
+<li><p><strong>zelhajou - Configuration Management and Logging</strong></p>
+<ul>
+<li>Configuration File Parsing</li>
+<li>Apply Configuration Settings</li>
+<li>Logging System</li></ul></li>
+</ul>
+<h2 id="team-composition-and-initial-assignments">Team Composition and Initial Assignments</h2>
+<h3 id="1-network-infrastructure-and-server-setup">1. Network Infrastructure and Server Setup</h3>
+<p>The network infrastructure and server setup are crucial components of the project, as they form the foundation for handling incoming connections and managing client requests.</p>
+<p><details><br />
+<summary><b>Requirements from Subject</b></summary></p>
+<ul>
+<li>Must not crash under any circumstances.</li>
+<li>Must handle configuration files.</li>
+<li>Must be non-blocking and use one <code>poll()</code> (or equivalent) for all I/O operations.</li>
+<li>Ensure resilience and continuous availability under stress tests.<br />
+</details></li>
+</ul>
+<p><details><br />
+<summary><b>Tasks for Network Infrastructure and Server Setup</b></summary></p>
+<p><details><br />
+<summary><b>Task 1: Setup Basic Server Framework</b></summary></p>
+<p><strong>Objective</strong>: Establish a basic server framework that can handle TCP connections.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><p><strong>Creating Main Entry Point:</strong></p>
+<ul>
+<li>Developing <code>main.cpp</code>, which includes the main function where the server starts executing.</li>
+<li>Setting up basic command line parsing to read arguments like configuration file paths or port numbers.</li></ul></li>
+<li><p><strong>Initializing Server Class:</strong></p>
+<ul>
+<li>Designing a <code>Server</code> class that encapsulates all server-related functionalities.</li>
+<li>Implementing constructors and destructors, considering resource management for network connections.<br />
+</details></li></ul></li>
+</ol>
+<p><details><br />
+<summary><b>Task 2: Implementing Socket Programming</b></summary></p>
+<p><strong>Objective</strong>: Develop the socket programming foundation that will allow the server to accept and manage client connections.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><p><strong>Socket Creation:</strong></p>
+<ul>
+<li>Using the <code>socket()</code> system call to create a socket that listens for incoming connections.</li>
+<li>Ensuring that the socket is set to the Internet domain (AF<em>INET) and uses TCP (SOCK</em>STREAM).</li></ul></li>
+<li><p><strong>Binding Socket:</strong></p>
+<ul>
+<li>Binding the socket to an IP address and port. Typically, servers bind to <code>INADDR_ANY</code> to accept connections on any interface and a specific port from the server configuration.</li>
+<li>Handling potential errors in binding, such as "Address already in use," with appropriate error messages and retries if necessary.</li></ul></li>
+<li><p><strong>Listening on Socket:</strong></p>
+<ul>
+<li>Setting the socket to listen for incoming connections with <code>listen()</code>.</li>
+<li>Defining the backlog queue length, which determines how many pending connections can queue up.<br />
+</details></li></ul></li>
+</ol>
+<p><details><br />
+<summary><b>Task 3: Accepting and Managing Connections</b></summary></p>
+<p><strong>Objective</strong>: Efficiently accept incoming client connections and manage these using either blocking or non-blocking sockets.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><p><strong>Accepting Connections:</strong></p>
+<ul>
+<li>Continuously checking for incoming connections using <code>accept()</code>, which will block until a new connection is made unless non-blocking sockets are used.</li>
+<li>For each accepted connection, possibly spawning a new thread or delegating to a worker depending on the concurrency model chosen (e.g., multi-threading, event-driven).</li></ul></li>
+<li><p><strong>Non-Blocking I/O:</strong></p>
+<ul>
+<li>Setting sockets to non-blocking mode using <code>fcntl()</code> to prevent the server from being stalled by I/O operations.</li>
+<li>This is essential for implementing an event-driven model that uses <code>select()</code>, <code>poll()</code>, or <code>epoll()</code> to handle multiple connections efficiently.<br />
+</details></li></ul></li>
+</ol>
+<p><details><br />
+<summary><b>Task 4: Using Multiplexing for Handling Connections</b></summary></p>
+<p><strong>Objective</strong>: Implement I/O multiplexing to handle multiple connections simultaneously without using multiple threads for each connection.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><p><strong>Select Implementation:</strong></p>
+<ul>
+<li>Implementing <code>select()</code> as the starting point for multiplexing, which monitors multiple file descriptors to see if any of them are ready for reading or writing.</li>
+<li>Setting up <code>fd_set</code> for read and write descriptors and using <code>select()</code> to determine which sockets can perform non-blocking read or write operations.</li></ul></li>
+<li><p><strong>Advanced Multiplexing (Optional):</strong></p>
+<ul>
+<li>If performance under <code>select()</code> is limiting, considering using more scalable methods like <code>epoll()</code> on Linux or <code>kqueue()</code> on BSD systems, which handle large numbers of simultaneous connections more efficiently.</li>
+<li>Implementing these systems in a modular way so that the underlying multiplexing mechanism can be switched based on the deployment environment or configuration settings.<br />
+</details></li></ul></li>
+</ol>
+<p><details><br />
+<summary><b>Task 5: Testing and Validation</b></summary></p>
+<p><strong>Objective</strong>: Ensure the network infrastructure is robust and can handle various network conditions.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li><p><strong>Unit Testing:</strong></p>
+<ul>
+<li>Writing unit tests for each component (socket creation, binding, listening, accepting).</li>
+<li>Testing error handling and edge cases, such as what happens if the server runs out of available ports or the maximum number of connections is reached.</li></ul></li>
+<li><p><strong>Integration Testing:</strong></p>
+<ul>
+<li>Testing the server with simulated client connections.</li>
+<li>Using tools like <code>telnet</code> or <code>nc</code> (Netcat) to connect to the server and send requests.</li></ul></li>
+<li><p><strong>Stress Testing:</strong></p>
+<ul>
+<li>Using a tool like <code>siege</code> or <code>ab</code> (Apache Bench) to stress test the server with a large number of concurrent connections.<br />
+</details></li></ul></li>
+</ol>
+<p></details></p>
+<hr />
+<h3 id="2-http-protocol-handling">2. HTTP Protocol Handling</h3>
+<p>The HTTP protocol handling component is responsible for parsing incoming HTTP requests, generating appropriate responses, and serving static content to clients.</p>
+<p><details></p>
+<p><summary><b>Requirements from Subject</b></summary></p>
+<ul>
+<li>Must support GET, POST, and DELETE methods.</li>
+<li>Must serve static websites.</li>
+<li>Must have default error pages.</li>
+<li>Must handle file uploads.</li>
+</ul>
+<p></details></p>
+<p><details></p>
+<p><summary><b>Tasks for HTTP Protocol Handling</b></summary></p>
+<p><details></p>
+<p><summary><b>Task 1: Design and Implement HTTP Request Parsing </b></summary></p>
+<p><strong>Objective</strong>: Develop a system to correctly parse incoming HTTP requests and extract vital information such as the method, URI, version, headers, and body.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><p><strong>Understanding HTTP Request Structure</strong>:</p>
+<ul>
+<li>Familiarize with the structure of an HTTP request, which consists of a request line, headers, and an optional body.</li>
+<li>The request line includes the method (GET, POST, etc.), URI, and HTTP version.</li></ul></li>
+<li><p><strong>Implement Request Parser</strong>:</p>
+<ul>
+<li>Create a class <code>HTTPRequest</code> that contains properties for method, URI, headers, version, and body.</li>
+<li>Implement the parsing logic that reads the incoming request data and populates the <code>HTTPRequest</code> object.</li>
+<li>Handle different types of HTTP headers and manage content-length for handling the body of POST requests.</li></ul></li>
+<li><p><strong>Error Handling in Parsing</strong>:</p>
+<ul>
+<li>Implement error checking during parsing to handle malformed requests.</li>
+<li>Generate appropriate error responses for bad requests, such as <code>400 Bad Request</code>.<br />
+</details></li></ul></li>
+</ol>
+<p><details></p>
+<p><summary><b>Task 2: Implement HTTP Response Generation</b></summary></p>
+<p><strong>Objective</strong>: Construct HTTP responses based on the server's handling of the request, including generating headers and the appropriate body content.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><p><strong>Design Response Generator</strong>:</p>
+<ul>
+<li>Create a class <code>HTTPResponse</code> that includes properties for the status code, headers, and body.</li>
+<li>Implement methods to easily add headers, set the status code, and append data to the body.</li></ul></li>
+<li><p><strong>Generating Responses</strong>:</p>
+<ul>
+<li>Based on the parsed request and server logic (e.g., fetching a static file or handling a form submission), fill the <code>HTTPResponse</code> object.</li>
+<li>Ensure proper HTTP status codes are used (e.g., 200 OK, 404 Not Found).</li></ul></li>
+<li><p><strong>Content-Type Handling</strong>:</p>
+<ul>
+<li>Implement a mechanism to correctly identify and set the <code>Content-Type</code> header based on the file requested or data being served.</li></ul></li>
+</ol>
+<p></details></p>
+<p><details></p>
+<p><summary><b>Task 3: Serve Static Content</b></summary></p>
+<p><strong>Objective</strong>: Handle requests for static files like HTML, CSS, and images stored in the server's file system.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>File System Access</strong>:<ul>
+<li>Implement file reading capabilities that allow the server to fetch and serve files located in the server's document root or specified directories.</li>
+<li>Handle file not found or access errors by responding with <code>404 Not Found</code> or<code>403 Forbidden</code>.</li></ul></li>
+<li><strong>MIME Types</strong>:<ul>
+<li>Set up a MIME type dictionary that maps file extensions to their corresponding MIME types, ensuring that the server responds with the correct <code>Content-Type</code>.</li>
+<li>Use this dictionary when constructing the headers for static content responses.</li></ul></li>
+</ol>
+<p></details></p>
+<p><details></p>
+<p><summary><b>Task 4: Implement Support for Different HTTP Methods</b></summary></p>
+<p><strong>Objective</strong>: Support multiple HTTP methods, initially focusing on GET, POST, and DELETE.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><p><strong>GET Method</strong>:</p>
+<ul>
+<li>Implement handling for GET requests where the server returns the requested resource or a 404 if not found.</li></ul></li>
+<li><p><strong>POST Method</strong>:</p>
+<ul>
+<li>Handle POST requests, typically used for submitting forms. Process the data sent in the request body and possibly store it or respond based on the input.</li></ul></li>
+<li><p><strong>DELETE Method</strong>:</p>
+<ul>
+<li>Implement DELETE requests that allow clients to request the deletion of a resource. Ensure proper permissions and conditions are checked before deletion.<br />
+</details></li></ul></li>
+</ol>
+<p><details></p>
+<p><summary><b>Task 5: Testing and Validation</b></summary></p>
+<p><strong>Objective</strong>: Ensure the HTTP handling components function correctly and robustly across a range of expected and edge-case scenarios.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Unit Testing</strong>:<ul>
+<li>Write comprehensive unit tests for each part of the HTTP handling, including request parsing, response generation, and method handling.</li></ul></li>
+<li><strong>Integration Testing</strong>:<ul>
+<li>Test the integration of HTTP handling with the networking code to ensure that requests are correctly received, processed, and responded to.</li></ul></li>
+<li><strong>Functional Testing</strong>:<ul>
+<li>Use tools like Postman or curl to test the server’s response to various HTTP requests, checking for correctness in headers, status codes, and body content.<br />
+</details></li></ul></li>
+</ol>
+<p></details></p>
+<hr />
+<h3 id="3-configuration-management-and-logging">3. Configuration Management and Logging</h3>
+<p>The configuration management and logging component are responsible for reading and applying server settings from external files and providing detailed logs for monitoring and debugging purposes.</p>
+<p><details></p>
+<p><summary><b>Requirements from Subject</b></summary></p>
+<ul>
+<li><p>The server must take a configuration file as an argument or use a default path.</p></li>
+<li><p>Allow configuration of ports, server names, default error pages, and other settings as specified in the configuration file.</p></li>
+<li><p>Implement a robust logging mechanism to aid in monitoring and debugging. (<strong>Optional</strong>)</p>
+<p></details></p></li>
+</ul>
+<p><details></p>
+<p><summary><b>Tasks for Network Infrastructure and Server Setup</b></summary></p>
+<p><details></p>
+<p><summary><b>Task 1: Design and Implement Configuration Management</b></summary></p>
+<p><strong>Objective</strong>: Develop a system to read, parse, and apply configuration settings from external files to control server behavior, such as listening ports, server root, and other operational parameters.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><p><strong>Understanding Configuration Requirements</strong>:</p>
+<ul>
+<li>Determine which server aspects should be configurable, including IP binding, port numbers, document root, default error pages, and security settings like maximum allowed connections and timeouts.</li></ul></li>
+<li><p><strong>Configuration File Format</strong>:</p>
+<ul>
+<li>Decide on a configuration file format like Nginx’s <code>nginx.conf</code></li></ul></li>
+<li><p><strong>Implement Configuration Parser</strong>:</p>
+<ul>
+<li>Create a <code>ConfigParser</code> class that reads and parses the configuration file.</li>
+<li>Use standard file I/O to read the configuration file and parse it into a structured format that the server can use.</li>
+<li>Validate configuration values and provide defaults where necessary.</li></ul></li>
+<li><p><strong>Apply Configuration</strong>:</p>
+<ul>
+<li>Integrate the configuration settings into the server’s startup sequence.</li>
+<li>Ensure that the server behaves according to the settings specified in the configuration file, such as starting on the correct port and serving files from the specified document root.</li></ul></li>
+</ol>
+<p></details></p>
+<p><details></p>
+<p><summary><b>Task 2: Logging as an Optional Enhancement</b> </summary></p>
+<p><strong>Objective</strong>: Set up a logging system to record important server events, errors, and operational data to aid in troubleshooting and monitoring server performance.</p>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Design the Logging System</strong>:<ul>
+<li>Determine the types of events that need logging, such as errors, warnings, information messages, and debug-level data.</li>
+<li>Decide on the format and detail level of log messages. Include timestamps, log levels, and descriptive messages.</li></ul></li>
+<li><strong>Implement Logger Class</strong>:<ul>
+<li>Create a <code>Logger</code> class that supports various log levels (e.g., DEBUG, INFO, WARN, ERROR).</li>
+<li>Implement methods for each log level, e.g., <code>logInfo()</code>, <code>logError()</code>.</li>
+<li>Use mutexes or other synchronization methods to make the logger thread-safe if the server handles multiple concurrent connections.</li></ul></li>
+<li><strong>Log Output Options</strong>:<ul>
+<li>Allow logging output to be directed to different destinations, such as the console, a file, or even a network logging service.</li>
+<li>Implement file-based logging with log rotation to prevent log files from growing indefinitely.</li></ul></li>
+<li><strong>Integration with Server Operations</strong>:<ul>
+<li>Integrate logging calls throughout the server code, particularly at critical operations like starting up, shutting down, handling requests, and catching exceptions.</li>
+<li>Log all exceptions and significant state changes within the server to provide a clear trace of what happens during operation.</li></ul></li>
+</ol>
+<p></details></p>
+<p><details></p>
+<p><summary><b>Task 3: Testing and Validation</b></summary></p>
+<ul>
+<li><strong>Objective</strong>: Ensure the configuration and logging functionalities are robust, perform as expected, and do not introduce overhead or complexities that could impact the server's performance.</li>
+</ul>
+<p><strong>Steps</strong>:</p>
+<ol>
+<li><strong>Unit Testing</strong>:<ul>
+<li>Write tests for the configuration parsing to handle various edge cases and malformed configurations.</li>
+<li>Test the logging system for correct log level handling and file rotation.</li></ul></li>
+<li><strong>Integration Testing</strong>:<ul>
+<li>Verify that configuration settings are correctly applied during server startup.</li>
+<li>Ensure that log messages accurately reflect server operations and states under different scenarios.</li></ul></li>
+<li><strong>Performance Evaluation</strong>:<ul>
+<li>Assess the impact of logging on server performance, especially under high load, and optimize as necessary.</li></ul></li>
+</ol>
+<p></details></p>
+<p></details></p>
+<h2 id="topics">Topics</h2>
+<h3 id="basic-concepts">Basic concepts</h3>
+<h4 id="what-is-a-web-server">What is a Web Server?</h4>
+<p>A web server is a software application that serves content to clients over the internet or an intranet using the HTTP protocol. It processes incoming requests from clients, retrieves the requested resources, and sends them back as responses. Web servers can serve static content like HTML, CSS, and images, as well as dynamic content generated by applications running on the server.</p>
+<ul>
+<li><a target="_blank" href="https://youtu.be/VXmvM2QtuMU">What is a Server? (Deepdive)</a></li>
+<li><a target="_blank" href="https://www.youtube.com/watch?v=9J1nJOivdyw&t=313s">Web Server Concepts and Examples</a></li>
+<li><a target="_blank" href="https://www.youtube.com/watch?v=7GBlCinu9yg">Coding a Web Server in 25 Lines - Computerphile</a></li>
+</ul>
+<h4 id="endianness">Endianness</h4>
+<p>Endianness refers to the order in which bytes are stored in memory. There are two main types of endianness: big-endian and little-endian. Web servers and clients must agree on the endianness to correctly interpret data sent over the network.</p>
+<p><img src="https://github.com/user-attachments/assets/3257c5e5-403d-47db-9bc2-f0ccdb79846e" alt="little-big-endian" /></p>
+<ul>
+<li><p><strong>Big-endian</strong>: Most significant byte is stored at the lowest memory address.</p></li>
+<li><p><strong>Little-endian</strong>: Least significant byte is stored at the lowest memory address.</p>
+<ul>
+<li><a target="_blank" href="https://youtu.be/NcaiHcBvDR4">Computerphile - Endianness Explained With an Egg</a></li>
+<li><a target="_blank" href="https://youtu.be/T1C9Kj_78ek">Computerphile - Lecture 22. Big Endian and Little Endian</a></li>
+<li><a target="_blank" href="https://www.freecodecamp.org/news/what-is-endianness-big-endian-vs-little-endian/">What is Endianness? Big-Endian vs Little-Endian Explained with Examples</a></li>
+<li><a target="_blank" href="https://www.geeksforgeeks.org/little-and-big-endian-mystery/">geeksforgeeks - What is Endianness? Big-Endian & Little-Endian</a></li></ul></li>
+</ul>
+<h3 id="tcpip-protocol-suite">TCP/IP Protocol Suite</h3>
+<p>The TCP/IP protocol suite is a set of communication protocols used to connect devices over the internet. It consists of several layers, each responsible for different aspects of network communication.</p>
+<ul>
+<li><p><strong>IP (Internet Protocol)</strong>:</p>
+<p><img src="https://github.com/user-attachments/assets/f9a63716-3a70-494a-9926-cbdeab056f76" alt="ip" /></p>
+<ul>
+<li>An IP address is a unique identifier for a device on a network.</li>
+<li>IPv4 addresses are 32-bit numbers usually represented in dotted-decimal format (e.g., 192.168.1.1).</li>
+<li>IPv6 addresses are 128-bit numbers represented in hexadecimal (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).</li></ul></li>
+<li><p><strong>TCP (Transmission Control Protocol)</strong>:</p>
+<p><img src="https://github.com/user-attachments/assets/f37c6f88-a2e9-406c-a358-d211d0022e8d" alt="tcp-1" /></p>
+<ul>
+<li>A connection-oriented protocol that provides reliable, ordered, and error-checked delivery of a stream of bytes.</li>
+<li><strong>Three-way handshake</strong>:<ol>
+<li>Client sends a SYN packet to the server.</li>
+<li>Server sends a SYN-ACK packet to the client.</li>
+<li>Client sends an ACK packet to the server.</li></ol></li>
+<li><strong>Four-way handshake</strong>:<ol>
+<li>Client sends a FIN packet to the server.</li>
+<li>Server sends an ACK packet to the client.</li>
+<li>Server sends a FIN packet to the client.</li>
+<li>Client sends an ACK packet to the server.</li></ol></li></ul></li>
+<li><p><strong>UDP (User Datagram Protocol)</strong>:</p>
+<ul>
+<li>A connectionless protocol that provides unreliable, unordered, and error-checked delivery of a stream of bytes.</li>
+<li><strong>Connectionless</strong>: No connection is established before data is sent.</li>
+<li><strong>Unreliable</strong>: No guarantee that data will be delivered.</li>
+<li><strong>Unordered</strong>: No guarantee that data will be received in the order it was sent.</li></ul></li>
+<li><p><strong>Ports</strong>:</p>
+<ul>
+<li>A port is a communication endpoint that identifies a specific process or service on a host.</li>
+<li>Ports are identified by a 16-bit number ranging from 0 to 65535.</li>
+<li><strong>Well-known ports</strong>:<ul>
+<li>Ports ranging from 0 to 1023 are reserved for system services.</li></ul></li>
+<li><strong>Registered ports</strong>:<ul>
+<li>Ports ranging from 1024 to 49151 are registered with the IANA.</li></ul></li>
+<li><strong>Dynamic ports</strong>:<ul>
+<li>Ports ranging from 49152 to 65535 are used for private or temporary purposes.</li></ul></li></ul></li>
+<li><p><strong>Socket</strong>:</p>
+<p><img src="https://github.com/user-attachments/assets/5e79d8ba-469a-489b-b4cf-9eb9ba762fa4" alt="sockets" /></p>
+<ul>
+<li>A socket is an endpoint for communication between two machines.</li>
+<li>A socket is identified by an IP address and a port number.</li>
+<li><strong>Server socket</strong>:<ul>
+<li>A server socket listens for incoming connections.</li></ul></li>
+<li><strong>Client socket</strong>:<ul>
+<li>A client socket initiates a connection to a server socket.</li></ul></li></ul></li>
+<li><p><a target="_blank" href="https://www.youtube.com/watch?v=d-zn-wv4Di8&t=246s">What is a Protocol? (Deepdive)</a></p></li>
+</ul>
+<h3 id="socket-programming">Socket Programming</h3>
+<p>Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket listens on a particular port at an IP, while the other socket reaches out to the other to form a connection.</p>
+<ul>
+<li><p><strong>Server-Client Model</strong>:</p>
+<ul>
+<li>A server is a program that listens for incoming connections.</li>
+<li>A client is a program that initiates a connection to a server.</li></ul></li>
+<li><p><strong>Socket</strong>:</p>
+<ul>
+<li>A socket is an endpoint for communication between two machines.</li>
+<li>A socket is identified by an IP address and a port number.</li>
+<li><strong>Server socket</strong>:<ul>
+<li>A server socket listens for incoming connections.</li></ul></li>
+<li><strong>Client socket</strong>:<ul>
+<li>A client socket initiates a connection to a server socket.</li></ul></li></ul></li>
+<li><p><strong>TCP Server-Client</strong>:</p>
+<ul>
+<li><p><details><br />
+<summary>
+    Server
+</summary></p>
+<ol>
+<li><p>Create a socket using the <code>socket()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> sockfd = socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// SOCK_STREAM: Type (TCP for reliable, connection-oriented service).</span>
+<span class="hljs-comment">// 0: Protocol (0 lets the system choose the appropriate protocol).</span>
+</code></pre></li>
+<li><p>Bind the socket to an address using the <code>bind()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">addr</span>;</span>
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = INADDR_ANY;
+addr.sin_port = htons(<span class="hljs-number">8080</span>);
+
+bind(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, <span class="hljs-keyword">sizeof</span>(addr));
+
+<span class="hljs-comment">// struct sockaddr_in: Structure for IPv4 addresses.</span>
+<span class="hljs-comment">// sin_family: Address family for IPv4.</span>
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// sin_addr.s_addr: IP address of the host.</span>
+<span class="hljs-comment">// sin_port: Port number.</span>
+<span class="hljs-comment">// INADDR_ANY: Accept connections to any IP address.</span>
+<span class="hljs-comment">// htons(): Convert port number to network byte order.</span>
+</code></pre></li>
+<li><p>Listen for incoming connections using the <code>listen()</code> system call.</p>
+<pre><code class="hljs c language-c">listen(sockfd, SOMAXCONN);
+
+<span class="hljs-comment">// SOMAXCONN: Maximum number of pending connections in the listen queue.</span>
+</code></pre></li>
+<li><p>Accept a connection using the <code>accept()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> new_socket = accept(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;address, &amp;addrlen);
+
+<span class="hljs-comment">// accept(): Waits for an incoming connection and returns a new socket descriptor.</span>
+<span class="hljs-comment">// new_socket: Socket descriptor for the new connection.</span>
+</code></pre></li>
+<li><p>Send and receive data using the <code>send()</code> and <code>recv()</code> system calls.<br />
+<code>c
+send(new_socket, "Hello, World!", 13, 0);
+recv(new_socket, buffer, 1024, 0);
+// send(): Sends data to the connected socket.
+// recv(): Receives data from the connected socket.
+// buffer: Buffer to store received data.
+</code><br />
+</details></p></li></ol></li>
+<li><p><details><br />
+<summary>
+    Client
+</summary></p>
+<ol>
+<li><p>Create a socket using the <code>socket()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> sockfd = socket(AF_INET, SOCK_STREAM, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// SOCK_STREAM: Type (TCP for reliable, connection-oriented service).</span>
+<span class="hljs-comment">// 0: Protocol (0 lets the system choose the appropriate protocol).</span>
+</code></pre></li>
+<li><p>Connect to a server using the <code>connect()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">addr</span>;</span>
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = inet_addr(<span class="hljs-string">&quot;a.b.c.d&quot;</span>);
+addr.sin_port = htons(<span class="hljs-number">8080</span>);
+
+connect(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, <span class="hljs-keyword">sizeof</span>(addr));
+
+<span class="hljs-comment">// inet_addr(): Converts an IP address in dotted-decimal notation to a long.</span>
+<span class="hljs-comment">// htons(): Convert port number to network byte order.</span>
+</code></pre></li>
+<li><p>Send and receive data using the <code>send()</code> and <code>recv()</code> system calls.</p>
+<pre><code class="hljs c language-c">send(sockfd, <span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-number">13</span>, <span class="hljs-number">0</span>);
+recv(sockfd, buffer, <span class="hljs-number">1024</span>, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// send(): Sends data to the connected socket.</span>
+<span class="hljs-comment">// recv(): Receives data from the connected socket.</span>
+<span class="hljs-comment">// buffer: Buffer to store received data.</span>
+</code></pre>
+<p></details></p></li></ol></li></ul></li>
+<li><p><strong>UDP Server-Client</strong>:</p>
+<ul>
+<li><p><details><br />
+<summary>
+    Server
+</summary></p>
+<ol>
+<li><p>Create a socket using the <code>socket()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> sockfd = socket(AF_INET, SOCK_DGRAM, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// SOCK_DGRAM: Type (UDP for unreliable, connectionless service).</span>
+<span class="hljs-comment">// 0: Protocol (0 lets the system choose the appropriate protocol).</span>
+</code></pre></li>
+<li><p>Bind the socket to an address using the <code>bind()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">addr</span>;</span>
+addr.sin_family = AF_INET;
+addr.sin_addr.s_addr = INADDR_ANY;
+addr.sin_port = htons(<span class="hljs-number">8080</span>);
+
+bind(sockfd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, <span class="hljs-keyword">sizeof</span>(addr));
+
+<span class="hljs-comment">// struct sockaddr_in: Structure for IPv4 addresses.</span>
+<span class="hljs-comment">// sin_family: Address family for IPv4.</span>
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// sin_addr.s_addr: IP address of the host.</span>
+<span class="hljs-comment">// sin_port: Port number.</span>
+<span class="hljs-comment">// INADDR_ANY: Accept connections to any IP address.</span>
+<span class="hljs-comment">// htons(): Convert port number to network byte order.</span>
+<span class="hljs-comment">// bind(): Assigns the address specified by addr to the socket sockfd.</span>
+</code></pre></li>
+<li><p>Send and receive data using the <code>sendto()</code> and <code>recvfrom()</code> system calls.</p>
+<pre><code class="hljs c language-c">sendto(sockfd, <span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-number">13</span>, <span class="hljs-number">0</span>, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, <span class="hljs-keyword">sizeof</span>(addr));
+recvfrom(sockfd, buffer, <span class="hljs-number">1024</span>, <span class="hljs-number">0</span>, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, &amp;addrlen);
+
+<span class="hljs-comment">// sendto(): Sends data to a specific address.</span>
+<span class="hljs-comment">// recvfrom(): Receives data from a specific address.</span>
+</code></pre>
+<p></details></p></li></ol></li>
+<li><p><details><br />
+<summary>
+    Client
+</summary></p>
+<ol>
+<li><p>Create a socket using the <code>socket()</code> system call.</p>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> sockfd = socket(AF_INET, SOCK_DGRAM, <span class="hljs-number">0</span>);
+
+<span class="hljs-comment">// AF_INET: Address family for IPv4.</span>
+<span class="hljs-comment">// SOCK_DGRAM: Type (UDP for unreliable, connectionless service).</span>
+<span class="hljs-comment">// 0: Protocol (0 lets the system choose the appropriate protocol).</span>
+</code></pre></li>
+<li><p>Send and receive data using the <code>sendto()</code> and <code>recvfrom()</code> system calls.</p>
+<pre><code class="hljs c language-c">sendto(sockfd, <span class="hljs-string">&quot;Hello, World!&quot;</span>, <span class="hljs-number">13</span>, <span class="hljs-number">0</span>, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, <span class="hljs-keyword">sizeof</span>(addr));
+recvfrom(sockfd, buffer, <span class="hljs-number">1024</span>, <span class="hljs-number">0</span>, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;addr, &amp;addrlen);
+
+<span class="hljs-comment">// sendto(): Sends data to a specific address.</span>
+<span class="hljs-comment">// recvfrom(): Receives data from a specific address.</span>
+</code></pre>
+<p></details></p></li></ol></li></ul></li>
+<li><p><a target="_blank" href="https://www.codequoi.com/en/sockets-and-network-programming-in-c/">Sockets and Network Programming in C</a></p></li>
+<li><p><a target="_blank" href="https://youtu.be/1HF-UAGcuvs">fun with sockets: let's write a webserver!</a></p></li>
+</ul>
+<h3 id="non-blocking-io-and-multiplexing">Non-blocking I/O and Multiplexing</h3>
+<p>Non-blocking I/O and multiplexing are techniques used to handle multiple I/O operations simultaneously without blocking the execution of the program.</p>
+<ul>
+<li><p><strong>Non-blocking I/O</strong>:</p>
+<ul>
+<li><p><strong>Blocking I/O</strong>: The process waits until the I/O operation is complete.</p></li>
+<li><p><strong>Non-blocking I/O</strong>:</p>
+<ul>
+<li><p>The process continues executing while the I/O operation is in progress.</p>
+<pre><code class="hljs c language-c">fcntl(sockfd, F_SETFL, O_NONBLOCK);
+
+<span class="hljs-comment">// fcntl(): Performs operations on file descriptors.</span>
+</code></pre></li></ul></li>
+<li><p><strong>Multiplexing</strong>:</p>
+<ul>
+<li><p><details><br />
+<summary>
+    select():
+</summary></p>
+<ul>
+<li>Monitors multiple file descriptors for I/O readiness.</li>
+<li><strong>Read Set</strong>: Contains file descriptors that are ready for reading.</li>
+<li><strong>Write Set</strong>: Contains file descriptors that are ready for writing.</li>
+<li><strong>Error Set</strong>: Contains file descriptors that have errors.</li>
+<li><strong>Timeout</strong>: Specifies the maximum time to wait for an event.</li>
+<li><strong>select()</strong> returns the number of ready file descriptors.</li>
+<li><strong>FD_ISSET()</strong>: Checks if a file descriptor is in a set.</li>
+<li><strong>FD_SET()</strong>: Adds a file descriptor to a set.</li>
+<li><strong>FD_CLR()</strong>: Removes a file descriptor from a set.</li>
+<li><strong>FD_ZERO()</strong>: Clears a set.</li></ul>
+<pre><code class="hljs c language-c">fd_set readfds;
+FD_ZERO(&amp;readfds);
+FD_SET(sockfd, &amp;readfds);
+
+select(sockfd + <span class="hljs-number">1</span>, &amp;readfds, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);
+
+<span class="hljs-keyword">if</span> (FD_ISSET(sockfd, &amp;readfds)) {
+    <span class="hljs-comment">// sockfd is ready for reading.</span>
+}
+
+<span class="hljs-comment">// FD_ZERO: Clears a set.</span>
+<span class="hljs-comment">// FD_SET: Adds a file descriptor to a set.</span>
+<span class="hljs-comment">// FD_CLR: Removes a file descriptor from a set.</span>
+<span class="hljs-comment">// FD_ISSET: Checks if a file descriptor is in a set.</span>
+</code></pre>
+<p></details></p></li>
+<li><p><details><br />
+<summary>
+    poll():
+</summary></p>
+<ul>
+<li>Monitors multiple file descriptors for I/O readiness.</li>
+<li><strong>Timeout</strong>:<ul>
+<li>Specifies the maximum time to wait for an event.</li></ul></li>
+<li><strong>poll()</strong> returns the number of ready file descriptors.</li></ul>
+<pre><code class="hljs c language-c"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pollfd</span> <span class="hljs-title">fds</span>;</span>
+fds.fd = sockfd;
+fds.events = POLLIN;
+
+poll(&amp;fds, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>);
+
+<span class="hljs-keyword">if</span> (fds.revents &amp; POLLIN) {
+    <span class="hljs-comment">// sockfd is ready for reading.</span>
+}
+
+<span class="hljs-comment">// struct pollfd: Structure for poll events.</span>
+<span class="hljs-comment">// fds.fd: File descriptor to monitor.</span>
+<span class="hljs-comment">// fds.events: Events to monitor.</span>
+<span class="hljs-comment">// fds.revents: Events that occurred.</span>
+</code></pre>
+<p></details></p></li>
+<li><p><details><br />
+<summary>
+    epoll():
+</summary></p>
+<ul>
+<li>Monitors multiple file descriptors for I/O readiness.</li>
+<li><strong>Timeout</strong>:<ul>
+<li>Specifies the maximum time to wait for an event.</li></ul></li>
+<li><strong>epoll()</strong> returns the number of ready file descriptors.</li></ul>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> epfd = epoll_create(<span class="hljs-number">1</span>);
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">epoll_event</span> <span class="hljs-title">event</span>;</span>
+event.events = EPOLLIN;
+event.data.fd = sockfd;
+
+epoll_ctl(epfd, EPOLL_CTL_ADD, sockfd, &amp;event
+epoll_wait(epfd, &amp;event, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>);
+
+<span class="hljs-comment">// epoll_create(): Creates an epoll instance.</span>
+<span class="hljs-comment">// struct epoll_event: Structure for epoll events.</span>
+<span class="hljs-comment">// event.events: Events to monitor.</span>
+<span class="hljs-comment">// event.data.fd: File descriptor to monitor.</span>
+<span class="hljs-comment">// epoll_ctl(): Modifies an epoll instance.</span>
+<span class="hljs-comment">// epoll_wait(): Waits for an event on an epoll instance.</span>
+</code></pre>
+<p></details></p></li>
+<li><p><details><br />
+<summary>
+    kqueue():
+</summary></p>
+<ul>
+<li>Monitors multiple file descriptors for I/O readiness.</li>
+<li><strong>Timeout</strong>: Specifies the maximum time to wait for an event.</li>
+<li><strong>kqueue()</strong> returns the number of ready file descriptors.</li></ul>
+<pre><code class="hljs c language-c"><span class="hljs-type">int</span> kq = kqueue();
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">kevent</span> <span class="hljs-title">event</span>;</span>
+EV_SET(&amp;event, sockfd, EVFILT_READ, EV_ADD, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">NULL</span>);
+
+kevent(kq, &amp;event, <span class="hljs-number">1</span>, &amp;event, <span class="hljs-number">1</span>, <span class="hljs-literal">NULL</span>);
+
+<span class="hljs-comment">// kqueue(): Creates a kqueue instance.</span>
+<span class="hljs-comment">// struct kevent: Structure for kqueue events.</span>
+<span class="hljs-comment">// EV_SET: Initializes a kevent structure.</span>
+<span class="hljs-comment">// kevent(): Modifies a kqueue instance.</span>
+</code></pre></li></ul>
+<p></details></p></li></ul></li>
+</ul>
+<h3 id="http-protocol">HTTP Protocol</h3>
+<p>The Hypertext Transfer Protocol (HTTP) is an application-layer protocol used for transmitting hypermedia documents, such as HTML files, over the internet. It is the foundation of data communication on the World Wide Web.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/d6f06e60-fa31-45db-8d28-bb311939e5fc" alt="whats-http" width="400"/></th>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/d80b4962-f449-45ec-abb7-a64298b86d6e" alt="http2" width="400"/></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<ul>
+<li><a target="_blank" href="https://jvns.ca/blog/2016/07/14/whats-sni/">How do HTTP requests get sent to the right place?</a></li>
+<li><a target="_blank" href="https://cs.fyi/guide/http-in-depth">Everything you need to know about HTTP</a></li>
+</ul>
+<p><strong>Request Methods</strong>: </p>
+<p>Request methods indicate the desired action to be performed on a resource. Common HTTP methods include:</p>
+<p><img src="https://github.com/user-attachments/assets/989fabcb-05e4-4859-ad08-f6a1f99b0795" alt="request-methods-1" width="400"/></p>
+<ul>
+<li><strong>Request Headers</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/a43fe18d-c745-4bbf-a13c-ee3a75ee1d2c" alt="anatomy-http-request" width="400"/></th>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/4f3f6eb4-65bb-4fe5-8335-2dcdb74e6856" alt="request-headers" width="400"/></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="hljs bash language-bash">GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+Accept-Language: en-US
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+</code></pre>
+<ul>
+<li><strong>Response Headers</strong>:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/5cbafac7-d89b-44f0-84cc-8d958cb19f97" alt="anatomy-http-response" width="400"/></th>
+<th style="text-align:center;"><img src="https://github.com/user-attachments/assets/38aa53ff-3133-428e-8e0d-ecfbfc050aa0" alt="response-headers" width="400"/></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Example</strong>:</p>
+<pre><code class="hljs bash language-bash">HTTP/1.1 200 OK
+Date: Mon, 01 Jan 2022 00:00:00 GMT
+Server: Apache/2.4.51
+Content-Type: text/html
+Content-Length: 13
+Connection: keep-alive
+Set-Cookie: session=123
+Last-Modified: Mon, 01 Jan 2022 00:00:00 GMT
+Location: /index.html
+Content-Language: en-US
+X-Frame-Options: DENY
+X-XSS-Protection: 1; mode=block
+</code></pre>
+<ul>
+<li><strong>Status Codes</strong>:</li>
+</ul>
+<p><img src="https://github.com/user-attachments/assets/e3c779ac-e364-4bd0-90e0-7a9f334c7313" alt="status-codes" width="400"/></p>
+<ul>
+<li><p><strong>HTTP/1.1</strong>:</p>
+<ul>
+<li><strong>Persistent Connections</strong>: Allows multiple requests and responses to be sent over a single connection.</li>
+<li><strong>Pipelining</strong>: Allows multiple requests to be sent without waiting for the responses.</li>
+<li><strong>Chunked Transfer Encoding</strong>: Allows data to be sent in chunks.</li>
+<li><strong>Content Negotiation</strong>: Allows the server to send different content based on the client's preferences.</li>
+<li><strong>Caching</strong>: Allows the client to store a copy of the response for future use.</li>
+<li><strong>Compression</strong>: Allows the server to compress the response before sending it to the client.</li>
+<li><strong>Authentication</strong>: Allows the server to require user authentication.</li>
+<li><strong>Cookies</strong>: Allows the server to store information on the client's computer.</li>
+<li><strong>Redirects</strong>: Allows the server to redirect the client to a different URL.</li>
+<li><strong>Error Handling</strong>: Allows the server to send error messages to the client.</li>
+<li><strong>Security</strong>: Allows the server to enforce security policies.</li></ul></li>
+<li><p><a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers">HTTP Headers - MDN Web Docs</a></p></li>
+</ul>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><p><a target="_blank" href="https://youtu.be/gntyAFoZp-E">C++ Network Programming Part 1: Sockets</a></p></li>
+<li><p><a target="_blank" href="https://youtu.be/uagKTbohimU">Sockets in Operating System</a></p></li>
+<li><p><a target="_blank" href="https://www.geeksforgeeks.org/socket-programming-cc/">Socket Programming in C/C++ - GeeksforGeeks</a></p></li>
+<li><p><a target="_blank" href="https://www.tutorialspoint.com/unix_sockets/socket_server_example.htm">Socket Programming in C - Tutorialspoint</a></p></li>
+<li><p><a target="_blank" href="https://youtu.be/il4N6KjVQ-s">Sockets and Pipes Look Like Files (Unix/fdopen)</a></p></li>
+<li><p><a target="_blank" href="https://www.plesk.com/blog/various/nginx-configuration-guide/">NGINX Configuration Guide</a></p></li>
+</ul>
+<p><strong>GitHub Repositories</strong>:</p>
+<ul>
+<li><a target="_blank" href="https://github.com/achrafelkhnissi/webserv">webserv - README</a></li>
+</ul>
+
+          </div>
+          <style type='text/css'>body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>

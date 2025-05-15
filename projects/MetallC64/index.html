@@ -1,0 +1,529 @@
+
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/x-icon" href="./images/favicon.svg">
+	<title>MetallC64</title>
+          <meta charset="UTF-8">
+        </head>
+        <body>
+          <div id='content'>
+      <h1 id="metallc64"><em><code>MetallC64</code></em></h1>
+<p>A <a target="_blank" href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a> emulator written in C.<br></p>
+      <a target="_blank" href="https://metall-c64.vercel.app">Web version</a>  •  <a target="_blank" href="https://github.com/beddinao/MetallC64">Code</a>
+<h2 id="about-the-commodore-64">about the Commodore 64</h2>
+<p>The <strong>Commodore 64 (C64)</strong> is one of the most iconic home computers of all time. Released in <strong>1982</strong>, it became the <strong>best-selling computer</strong> ever, due to its powerful hardware, affordability, and massive software library. It featured:</p>
+<pre><code class="hljs java language-java">- <span class="hljs-number">6510</span> CPU, a modified version of the <span class="hljs-number">6502.</span>  
+- VIC-II (Video Interface Chip) <span class="hljs-keyword">for</span> graphics and sprites.  
+- <span class="hljs-number">6581</span> SID (Sound Interface Device) <span class="hljs-keyword">for</span> advanced sound synthesis.  
+- Two <span class="hljs-number">6526</span> CIA (Complex Interface Adapters) <span class="hljs-keyword">for</span> I/O operations.
+</code></pre>
+<p>The C64 was popular for <strong>gaming, programming, and productivity</strong>, with thousands of titles released for it.  </p>
+<h2 id="about-this-emulator">about this emulator</h2>
+<p>MetallC64 is a work-in-progress C64 emulator that aims to run <strong>BASIC programs</strong>. However, it is <strong>not cycle-accurate</strong> and <strong>not highly precise</strong>, meaning some programs <strong>may not work as expected or as in real hardware</strong>.  </p>
+<h3 id="current-limitations">current limitations:</h3>
+<ul>
+<li><strong>VIC-II (Graphics) is not fully accurate</strong> and may have <strong>visual glitches</strong>.  </li>
+<li><strong>SID (Sound) is not implemented yet</strong>.  </li>
+<li>Some <strong>hardware features are missing or incomplete</strong>.</li>
+</ul>
+<h3 id="main-components-implemented">main components implemented:</h3>
+<ul>
+<li><strong>6510 CPU</strong> a bit modified version of <a target="_blank" href="https://github.com/beddinao/MOS-6502-Emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
+<li><strong>VIC-II</strong>  <code>(Video Interface Chip)</code></li>
+</ul>
+<pre><code class="hljs">    • <span class="hljs-number">16</span> KB <span class="hljs-keyword">address </span>space for <span class="hljs-keyword">screen, </span>character, <span class="hljs-keyword">and </span>sprite memory
+    • <span class="hljs-number">320</span> × <span class="hljs-number">200</span> pixels video resolution (<span class="hljs-number">160</span> × <span class="hljs-number">200</span> in <span class="hljs-keyword">multicolor </span>mode)
+    • <span class="hljs-number">40</span> × <span class="hljs-number">25</span> characters text resolution
+    • <span class="hljs-number">8</span> hardware sprites, each <span class="hljs-number">24</span> × <span class="hljs-number">21</span> pixels (<span class="hljs-number">12</span> × <span class="hljs-number">21</span> in <span class="hljs-keyword">multicolor </span>mode)
+    • <span class="hljs-number">16</span> colors
+    • Raster interrupts for advanced effects <span class="hljs-keyword">and </span>timing control
+    • Smooth <span class="hljs-keyword">scrolling
+</span>    • Three character <span class="hljs-keyword">display </span>modes <span class="hljs-keyword">and </span>two <span class="hljs-keyword">bitmap </span>modes:
+      - Standard Character Mode
+      - <span class="hljs-keyword">Multicolor </span>Character Mode
+      - <span class="hljs-keyword">Extended </span><span class="hljs-keyword">Background </span>Color Mode
+      - Standard <span class="hljs-keyword">Bitmap </span>Mode
+      - <span class="hljs-keyword">Multicolor </span><span class="hljs-keyword">Bitmap </span>Mode
+</code></pre>
+<ul>
+<li><strong>CIA-1 & CIA-2</strong>  <code>(Complex Interface Adapters)</code></li>
+</ul>
+<pre><code class="hljs">    • keyboard <span class="hljs-selector-tag">input</span> scanning for detecting key presses
+    • timer <span class="hljs-selector-tag">A</span> &amp; Timer <span class="hljs-selector-tag">B</span> in each chip for generating delays and timing events
+    • memory management registers for <span class="hljs-selector-tag">I</span>/O mapping and bank switching
+    • <span class="hljs-selector-tag">time</span> of Day (TOD) clock
+</code></pre>
+<h2 id="basic-functionality-test">basic functionality test</h2>
+<p>some one line BASIC programs at <code>./programs/bas/10_print.bas</code></p>
+<p><code>10 PRINT CHR$(205.5+RND(1)); : GOTO 10</code></p>
+<div align="center" width="100%">
+  <img  width="100%" src="./images/gifs/recording_1.gif" title="10_print 1" />
+</div>
+<p><code>10 PRINT CHR$(32+(INT(RND(1)+.5)*81)); : GOTO 10</code></p>
+<div align="center" width="100%">
+  <img  width="100%" src="./images/gifs/recording_3.gif" title="10_print 3" />
+</div>
+<h2 id="shell-interface">shell interface</h2>
+<p>The emulator has a <strong>command shell</strong> that runs in a separate thread for debugging<br> and general hardware behaviour observation:</p>
+<h3 id="available-commands">available commands:</h3>
+<table>
+<thead>
+<tr>
+<th><strong>command</strong></th>
+<th><strong>description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LDP [path]</code></td>
+<td>Load a BASIC program (<code>.prg</code>) into memory.</td>
+</tr>
+<tr>
+<td><code>LDD [path]</code></td>
+<td>Load a (<code>.d64</code>) D64 disk image.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>DMP $st $en</code></td>
+<td>Dump memory from address <code>$st</code> to <code>$en</code>.</td>
+</tr>
+<tr>
+<td><code>SCR</code></td>
+<td>Show CPU status/registers.</td>
+</tr>
+<tr>
+<td><code>SVR</code></td>
+<td>Show VIC-II status/registers.</td>
+</tr>
+<tr>
+<td><code>SC1</code></td>
+<td>Show CIA#1 status/registers.</td>
+</tr>
+<tr>
+<td><code>SC2</code></td>
+<td>Show CIA#2 status/registers.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>BRD [1-16]</code></td>
+<td>Change the border color.</td>
+</tr>
+<tr>
+<td><code>BGR [1-16]</code></td>
+<td>Change the background color.</td>
+</tr>
+<tr>
+<td><code>TXT [1-16]</code></td>
+<td>Change the text color.</td>
+</tr>
+<tr>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td><code>CLR</code></td>
+<td>Clear the loaded program from memory <strong>and perform a hard reset</strong>.</td>
+</tr>
+<tr>
+<td><code>EXT</code></td>
+<td>Exit the emulator.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="graphic-libraries">graphic libraries:</h2>
+<p>MetallC64 uses <a target="_blank" href="https://www.libsdl.org/">SDL3</a> as the main library.<br><br />
+however the v1.0 branch still uses <a target="_blank" href="https://github.com/codam-coding-college/MLX42">MLX42<a>, a lightweight library on top of GLFW.</p>
+<h2 id="system-requirements">system requirements</h2>
+<ul>
+<li><strong><code>Linux or MacOS</code></strong></li>
+<li><strong><code>readline (libreadline-dev)</code></strong></li>
+<li><strong><code>cmake &gt;= 3.18</code></strong></li>
+<li>if trying to compile the v1.0 branch mlx42 needs <strong><code>glfw (libglfw3-dev)</code></strong></li>
+</ul>
+<h2 id="installation">installation</h2>
+<ul>
+<li>clone this repository and cd to it</li>
+</ul>
+<pre><code class="hljs bash language-bash">git <span class="hljs-built_in">clone</span> git@github.com:beddinao/MetallC64.git &amp;&amp; <span class="hljs-built_in">cd</span> MetallC64
+</code></pre>
+<ul>
+<li>compile everything including the SDL/MLX42 source and run the emulator</li>
+</ul>
+<pre><code class="hljs bash language-bash">make &amp;&amp; ./MetallC64
+</code></pre>
+<h2 id="screenshots">screenshots</h2>
+<p><code>animated demos</code></p>
+<div align="left" width="100%">
+<img  width="49%" src="./images/gifs/hole_vector-willy_the_wuzz.gif" title="hole-vector"/>
+  <img  width="49%" src="./images/gifs/globe-willy_the_wuzz.gif" title="globe"/>
+    <br><br>
+  <img  width="49%" src="./images/gifs/the_Amiga_ball.gif" title="the AMIGA ball"/>
+  <img  width="49%" src="./images/gifs/bigpixelnyan.gif" title="pixel nyan"/>
+
+
+</div>
+<p><br><br></p>
+<p><code>basic games</code></p>
+<div align="center" width="100%">
+    <img width="49%" src="./images/screenshots/monopole.png" title="monopole" />
+    <img width="49%" src="./images/screenshots/tetris.png" title="tetris" />
+</div>
+<p><br> <br></p>
+<p><code>some art brought from the C64 demoScene</code></p>
+<div align="center" width="100%">
+  <img  width="49%" src="./images/screenshots/quiet_nights.png" title="quiet nights" />
+  <img  width="49%" src="./images/screenshots/tetris_intro.png" title="tetris intro" />
+  <img  width="49%" src="./images/screenshots/wool_on_her_mind.png" title="wool on her mind" />
+  <img  width="49%" src="./images/screenshots/show_time.png" title="show time" />
+  <img  width="49%" src="./images/screenshots/efucollab.png" title="eight feet under"/>
+  <img  width="49%" src="./images/screenshots/chillin.png" title="chillin" />
+  <img  width="49%" src="./images/screenshots/obey_the_machine.png" title="obey the machine" />
+  <img  width="49%" src="./images/screenshots/honcho_of_the_seven_raging_coding_seas.png" title="honcho of the seven raging coding seas"/>
+  <img  width="49%" src="./images/screenshots/Magic_Bytes.png" title="Magic Bytes" />
+  <!-- <img  width="49%" src="./images/screenshots/dark_faces.png" title="dark faces" /> -->
+  <img  width="49%" src="./images/screenshots/c64com_charged_mikeal_spiham.png" title="c64.com charged" />
+  <img  width="49%" src="./images/screenshots/petscii_tracing.png" title="petscii tracing" />
+  <img  width="49%" src="./images/screenshots/no_slackers_sky.png" title="no slackers sky" />
+</div>
+<h2 id="upcoming-features"><strong>upcoming features:</strong></h2>
+<ul>
+<li><strong>Full hardware sprite support</strong> (partial-progress)  </li>
+<li><strong>SID sound emulation</strong> (partial-progress)</li>
+</ul>
+<h2 id="useful-resources">useful-resources</h2>
+<ul>
+<li>C64 Wiki: https://www.c64-wiki.com/wiki/Main_Page</li>
+<li>memory map: https://sta.c64.org/cbm64mem.html</li>
+<li>VIC-II ultimate resource: https://www.zimmers.net/cbmpics/cbm/c64/vic-ii.txt</li>
+<li>6502 ultimate resource: https://www.masswerk.at/6502/6502<em>instruction</em>set.html</li>
+<li>6502 BCD: http://www.6502.org/tutorials/decimal_mode.html</li>
+</ul>
+
+          </div>
+          <style type='text/css'>
+
+@font-face {
+	font-family: ibm;
+	src: url("/assets/fonts/IBMPlexMono-Regular.ttf");
+}
+
+body {
+    font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #111;
+    background-color: #fbfbfb;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-feature-settings: "kern" 1;
+    -moz-font-feature-settings: "kern" 1;
+    -o-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 5px;
+    }
+    body>#content {
+        padding: 0px 20px 20px 20px !important;
+    }
+}
+
+body>#content {
+    margin: 0px;
+    max-width: 900px;
+    border: 1px solid #e1e4e8;
+    padding: 10px 40px;
+    padding-bottom: 20px;
+    border-radius: 2px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+summary {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+hr {
+    color: #bbb;
+    background-color: #bbb;
+    height: 1px;
+    flex: 0 1 auto;
+    margin: 1em 0;
+    padding: 0;
+    border: none;
+}
+
+.hljs-operator {
+    color: #868686;
+    /* There is a bug where the syntax highlighter would pick no color for e.g. `&&` symbols in the code samples. Let's overwrite this */
+}
+
+
+/**
+ * Links
+ */
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+a:hover {
+    color: #0366d6;
+    text-decoration: underline;
+}
+
+pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    font-size: 85%;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 16px;
+}
+
+
+/**
+  * Code blocks
+  */
+
+code {
+    background-color: rgba(27, 31, 35, .05);
+    border-radius: 3px;
+    font-size: 85%;
+    margin: 0;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    /*font-family: ibm;*/
+}
+
+pre>code {
+    background-color: transparent;
+    border: 0;
+    display: inline;
+    line-height: inherit;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    word-wrap: normal;
+    font-size: 100%;
+}
+
+
+/**
+ * Blockquotes
+ */
+
+blockquote {
+    margin-left: 30px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    border-left-width: 3px;
+    padding: 0 1em;
+    color: #828282;
+    border-left: 4px solid #e8e8e8;
+    padding-left: 15px;
+    font-size: 18px;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+blockquote * {
+    font-style: normal !important;
+    letter-spacing: 0;
+    color: #6a737d !important;
+}
+
+
+/**
+ * Tables
+ */
+
+table {
+    border-spacing: 2px;
+    display: block;
+    font-size: 14px;
+    overflow: auto;
+    width: 100%;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+th {
+    font-weight: 600;
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+tr {
+    background-color: #fff;
+    border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+
+/**
+ * Others
+ */
+
+img {
+    max-width: 100%;
+}
+
+p {
+    line-height: 24px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #24292e;
+}
+
+ul {
+    margin-top: 0;
+}
+
+li {
+    color: #24292e;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+li+li {
+    margin-top: 0.25em;
+}
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    color: #24292e;
+}
+
+a:visited {
+    color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+    border-bottom: 1px solid #eaecef;
+    color: #111;
+    /* Darker */
+}
+
+code>* {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+}</style>
+          <style type='text/css'>pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*
+
+Atom One Dark by Daniel Gamage
+Original One Dark Syntax theme from https://github.com/atom/one-dark-syntax
+
+base:    #282c34
+mono-1:  #abb2bf
+mono-2:  #818896
+mono-3:  #5c6370
+hue-1:   #56b6c2
+hue-2:   #61aeee
+hue-3:   #c678dd
+hue-4:   #98c379
+hue-5:   #e06c75
+hue-5-2: #be5046
+hue-6:   #d19a66
+hue-6-2: #e6c07b
+
+*/
+.hljs {
+  color: #abb2bf;
+  background: #282c34
+}
+.hljs-comment,
+.hljs-quote {
+  color: #5c6370;
+  font-style: italic
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-formula {
+  color: #c678dd
+}
+.hljs-section,
+.hljs-name,
+.hljs-selector-tag,
+.hljs-deletion,
+.hljs-subst {
+  color: #e06c75
+}
+.hljs-literal {
+  color: #56b6c2
+}
+.hljs-string,
+.hljs-regexp,
+.hljs-addition,
+.hljs-attribute,
+.hljs-meta .hljs-string {
+  color: #98c379
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-type,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-number {
+  color: #d19a66
+}
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-title {
+  color: #61aeee
+}
+.hljs-built_in,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #e6c07b
+}
+.hljs-emphasis {
+  font-style: italic
+}
+.hljs-strong {
+  font-weight: bold
+}
+.hljs-link {
+  text-decoration: underline
+}</style>
+        </body>
+      </html>
