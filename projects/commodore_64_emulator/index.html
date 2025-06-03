@@ -2,15 +2,15 @@
       <html>
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" type="image/x-icon" href="/projects/MetallC64/images/favicon.svg">
-	<title>MetallC64</title>
+	<link rel="icon" type="image/x-icon" href="/projects/commodore_64_emulator/images/favicon.svg">
+	<title>C64 Emulator</title>
           <meta charset="UTF-8">
         </head>
         <body>
           <div id='content'>
-      <h1 id="metallc64"><em><code>MetallC64</code></em></h1>
+      <h1 id="metallc64"><em><code>commodore_64_emulator</code></em></h1>
 <p>A <a target="_blank" href="https://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a> emulator written in C.<br></p>
-      <a target="_blank" href="https://metall-c64.vercel.app">Web version</a>  •  <a target="_blank" href="https://github.com/beddinao/MetallC64">Code</a>
+      <a target="_blank" href="https://metal-c64.vercel.app">Web version</a>  •  <a target="_blank" href="https://github.com/beddinao/commodore_64_emulator">Code</a>
 <h2 id="about-the-commodore-64">about the Commodore 64</h2>
 <p>The <strong>Commodore 64 (C64)</strong> is one of the most iconic home computers of all time. Released in <strong>1982</strong>, it became the <strong>best-selling computer</strong> ever, due to its powerful hardware, affordability, and massive software library. It featured:</p>
 <pre><code class="hljs java language-java">- <span class="hljs-number">6510</span> CPU, a modified version of the <span class="hljs-number">6502.</span>  
@@ -20,7 +20,7 @@
 </code></pre>
 <p>The C64 was popular for <strong>gaming, programming, and productivity</strong>, with thousands of titles released for it.  </p>
 <h2 id="about-this-emulator">about this emulator</h2>
-<p>MetallC64 is a work-in-progress C64 emulator that aims to run <strong>BASIC programs</strong>. However, it is <strong>not cycle-accurate</strong> and <strong>not highly precise</strong>, meaning some programs <strong>may not work as expected or as in real hardware</strong>.  </p>
+<p>a work-in-progress C64 emulator that aims to run <strong>BASIC programs</strong>. However, it is <strong>not cycle-accurate</strong> and <strong>not highly precise</strong>, meaning some programs <strong>may not work as expected or as in real hardware</strong>.  </p>
 <h3 id="current-limitations">current limitations:</h3>
 <ul>
 <li><strong>VIC-II (Graphics) is not fully accurate</strong> and may have <strong>visual glitches</strong>.  </li>
@@ -29,7 +29,7 @@
 </ul>
 <h3 id="main-components-implemented">main components implemented:</h3>
 <ul>
-<li><strong>6510 CPU</strong> a bit modified version of <a target="_blank" href="https://github.com/beddinao/MOS-6502-Emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
+<li><strong>6510 CPU</strong> a bit modified version of <a target="_blank" href="https://github.com/beddinao/6502_cpu_emulator"><strong>6502</strong></a>  <code>(instruction accurate independant emulator)</code></li>
 <li><strong>VIC-II</strong>  <code>(Video Interface Chip)</code></li>
 </ul>
 <pre><code class="hljs">    • <span class="hljs-number">16</span> KB <span class="hljs-keyword">address </span>space for <span class="hljs-keyword">screen, </span>character, <span class="hljs-keyword">and </span>sprite memory
@@ -58,11 +58,11 @@
 <p>some one line BASIC programs at <code>./programs/bas/10_print.bas</code></p>
 <p><code>10 PRINT CHR$(205.5+RND(1)); : GOTO 10</code></p>
 <div align="center" width="100%">
-  <img  width="100%" src="/projects/MetallC64/images/gifs/recording_1.gif" title="10_print 1" />
+  <img  width="100%" src="/projects/commodore_64_emulator/images/gifs/recording_1.gif" title="10_print 1" />
 </div>
 <p><code>10 PRINT CHR$(32+(INT(RND(1)+.5)*81)); : GOTO 10</code></p>
 <div align="center" width="100%">
-  <img  width="100%" src="/projects/MetallC64/images/gifs/recording_3.gif" title="10_print 3" />
+  <img  width="100%" src="/projects/commodore_64_emulator/images/gifs/recording_3.gif" title="10_print 3" />
 </div>
 <h2 id="shell-interface">shell interface</h2>
 <p>The emulator has a <strong>command shell</strong> that runs in a separate thread for debugging<br> and general hardware behaviour observation:</p>
@@ -138,7 +138,7 @@
 </tbody>
 </table>
 <h2 id="graphic-libraries">graphic libraries:</h2>
-<p>MetallC64 uses <a target="_blank" href="https://www.libsdl.org/">SDL3</a> as the main library.<br><br />
+<p>the emulator uses <a target="_blank" href="https://www.libsdl.org/">SDL3</a> as the main library.<br><br />
 however the v1.0 branch still uses <a target="_blank" href="https://github.com/codam-coding-college/MLX42">MLX42<a>, a lightweight library on top of GLFW.</p>
 <h2 id="system-requirements">system requirements</h2>
 <ul>
@@ -151,46 +151,46 @@ however the v1.0 branch still uses <a target="_blank" href="https://github.com/c
 <ul>
 <li>clone this repository and cd to it</li>
 </ul>
-<pre><code class="hljs bash language-bash">git <span class="hljs-built_in">clone</span> git@github.com:beddinao/MetallC64.git &amp;&amp; <span class="hljs-built_in">cd</span> MetallC64
+<pre><code class="hljs bash language-bash">git <span class="hljs-built_in">clone</span> git@github.com:beddinao/commodore_64_emulator.git &amp;&amp; <span class="hljs-built_in">cd</span>commodore_64_emualtor
 </code></pre>
 <ul>
 <li>compile everything including the SDL/MLX42 source and run the emulator</li>
 </ul>
-<pre><code class="hljs bash language-bash">make &amp;&amp; ./MetallC64
+<pre><code class="hljs bash language-bash">make &amp;&amp; ./c64_emu
 </code></pre>
 <h2 id="screenshots">screenshots</h2>
 <p><code>animated demos</code></p>
 <div align="left" width="100%">
-<img  width="49%" src="/projects/MetallC64/images/gifs/hole_vector-willy_the_wuzz.gif" title="hole-vector"/>
-  <img  width="49%" src="/projects/MetallC64/images/gifs/globe-willy_the_wuzz.gif" title="globe"/>
+<img  width="49%" src="/projects/commodore_64_emulator/images/gifs/hole_vector-willy_the_wuzz.gif" title="hole-vector"/>
+  <img  width="49%" src="/projects/commodore_64_emulator/images/gifs/globe-willy_the_wuzz.gif" title="globe"/>
     <br><br>
-  <img  width="49%" src="/projects/MetallC64/images/gifs/the_Amiga_ball.gif" title="the AMIGA ball"/>
-  <img  width="49%" src="/projects/MetallC64/images/gifs/bigpixelnyan.gif" title="pixel nyan"/>
+  <img  width="49%" src="/projects/commodore_64_emulator/images/gifs/the_Amiga_ball.gif" title="the AMIGA ball"/>
+  <img  width="49%" src="/projects/commodore_64_emulator/images/gifs/bigpixelnyan.gif" title="pixel nyan"/>
 
 
 </div>
 <p><br><br></p>
 <p><code>basic games</code></p>
 <div align="center" width="100%">
-    <img width="49%" src="/projects/MetallC64/images/screenshots/monopole.png" title="monopole" />
-    <img width="49%" src="/projects/MetallC64/images/screenshots/tetris.png" title="tetris" />
+    <img width="49%" src="/projects/commodore_64_emulator/images/screenshots/monopole.png" title="monopole" />
+    <img width="49%" src="/projects/commodore_64_emulator/images/screenshots/tetris.png" title="tetris" />
 </div>
 <p><br> <br></p>
 <p><code>some art brought from the C64 demoScene</code></p>
 <div align="center" width="100%">
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/quiet_nights.png" title="quiet nights" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/tetris_intro.png" title="tetris intro" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/wool_on_her_mind.png" title="wool on her mind" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/show_time.png" title="show time" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/efucollab.png" title="eight feet under"/>
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/chillin.png" title="chillin" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/obey_the_machine.png" title="obey the machine" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/honcho_of_the_seven_raging_coding_seas.png" title="honcho of the seven raging coding seas"/>
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/Magic_Bytes.png" title="Magic Bytes" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/quiet_nights.png" title="quiet nights" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/tetris_intro.png" title="tetris intro" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/wool_on_her_mind.png" title="wool on her mind" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/show_time.png" title="show time" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/efucollab.png" title="eight feet under"/>
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/chillin.png" title="chillin" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/obey_the_machine.png" title="obey the machine" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/honcho_of_the_seven_raging_coding_seas.png" title="honcho of the seven raging coding seas"/>
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/Magic_Bytes.png" title="Magic Bytes" />
   <!-- <img  width="49%" src="./images/screenshots/dark_faces.png" title="dark faces" /> -->
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/c64com_charged_mikeal_spiham.png" title="c64.com charged" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/petscii_tracing.png" title="petscii tracing" />
-  <img  width="49%" src="/projects/MetallC64/images/screenshots/no_slackers_sky.png" title="no slackers sky" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/c64com_charged_mikeal_spiham.png" title="c64.com charged" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/petscii_tracing.png" title="petscii tracing" />
+  <img  width="49%" src="/projects/commodore_64_emulator/images/screenshots/no_slackers_sky.png" title="no slackers sky" />
 </div>
 <h2 id="upcoming-features"><strong>upcoming features:</strong></h2>
 <ul>
