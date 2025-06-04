@@ -10,14 +10,11 @@
           <div id='content'>
       <h1 id="ft_nmap"><em><code>PORT_SCANNER</code></em></h1>
       <a target="_blank" href="https://github.com/ip-packet/port_scanner">Code</a>
-<h2 id="about">about</h2>
-<p>port scanning tool to identify open ports or a range of ports state on target networks or hosts.</p>
-<h2 id="key-features">key features</h2>
 <ul>
-<li>initial ICMP ping: Prior to port scanning, the tool performs an ICMP ping to verify host connectivity.</li>
-<li>Nmap-like scans: Perform SYN, ACK, FIN, NULL, XMAS, and UDP scans.</li>
-<li>Custom TCP flags: Customize scan behavior by specifying custom TCP flag combinations using the --flags option.</li>
-<li>Service detection: Attempts to identify potential services by comparing ports and transport protocols to the Service Name and Transport Protocol Port Number Registry.</li>
+<li>initial ICMP ping: performs an ICMP ping to verify host connectivity before scanning.</li>
+<li>scans like nmap: Perform SYN, ACK, FIN, NULL, XMAS, and UDP scans.</li>
+<li>custom TCP flags: specify custom TCP flags combinations using the --flags option.</li>
+<li>service detection: tries to identify potential services by comparing ports and transport protocols<br>to the Service Name and Transport Protocol Port Number Registry.</li>
 </ul>
 <h2 id="usage">usage</h2>
 <pre><code class="hljs">$ pscan [OPTIONS] TARGET PORT(S)
