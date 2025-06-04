@@ -3,30 +3,25 @@
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
-	<title>trc_route</title>
+	<title>_traceroute</title>
           <meta charset="UTF-8">
         </head>
         <body>
           <div id='content'>
-      <h1 id="trc_route"><em><code>TRC_ROUTE</code></em></h1>
-      <a target="_blank" href="https://github.com/beddinao/trc_route">Code</a>
+      <h1 id="trc_route"><em><code>_TRACEROUTE</code></em></h1>
+      <a target="_blank" href="https://github.com/ip-packet/_traceroute">Code</a>
 <h2 id="about">about</h2>
-<p>network tracing utility designed to map the path that data packets take to reach a specified destination. By sending packets with increasing time-to-live (TTL) values, trc<em>route identifies the routers along the path, providing valuable insights into network topology and potential issues. While offering a fundamental tracing capability, trc</em>route may have limitations compared to fully featured traceroute tools, such as missing advanced options or detailed hop information.</p>
-<h2 id="requirements">requirements</h2>
-<ul>
-<li>linux</li>
-<li>root privilege</li>
-</ul>
+<p>optimized utility to track the route packets take on their way to a given host.</p>
 <h2 id="usage">usage</h2>
-<pre><code class="hljs">$ ./trc_route DESTINATION [-i=<span class="hljs-keyword">INTERFACE</span>] [-t=TIMEOUT]
+<pre><code class="hljs">$ ./_traceroute DESTINATION [-i=<span class="hljs-keyword">INTERFACE</span>] [-t=TIMEOUT]
 
 DESTINATION: domain_name/ip_address of the <span class="hljs-keyword">target</span> host
          -i: <span class="hljs-keyword">optional</span> <span class="hljs-keyword">name</span> of the <span class="hljs-keyword">interface</span> to be used, <span class="hljs-keyword">default</span> enp0s3
          -t: <span class="hljs-keyword">optional</span> <span class="hljs-keyword">number</span> of seconds till network response, <span class="hljs-keyword">default</span> <span class="hljs-number">3</span>
 </code></pre>
 <h2 id="example-outputs">example outputs</h2>
-<pre><code class="hljs">$ ./trc_route <span class="hljs-number">1337</span>.ma
-TRC_route to <span class="hljs-number">1337</span>.ma (<span class="hljs-number">104.18</span>.<span class="hljs-number">32.248</span>)
+<pre><code class="hljs">$ ./_traceroute <span class="hljs-number">1337</span>.ma
+TRACing ROUTE to <span class="hljs-number">1337</span>.ma (<span class="hljs-number">104.18</span>.<span class="hljs-number">32.248</span>)
  ,  from enp0s3 (<span class="hljs-number">10.13</span>.<span class="hljs-number">100.30</span>)
  <span class="hljs-number">1</span>  <span class="hljs-number">10.13</span>.<span class="hljs-number">254.254</span> [<span class="hljs-number">10.13</span>.<span class="hljs-number">254.254</span>] <span class="hljs-number">0.674</span> <span class="hljs-keyword">ms</span>
  <span class="hljs-title">2</span>  <span class="hljs-number">10.21</span>.<span class="hljs-number">1.1</span> [nat.<span class="hljs-number">1337</span>.ma] <span class="hljs-number">0.284</span> <span class="hljs-keyword">ms</span>
@@ -37,8 +32,8 @@ TRC_route to <span class="hljs-number">1337</span>.ma (<span class="hljs-number"
  <span class="hljs-title">7</span>  <span class="hljs-number">197.230</span>.<span class="hljs-number">41.102</span> [<span class="hljs-number">197.230</span>.<span class="hljs-number">41.102</span>] <span class="hljs-number">26.091</span> <span class="hljs-keyword">ms</span>
  <span class="hljs-title">8</span>  <span class="hljs-number">104.18</span>.<span class="hljs-number">32.248</span> [<span class="hljs-number">104.18</span>.<span class="hljs-number">32.248</span>] <span class="hljs-number">19.936</span> <span class="hljs-keyword">ms</span>
 <span class="hljs-title"></span></code></pre>
-<pre><code class="hljs">$ ./trc_route <span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span>
-TRC_route to <span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span> (<span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span>)
+<pre><code class="hljs">$ ./_traceroute <span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span>
+TRACing ROUTE to <span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span> (<span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span>)
  ,  from enp0s3 (<span class="hljs-number">10.13</span>.<span class="hljs-number">100.30</span>)
  <span class="hljs-number">1</span>  <span class="hljs-number">10.13</span>.<span class="hljs-number">254.254</span> [<span class="hljs-number">10.13</span>.<span class="hljs-number">254.254</span>] <span class="hljs-number">0.808</span> <span class="hljs-keyword">ms</span>
  <span class="hljs-title">2</span>  <span class="hljs-number">10.21</span>.<span class="hljs-number">1.1</span> [nat.<span class="hljs-number">1337</span>.ma] <span class="hljs-number">0.376</span> <span class="hljs-keyword">ms</span>
@@ -85,6 +80,12 @@ TRC_route to <span class="hljs-number">162.252</span>.<span class="hljs-number">
 <span class="hljs-title">43</span>  <span class="hljs-number">162.252</span>.<span class="hljs-number">205.156</span> [it-s.hi-ho.silver] <span class="hljs-number">0.077</span> <span class="hljs-keyword">ms</span>
 <span class="hljs-title">44</span>  <span class="hljs-number">162.252</span>.<span class="hljs-number">205.130</span> [bad.horse] <span class="hljs-number">0.027</span> <span class="hljs-keyword">ms</span>
 <span class="hljs-title"></span></code></pre>
+<h2 id="requirements">requirements</h2>
+<ul>
+<li>linux</li>
+<li>root privilege</li>
+</ul>
+
 
           </div>
           <style type='text/css'>body {
