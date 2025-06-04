@@ -3,12 +3,12 @@
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" type="image/x-icon" href="/assets/images/favicon.svg">
-	<title>ft_nmap</title>
+	<title>port scanner</title>
           <meta charset="UTF-8">
         </head>
         <body>
           <div id='content'>
-      <h1 id="ft_nmap"><em><code>FT_NMAP</code></em></h1>
+      <h1 id="ft_nmap"><em><code>PORT_SCANNER</code></em></h1>
       <a target="_blank" href="https://github.com/ip-packet/port_scanner">Code</a>
 <h2 id="about">about</h2>
 <p>port scanning tool to identify open ports or a range of ports state on target networks or hosts.</p>
@@ -19,13 +19,8 @@
 <li>Custom TCP flags: Customize scan behavior by specifying custom TCP flag combinations using the --flags option.</li>
 <li>Service detection: Attempts to identify potential services by comparing ports and transport protocols to the Service Name and Transport Protocol Port Number Registry.</li>
 </ul>
-<h2 id="requirements">requirements</h2>
-<ul>
-<li>linux</li>
-<li>root privilege</li>
-</ul>
 <h2 id="usage">usage</h2>
-<pre><code class="hljs">$ ft_nmap [OPTIONS] TARGET PORT(S)
+<pre><code class="hljs">$ pscan [OPTIONS] TARGET PORT(S)
                target: ip address <span class="hljs-keyword">of</span> <span class="hljs-keyword">the</span> target host <span class="hljs-keyword">or</span> its FQDN
                ports: <span class="hljs-keyword">a</span> single port <span class="hljs-built_in">number</span> <span class="hljs-keyword">or</span> <span class="hljs-keyword">a</span> range <span class="hljs-keyword">in</span> <span class="hljs-keyword">the</span> syntax xx-xx
                <span class="hljs-number">1024</span> is <span class="hljs-keyword">the</span> <span class="hljs-built_in">max</span> <span class="hljs-built_in">number</span> <span class="hljs-keyword">of</span> ports
@@ -54,7 +49,7 @@
                 mandatory <span class="hljs-keyword">if</span> this interface <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> present/active
 </code></pre>
 <h2 id="example-output">example output</h2>
-<pre><code class="hljs"><span class="hljs-variable">$</span> <span class="hljs-type">ft_nmap</span> <span class="hljs-operator">--</span><span class="hljs-variable">scan</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> <span class="hljs-variable">scanme</span><span class="hljs-operator">.</span><span class="hljs-variable">nmap</span><span class="hljs-operator">.</span><span class="hljs-variable">org</span> <span class="hljs-number">80</span><span class="hljs-operator">-</span><span class="hljs-number">90</span>
+<pre><code class="hljs"><span class="hljs-variable">$</span> <span class="hljs-type">pscan</span> <span class="hljs-operator">--</span><span class="hljs-variable">scan</span> <span class="hljs-variable">SYN</span> <span class="hljs-variable">ACK</span> <span class="hljs-variable">scanme</span><span class="hljs-operator">.</span><span class="hljs-variable">nmap</span><span class="hljs-operator">.</span><span class="hljs-variable">org</span> <span class="hljs-number">80</span><span class="hljs-operator">-</span><span class="hljs-number">90</span>
 
 <span class="hljs-variable">Configurations</span><span class="hljs-operator">:</span>
 <span class="hljs-variable">Target</span> <span class="hljs-variable">Ip</span><span class="hljs-operator">-</span><span class="hljs-variable">Address</span><span class="hljs-operator">:</span> <span class="hljs-number">45.33</span><span class="hljs-number">.32</span><span class="hljs-number">.156</span>
@@ -84,29 +79,25 @@
 <span class="hljs-variable">Port</span>       <span class="hljs-variable">Service</span> <span class="hljs-variable">Name</span> <span class="hljs-punctuation">(</span><span class="hljs-variable">if</span> <span class="hljs-variable">applicable</span><span class="hljs-punctuation">)</span>     <span class="hljs-variable">Results</span>                              <span class="hljs-punctuation">[</span><span class="hljs-variable">Conclusion</span><span class="hljs-punctuation">]</span>
 
 <span class="hljs-number">81</span>         <span class="hljs-variable">hosts2</span><span class="hljs-operator">-</span><span class="hljs-variable">ns</span>                        <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">82</span>         <span class="hljs-variable">xfer</span>                             <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">83</span>         <span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">ml</span><span class="hljs-operator">-</span><span class="hljs-variable">dev</span>                       <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">84</span>         <span class="hljs-variable">ctf</span>                              <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">85</span>         <span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">ml</span><span class="hljs-operator">-</span><span class="hljs-variable">dev</span>                       <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">86</span>         <span class="hljs-variable">mfcobol</span>                          <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">87</span>         <span class="hljs-variable">priv</span><span class="hljs-operator">-</span><span class="hljs-variable">term</span><span class="hljs-operator">-</span><span class="hljs-variable">l</span>                      <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">88</span>         <span class="hljs-variable">kerberos</span><span class="hljs-operator">-</span><span class="hljs-variable">sec</span>                     <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">89</span>         <span class="hljs-variable">su</span><span class="hljs-operator">-</span><span class="hljs-variable">mit</span><span class="hljs-operator">-</span><span class="hljs-variable">tg</span>                        <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
-
 <span class="hljs-number">90</span>         <span class="hljs-variable">dnsix</span>                            <span class="hljs-variable">SYN</span><span class="hljs-punctuation">(</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">)</span> <span class="hljs-variable">ACK</span><span class="hljs-punctuation">(</span><span class="hljs-variable">Unfiltered</span><span class="hljs-punctuation">)</span>          <span class="hljs-punctuation">[</span><span class="hljs-built_in">Closed</span><span class="hljs-punctuation">]</span>
 </code></pre>
+<h2 id="requirements">requirements</h2>
+<ul>
+<li>linux</li>
+<li>root privilege</li>
+</ul>
 <h2 id="upcoming-features">upcoming features</h2>
 <ul>
-<li>OS fingerprinting: Attempt to identify the operating system of the target host.</li>
-<li>Simplified Version detection: Attempts to Identify the versions of running services on some open ports.</li>
+<li>OS fingerprinting.</li>
+<li>Simplified Version detection.</li>
 <li>Configuration file for multiple host scanning</li>
 </ul>
 
