@@ -11,21 +11,21 @@
       <h1 id="chip-8-emulator"><em><code>CHIP-8-EMULATOR</code></em></h1>
 <a target="_blank" href="https://chip8-emu-web.vercel.app/">Website</a>  •  <a target="_blank" href="https://github.com/beddinao/chip-8-emulator">Code</a>
 <p><a target="_blank" href="https://en.wikipedia.org/wiki/CHIP-8">CHIP-8</a> - <a target="_blank" href="https://www.libsdl.org/">SDL3</a></p>
-<pre><code class="hljs">A CHIP<span class="hljs-number">-8</span> emulator, <span class="hljs-keyword">and</span> a good framework <span class="hljs-keyword">for</span> emulating advanced Consols.
+<pre><code class="hljs">A very accurate CHIP-8 emulator
 
-• <span class="hljs-number">64</span>x32 pixel monochrome display.
-• <span class="hljs-number">4</span>K <span class="hljs-keyword">of</span> <span class="hljs-number">8</span>-<span class="hljs-type">bit</span> RAM.
-• <span class="hljs-number">16</span> general-purpose <span class="hljs-number">8</span>-<span class="hljs-type">bit</span> registers (V0–VF).
-• <span class="hljs-number">16</span>-<span class="hljs-type">bit</span> I - address register
-• <span class="hljs-number">16</span>-<span class="hljs-type">bit</span> PC - program counter
-• Stack <span class="hljs-keyword">of</span> <span class="hljs-number">16</span>-<span class="hljs-type">bit</span> addresses <span class="hljs-keyword">for</span> <span class="hljs-keyword">call</span>/<span class="hljs-keyword">return</span>.
-• <span class="hljs-number">8</span>-<span class="hljs-type">bit</span> delay timer (decremented at <span class="hljs-number">60</span> Hz) <span class="hljs-keyword">until</span> it reaches <span class="hljs-number">0.</span>
-• <span class="hljs-number">8</span>-<span class="hljs-type">bit</span> sound timer (decremented at <span class="hljs-number">60</span> Hz), beeps <span class="hljs-keyword">when</span> it reaches <span class="hljs-number">0</span>
-• Hexadecimal Keypad: <span class="hljs-number">16</span> keys <span class="hljs-keyword">with</span> codes ranging <span class="hljs-keyword">from</span> <span class="hljs-number">0x0</span> <span class="hljs-keyword">to</span> <span class="hljs-number">0xF</span>.
-  <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> C
-  <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> D
-  <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> E
-  A <span class="hljs-number">0</span> B F
+• <span class="hljs-number">60Fps</span> 64x32 pixel monochrome display (~16666667 nanoseconds per frame).
+• <span class="hljs-number">4K</span> 8-bit RAM.
+• <span class="hljs-number">16</span> 8-bit registers (V0–VF).
+• <span class="hljs-number">16-bit</span> PC - program counter. 
+• <span class="hljs-number">16-bit</span> I - index register
+• <span class="hljs-number">16-bit</span> one-page stack.
+• <span class="hljs-number">700</span> instructions per second (~1428571 nanoseconds per instruction).
+• <span class="hljs-number">8-bit</span> delay and sound timers (decrements at 60Hz) ~16666667 nanoseconds per timer cycle. 
+• Hex Keypad:
+  <span class="hljs-number">1</span> <span class="hljs-number">2</span> <span class="hljs-number">3</span> <span class="hljs-number">C</span>
+  <span class="hljs-number">4</span> <span class="hljs-number">5</span> <span class="hljs-number">6</span> <span class="hljs-number">D</span>
+  <span class="hljs-number">7</span> <span class="hljs-number">8</span> <span class="hljs-number">9</span> <span class="hljs-number">E</span>
+  <span class="hljs-number">A</span> <span class="hljs-number">0</span> <span class="hljs-number">B</span> <span class="hljs-number">F</span>
 </code></pre>
 
           </div>
