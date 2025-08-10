@@ -351,7 +351,7 @@ body > div:nth-child(2) > div:nth-child(2) > div > div > div > p { font-size: 15
 .as_above { display: none }
 .so_below { display: flex }
 
-@media screen and (max-width: 1250px), screen and (max-height: 900px) {
+@media screen and (max-width: 1000px), screen and (max-height: 700px) {
 	body { height: auto }
 	body > div {
 		display: flex;
