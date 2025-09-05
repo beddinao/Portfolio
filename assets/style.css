@@ -73,7 +73,7 @@ a {
 .main_divs {
 	border: 1px solid var(--border-1);
 	padding: var(--gap-1);
-	backdrop-filter: blur(7px);
+	backdrop-filter: blur(3px);
 }
 
 .text_1 { color: var(--color-1) }
