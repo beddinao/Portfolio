@@ -112,7 +112,7 @@ body > div:nth-child(1) > div:nth-child(1) {
 body > div:nth-child(1) > div:nth-child(1) > img {
 	height: 100%;
 	width: contain;
-	filter: brightness(0.95);
+	filter: brightness(0.93);
 }
 
 body > div:nth-child(1) > div:nth-child(1) > div {
