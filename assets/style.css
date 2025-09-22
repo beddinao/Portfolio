@@ -8,8 +8,8 @@
 	--border-2: #6c757d;
 	--border-3: #adb5bd;
 	--color-1: #fff;
-	--color-2: #c2c2c2;
-	--color-3: #9a9a9a;
+	--color-2: #9A9A9A;
+	--color-3: #989797;
 	--gap-1: 1em;
 }
 
@@ -219,34 +219,26 @@ body > div:nth-child(2) > div:nth-child(1) > div > a {
 	display: flex;
 	flex-direction: row;
 	justify-content: start;
-	align-items: space-between;
+	align-items: start;
 	flex-wrap: wrap;
-	/*row-gap: calc(var(--gap-1)*1.3);*/
-	
-	row-gap: 0em;
+	row-gap: calc(var(--gap-1)*1.3);
 	text-decoration: none;
 	&:hover {
 		border-color: var(--border-3);
-		/*background-position: 100% 100%;*/
+		background-position: 100% 100%;
 		transform: scale(1.01);
 		&>p:nth-child(1) {
 			&::after { filter: brightness(3) }
 			text-decoration: underline;
 		}
 	}
-	min-height: 20em;
 }
-
-body > div:nth-child(2) > div:nth-child(1) > div > a > * {
-}
-
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	column-gap: calc(var(--gap-1) / 2);
-	font-size: 18px;
 	&::after {
 		content: url("./svgs/link.svg");
 		display: block;
@@ -264,14 +256,14 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > a > p { font-size: 18px }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(2) {
 	margin-left: auto;
-	font-size: 15px;
+	font-size: 12;
 	font-family: monospace;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(3) {
 	width: 100%;
 	/*margin-bottom: 100%;*/
-	font-size: 14px;
+	font-size: 12px;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > div {
@@ -361,24 +353,6 @@ body > div:nth-child(2) > div:nth-child(2) > div > div > div > p { font-size: 15
 .card {
 	background-image: var(--background-2);
 	border: 1px solid var(--border-2);
-}
-
-body > div:nth-child(2) > div:nth-child(1) > div > a {
-	background-position: right center;
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	background-color: rgba(0,0,0,0);
-	overflow: hidden;
-	&::after {
-		content: "";
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		transform: translate(calc(var(--gap-1)*-1), calc(var(--gap-1)*-1));
-		background-image: linear-gradient(to right bottom, #000, rgb(0,0,0,0.5));
-		backdrop-filter: blur(2px);
-		z-index: -1;
-	}
 }
 
 .as_above { display: none }
