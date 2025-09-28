@@ -8,8 +8,8 @@
 	--border-2: #6c757d;
 	--border-3: #adb5bd;
 	--color-1: #fff;
-	--color-2: #9A9A9A;
-	--color-3: #989797;
+	--color-2: rgb(180, 180, 180);
+	--color-3: #a8a7a7;
 	--gap-1: 1em;
 }
 
@@ -63,6 +63,13 @@ a {
 		height: 16px;
 		width: 16px;
 	}
+	&:hover {
+		color: var(--color-1);
+		text-decoration: underline;
+	}
+}
+
+a:not(body > div:nth-child(2) > div:nth-child(1) > div > a) {
 	&:hover {
 		color: var(--color-1);
 		text-decoration: underline;
@@ -217,25 +224,49 @@ body > div:nth-child(2) > div:nth-child(1) > div {
 body > div:nth-child(2) > div:nth-child(1) > div > a {
 	width: 100%;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: start;
 	align-items: start;
 	flex-wrap: wrap;
-	row-gap: calc(var(--gap-1)*1.3);
+	row-gap: var(--gap-1);
 	text-decoration: none;
 	&:hover {
 		border-color: var(--border-3);
-		background-position: 100% 100%;
 		transform: scale(1.01);
 		&>p:nth-child(1) {
 			&::after { filter: brightness(3) }
 			text-decoration: underline;
 		}
 	}
+	min-height: 20em;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	&::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.7);
+		backdrop-filter: blur(4px);
+		top: 0;
+		left: 0;
+		z-index: -1;
+	}
+}
+
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(16),
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(17) {
+	background-position: end center;
+	&::after {
+		background-color: rgba(0, 0, 0, 0.5);
+		backdrop-filter: brightness(150%) blur(1px);
+	}
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 	display: flex;
+	font-size: 18px;
 	flex-direction: row;
 	align-items: center;
 	column-gap: calc(var(--gap-1) / 2);
@@ -252,18 +283,17 @@ body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(5) > p:nth-child(
 body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(6) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
 body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(8) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
 body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(1) > p:nth-child(1)::after { content: url("./svgs/link.svg") }
-body > div:nth-child(2) > div:nth-child(1) > div > a > a > p { font-size: 18px }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(2) {
-	margin-left: auto;
-	font-size: 12;
+	font-size: 13px;
 	font-family: monospace;
+	display: none;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(3) {
 	width: 100%;
-	/*margin-bottom: 100%;*/
-	font-size: 12px;
+	margin-bottom: auto;
+	font-size: 15px;
 }
 
 body > div:nth-child(2) > div:nth-child(1) > div > a > div {
@@ -285,11 +315,12 @@ body > div:nth-child(2) > div:nth-child(1) > div > a > div > div {
 	box-shadow: 3px 3px 1px 1px #000;
 }
 
+body > div:nth-child(2) > div:nth-child(1) > div > a > div > div:nth-child(1) { margin-right: auto; }
+
 body > div:nth-child(2) > div:nth-child(1) > div > a > div > div > p  {
 	font-size: 15px;
 	color: var(--color-2);
 }
-
 
 body > div:nth-child(2) > div:nth-child(2) {
 	display: flex;
@@ -299,7 +330,6 @@ body > div:nth-child(2) > div:nth-child(2) {
 
 body > div:nth-child(2) > div:nth-child(2) > div, .education_section { width: 100% }
 
-/*body > div:nth-child(2) > div:nth-child(2) > div:nth-child(1)*/ 
 .education_section {
 	height: calc(50% - var(--gap-1) / 2);
 	background: url("./images/1337.png");
@@ -381,7 +411,7 @@ body > div:nth-child(2) > div:nth-child(2) > div > div > div > p { font-size: 15
 		padding: 0px;
 	}
 	body > div:nth-child(2) > div:nth-child(1) > p { display: none }
-	body > div:nth-child(2) > div:nth-child(1) > div > a { max-height: contain; }
+	body > div:nth-child(2) > div:nth-child(1) > div > a { max-height: contain; &:hover { transform: none; } }
 	.education_section { min-height: 10em }
 	.as_above { display: flex }
 	.so_below { display: none }
@@ -394,7 +424,6 @@ body > div:not(#particles-js) { z-index: 2; }
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	/*background-image: var(--background-3);*/
 	background-color: var(--background-1);
 	background-repeat: no-repeat;
 	background-size: cover;
