@@ -84,12 +84,16 @@ a:not(body > div:nth-child(2) > div:nth-child(1) > div > a) {
 }
 
 .text_1 { color: var(--color-1) }
-.text_2 { color: var(--color-2) }
+.text_2 { color: var(--color-2); font-style: italic; }
 .text_3 { color: var(--color-3) }
 
 .title {
 	color: var(--color-3);
 	font-size: 11px;
+}
+
+h1 {
+	font-family: monospace;
 }
 
 body > div {
