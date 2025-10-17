@@ -259,8 +259,10 @@ body > div:nth-child(2) > div:nth-child(1) > div > a {
 	}
 }
 
-body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(16),
-body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(17) {
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(17),
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(18),
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(19),
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(20) {
 	background-position: end center;
 	&::after {
 		background-color: rgba(0, 0, 0, 0.5);
