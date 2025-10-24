@@ -270,6 +270,14 @@ body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(20) {
 	}
 }
 
+body > div:nth-child(2) > div:nth-child(1) > div > a:nth-child(8){
+	/*& p { text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }*/
+	&::after {
+		background-color: rgba(0, 0, 0, 0.7);
+		backdrop-filter: blur(1px);
+	}
+}
+
 body > div:nth-child(2) > div:nth-child(1) > div > a > p:nth-child(1) {
 	display: flex;
 	font-size: 18px;
