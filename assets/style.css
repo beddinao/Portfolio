@@ -107,10 +107,16 @@ body > div {
 
 body > div:nth-child(1) {
 	height: 30%;
+	max-height: 265px;
+	max-width: 1474px;
 	align-items: end;
 }
 
-body > div:nth-child(2) { height: 55% }
+body > div:nth-child(2) {
+	height: 55%;
+	max-height: 487px;
+	max-width: 1474px;
+}
 body > div > div { height: 100% }
 
 body > div:nth-child(1) > div:nth-child(1) {
@@ -410,6 +416,10 @@ body > div:nth-child(2) > div:nth-child(2) > div > div > div > p { font-size: 15
 		justify-content: start;
 		height: contain;
 		row-gap: var(--gap-1);
+	}
+	body > div:nth-child(1), body > div:nth-child(2) {
+		max-height: none;
+		max-width: none;
 	}
 	body img { width: 25% }
 	body > div > div { min-width: 100% }
