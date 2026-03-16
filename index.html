@@ -10,20 +10,48 @@
 	</head>
 	<body>
 		<div id='navbar'>
-			<div><p id='switch'>link1</p></div>
-			<div><p id='switch'>link2</p></div>
+			<p id='main_page_link' class='view_l hidden'>main</p>
+			<p id='about_page_link' class='view_l'>about</p>
+			<p id='work_page_link' class='view_l'>work</p>
 		</div>
-		<div id='main_stuff'></div>
+		<div id='main_stuff'>
+			<div id='main_page' class='view'></div>
+			<div id='about_page' class='view hidden'></div>
+			<div id='work_page' class='view hidden'></div>
+		</div>
 		<div id='cordinates'>
-			<p></p>
-			<p></p>
-			<p></p>
+			<p>2</p>
+			<p>H</p>
+			<p>W</p>
 		</div>
 		<div id='footer'>
-			<p></p>
-			<p></p>
+			<p>
+			// [SYS.INFRA]<br>
+			// C / C++ / TS / PYTHON.<br>
+			// FROM MANUAL MEMORY ALLOCATION TO<br>
+			// FULL-STACK AGENT ORCHESTRATION.
+			</p>
+			<p>
+			/*<br>
+			[AI.OPS]<br>
+			ENFORCING DETERMINISTIC<br>
+			PIPELINES & STRICT TOOL CALLING ON<br>
+			STOCHASTIC ENVIRONMENTS.<br>
+                    	*/
+			</p>
 		</div>
 	<script>
+		var switch_view = id => {
+  			document.querySelectorAll('.view').forEach(div => div.classList.add('hidden'));
+ 			document.getElementById(id).classList.remove('hidden');
+		}
+		document.querySelectorAll('.view_l').forEach(link => {
+			link.onclick = e => {
+				switch_view(e.target.id.replace('_link', ''));
+				document.querySelectorAll('.view_l').forEach(l=>l.classList.remove('hidden'));
+				e.target.classList.add('hidden');
+			}
+		})
 	</script>
 	</body>
 </html>
