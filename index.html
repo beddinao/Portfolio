@@ -11,11 +11,11 @@
 	<body>
 		<div id='navbar'>
 			<p id='main_page_link' class='view_l hidden'>main</p>
-			<p id='about_page_link' class='view_l'>about</p>
-			<p id='work_page_link' class='view_l'>work</p>
+			<p id='about_page_link' class='view_l active'>about</p>
+			<p id='work_page_link' class='view_l active'>work</p>
 		</div>
 		<div id='main_stuff'>
-			<div id='main_page' class='view'></div>
+			<div id='main_page' class='view active'></div>
 			<div id='about_page' class='view hidden'></div>
 			<div id='work_page' class='view hidden'></div>
 		</div>
@@ -41,15 +41,15 @@
 			</p>
 		</div>
 	<script>
-		var switch_view = id => {
-  			document.querySelectorAll('.view').forEach(div => div.classList.add('hidden'));
- 			document.getElementById(id).classList.remove('hidden');
+		var all_view_change= (tc,o_v,n_v)=> {
+			document.querySelectorAll(tc).forEach(el=>el.classList.replace(o_v,n_v));
 		}
 		document.querySelectorAll('.view_l').forEach(link => {
 			link.onclick = e => {
-				switch_view(e.target.id.replace('_link', ''));
-				document.querySelectorAll('.view_l').forEach(l=>l.classList.remove('hidden'));
-				e.target.classList.add('hidden');
+				all_view_change('.view_l','hidden','active');	
+				e.target.classList.replace('active', 'hidden');
+				all_view_change('.view','active','hidden');
+				document.getElementById(e.target.id.replace('_link', '')).classList.replace('hidden', 'active');
 			}
 		})
 	</script>

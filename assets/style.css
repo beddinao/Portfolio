@@ -21,8 +21,38 @@
 }
 
 @font-face {
-	font-family: ibm;
-	src: url("./fonts/IBMPlexMono-Regular.ttf");
+	font-family: "b612";
+	src: url("./fonts/b612_mono/B612Mono-Regular.ttf");
+}
+
+@font-face {
+	font-family: "b612_italic";
+	src: url("./fonts/b612_mono/B612Mono-Italic.ttf");
+}
+
+@font-face {
+	font-family: "edu_sa";
+	src: url("./fonts/edu_sa_begginer/EduSaBegginer-Regular.ttf");
+}
+
+@font-face {
+	font-family: "ibm_plex_mono";
+	src: url("./fonts/ibm_plex_mono/IBMPlexMono-Regular.ttf");
+}
+
+@font-face {
+	font-family: "overpass_mono";
+	src: url("./fonts/overpass_mono/OverpassMono-Regular.ttf");
+}
+
+@font-face {
+	font-family: "xanh";
+	src: url("./fonts/xanh_mono/XanhMono-Regular.ttf");
+}
+
+@font-face {
+	font-family: "xanh_italic";
+	src: url("./fonts/xanh_mono/XanhMono-Italic.ttf");
 }
 
 * {
@@ -67,11 +97,15 @@ a {
 
 p {
 	border: 1px solid yellow;
+	font-family: ibm_plex_mono;
+	text-transform: uppercase;
+	font-size: 12px;
 }
 
 body > div {
 	border: 1px solid red;
-	width: 80%;
+	max-width: 1488px;
+	width: 90%;
 }
 
 body > div:nth-child(1) {
@@ -80,23 +114,27 @@ body > div:nth-child(1) {
 	align-items: center;
 	justify-content: end;
 	flex-direction: row;
+	max-height: 25px;
 }
 
 body > div:nth-child(1) > p {
 	width: 10%;
 	height: 100%;
-}
-
-body > div:nth-child(2) {
-	height: 60%;
-	display: flex;
-	align-items: center;
+	flex-direction: column;
 	justify-content: center;
 }
 
+body > div:nth-child(2) {
+	height: 75%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-height: 639px;
+}
+
 body > div:nth-child(2) > div {
-	height: 99%;
-	width: 95%;
+	height: 100%;
+	width: 97%;
 }
 
 .hidden { display: none; }
@@ -104,18 +142,19 @@ body > div:nth-child(2) > div {
 
 body > div:nth-child(2) > div:nth-child(1) { border: 1px solid white; }
 body > div:nth-child(2) > div:nth-child(2) { border: 1px solid yellow; }
-body > div:nth-child(2) > div:nth-child(3) { border: 1px solid green; }
+body > div:nth-child(2) > div:nth-child(3) { border: 1px solid cyan; }
 
 body > div:nth-child(3) {
-	height: 3%;
+	height: 2%;
 	display: flex;
 	flex-direction: row;
 	align-items: start;
 	justify-content: space-between;
+	max-height: 17px;
 }
 
 body > div:nth-child(3) > p {
-	height: 80%;
+	height: 100%;
 	width: 5%;
 	display: flex;
 	flex-direction: column;
@@ -132,6 +171,7 @@ body > div:nth-child(4) {
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	max-height: 119px;
 }
 
 body > div:nth-child(4) > p {
