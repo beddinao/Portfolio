@@ -122,6 +122,7 @@ body > div:nth-child(1) > p {
 	height: 100%;
 	flex-direction: column;
 	justify-content: center;
+	cursor: pointer;
 }
 
 body > div:nth-child(2) {
