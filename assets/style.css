@@ -656,5 +656,28 @@ body > div:nth-child(4) > p:nth-child(1) { text-align: left; }
 body > div:nth-child(4) > p:nth-child(2) { text-align: right; }
 
 /* temp solutions */
-@media only screen and (max-width: 1000px) { * { display: none } }
-@media only screen and (max-height: 1000px) { * { display: none } }
+
+@media only screen and (max-width: 1000px), (max-height: 1000px) {
+	body > div:nth-child(2) {
+		height: contain;
+		max-height: auto;
+	}
+	body > div:nth-child(2) > div {
+		flex-direction: column;
+		overflow-y: auto;
+		overflow-x: hidden;
+		height: contain;
+		max-height: auto;
+		justify-content: start;
+		scrollbar-color: var(--border-1) var(--background-0);
+		scrollbar-width: thin;
+
+	}
+	body > div:nth-child(2) > div > div {
+		min-width: 95%;
+		min-height: 95%;
+	}
+	#navbar{
+		display: none;
+	}
+}
